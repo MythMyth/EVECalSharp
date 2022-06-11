@@ -10,7 +10,7 @@ namespace EveCal.BPs
     {
         protected double FacilityReduce, RigReduce;
         protected int output, maxRun, ME, TE;
-        protected Dictionary<string, int> material;
+        public Dictionary<string, int> material;
 
         public BP()
         {

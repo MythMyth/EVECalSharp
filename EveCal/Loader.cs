@@ -23,6 +23,16 @@ namespace EveCal
             return instance;
         }
 
+        public static bool Have(string bpName)
+        {
+            return GetInstance()._Have(bpName);
+        }
+
+        public static BP? Get(string bpName)
+        {
+            return GetInstance()._Get(bpName);
+        }
+
         public Loader() {
             string[] freactions = Directory.GetFiles("Blueprint\\Reaction");
             foreach(string filePath in freactions)
@@ -89,12 +99,12 @@ namespace EveCal
             }
         }
 
-        public bool Have(string bpName)
+        public bool _Have(string bpName)
         {
             return allBP.ContainsKey(bpName);
         }
 
-        public BP? Get(string bpName)
+        public BP? _Get(string bpName)
         {
             if(allBP.ContainsKey(bpName))
             {
