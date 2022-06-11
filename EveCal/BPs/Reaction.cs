@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveCal.BP
+namespace EveCal.BPs
 {
     internal class Reaction : BP
     {
         public Reaction(string fname)
         {
-            string text = System.IO.File.ReadAllText("Blueprint/Reaction/" + fname);
+            string text = System.IO.File.ReadAllText(fname);
+            fname = fname.Split("\\").Last();
             string[] lines = text.Split("\n");
             maxRun = 1000;
             RigReduce = 2.6;

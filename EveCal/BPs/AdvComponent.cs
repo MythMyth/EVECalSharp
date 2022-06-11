@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveCal.BP
+namespace EveCal.BPs
 {
     internal class AdvComponent : BP
     {
         public AdvComponent(string fname)
         {
-            string text = System.IO.File.ReadAllText("Blueprint/AdvancedComponent/" + fname);
+            string text = System.IO.File.ReadAllText(fname);
+            fname = fname.Split("\\").Last();
             string[] lines = text.Split("\n");
             output = int.Parse(lines[0]);
             maxRun = int.Parse(lines[1]);

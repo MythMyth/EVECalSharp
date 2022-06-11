@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveCal.BP
+namespace EveCal.BPs
 {
     internal class AdvMediumShip : BP
     {
         public AdvMediumShip(string fname)
         {
-            string text = System.IO.File.ReadAllText("Blueprint/Ship/" + fname);
+            string text = System.IO.File.ReadAllText(fname);
+            fname = fname.Split("\\").Last();
             string[] lines = text.Split("\n");
             maxRun = int.Parse(lines[0]);
             ME = int.Parse(lines[1]);

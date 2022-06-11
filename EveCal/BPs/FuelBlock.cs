@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveCal.BP
+namespace EveCal.BPs
 {
     internal class FuelBlock :BP
     {
