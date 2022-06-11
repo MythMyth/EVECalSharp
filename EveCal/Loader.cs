@@ -61,7 +61,7 @@ namespace EveCal
             string[] shipbps = Directory.GetFiles("Blueprint\\Ship");
             foreach(string filePath in shipbps)
             {
-                string indicator = filePath.Substring(0, 2);
+                string indicator = filePath.Split("\\").Last().Substring(0, 2);
                 switch(indicator)
                 {
                     case "SB":

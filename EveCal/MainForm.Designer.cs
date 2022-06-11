@@ -49,18 +49,20 @@
             this.outputTxt.Location = new System.Drawing.Point(434, 12);
             this.outputTxt.Multiline = true;
             this.outputTxt.Name = "outputTxt";
+            this.outputTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.outputTxt.Size = new System.Drawing.Size(354, 426);
             this.outputTxt.TabIndex = 1;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.outputTxt);
             this.Controls.Add(this.inputTxt);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "Main";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

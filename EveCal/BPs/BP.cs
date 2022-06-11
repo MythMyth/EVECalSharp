@@ -37,7 +37,14 @@ namespace EveCal.BPs
                 foreach(KeyValuePair<string, int> pair in material)
                 {
                     int count = Math.Max( partRun, (int)Math.Ceiling( Math.Round( ( pair.Value * ((100.0 - ME) / 100.0) * ((100.0 - RigReduce) / 100.0) * ((100.0 - FacilityReduce) / 100.0)) * partRun ) ) );
-                    ret[pair.Key] += count;
+                    if(ret.ContainsKey(pair.Key))
+                    {
+                        ret[pair.Key] += count;
+                    } else
+                    {
+                        ret.Add(pair.Key, count);
+                    }
+                    
                 }
             }
 
