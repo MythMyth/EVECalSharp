@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EveCal.BPs
 {
-    internal class AdvSmallShip
+    internal class AdvSmallShip:BP
     {
+        public AdvSmallShip(string fname) { }
     }
 }
