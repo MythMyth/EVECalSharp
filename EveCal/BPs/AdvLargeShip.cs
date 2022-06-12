@@ -9,7 +9,7 @@ namespace EveCal.BPs
     internal class AdvLargeShip : BP
     {
         public AdvLargeShip(string fname) {
-            _MakeAt = Storage.FacilityType.ADV_LARGE_SHIP;
+            _MakeAt = FacilityType.ADV_LARGE_SHIP;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace EveCal.BPs
             name = fname.Replace("_", " ");
             ME = 10;
             RigReduce = 2.6;
-            _MakeAt = Storage.FacilityType.ADV_COMPONENT;
+            _MakeAt = FacilityType.ADV_COMPONENT;
         }
     }
 }
