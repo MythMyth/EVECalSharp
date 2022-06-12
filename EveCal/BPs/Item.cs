@@ -13,7 +13,7 @@ namespace EveCal.BPs
 
         public Item()
         {
-
+        
         }
 
         public string GetName()

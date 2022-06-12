@@ -8,6 +8,8 @@ namespace EveCal.BPs
 {
     internal class SmallShip : BP
     {
-        public SmallShip(string fname) { }
+        public SmallShip(string fname) {
+            _MakeAt = FacilityType.SMALL_SHIP;
+        }
     }
 }

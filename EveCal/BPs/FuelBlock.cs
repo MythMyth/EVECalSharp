@@ -38,6 +38,7 @@ namespace EveCal.BPs
             }
             ME = 10;
             TE = 20;
+            _MakeAt = FacilityType.FUEL_COMP;
         }
     }
 }

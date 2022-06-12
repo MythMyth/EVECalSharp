@@ -8,6 +8,8 @@ namespace EveCal.BPs
 {
     internal class MediumShip : BP
     {
-        public MediumShip(string fname) {  }
+        public MediumShip(string fname) {
+            _MakeAt = FacilityType.MEDIUM_SHIP;
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace EveCal.BPs
                 material[lines[3]] = 100;
             }
             name = fname.Replace("_", " ");
+            _MakeAt = FacilityType.REACTION;
         }
     }
 }

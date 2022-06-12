@@ -11,7 +11,7 @@ namespace EveCal.BPs
         protected double FacilityReduce, RigReduce;
         protected int output, maxRun, ME, TE;
         public Dictionary<string, int> material;
-
+        protected FacilityType _MakeAt;
         public BP()
         {
             output = 1;
@@ -50,6 +50,12 @@ namespace EveCal.BPs
 
             return ret;
         }
+
+        public FacilityType MakeAt()
+        {
+            return _MakeAt;
+        }
+
     }
 
 
