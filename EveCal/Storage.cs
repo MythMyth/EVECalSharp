@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EveCal.BPs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,75 +35,36 @@ namespace EveCal
             return instance;
         }
 
-        public void UpdateAsset(string content, FacilityType type)
+        public static void UpdateAsset(string content, FacilityType type)
         {
             GetInstance()._UpdateAsset(content, type);
         }
 
-        public int Get(FacilityType type, string iname)
+        public static int Get(FacilityType type, string iname)
         {
             return GetInstance()._Get(type, iname);
         }
 
-        Dictionary<string, int> AdvCompFacility;
-        Dictionary<string, int> AdvLargeShipFacility;
-        Dictionary<string, int> AdvMedShipFacility;
-        Dictionary<string, int> AdvSmallShipFacility;
-        Dictionary<string, int> FuelAndComponentFacility;
-        Dictionary<string, int> ReactionFacility;
-        Dictionary<string, int> LargeShipFacility;
-        Dictionary<string, int> MedShipFacility;
-        Dictionary<string, int> SmallShipFacility;
+        public static Dictionary<string, int> GetHaulable()
+        {
+            return GetInstance()._GetHaulable();
+        }
+
+        Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
 
         public Storage()
         {
-            AdvCompFacility = new Dictionary<string, int>();
-            AdvLargeShipFacility = new Dictionary<string, int>();
-            AdvMedShipFacility = new Dictionary<string, int>();
-            AdvSmallShipFacility = new Dictionary<string, int>();
-            FuelAndComponentFacility = new Dictionary<string, int>();
-            ReactionFacility= new Dictionary<string, int>();
-            LargeShipFacility = new Dictionary<string, int>();
-            MedShipFacility = new Dictionary<string, int>();
-            SmallShipFacility = new Dictionary<string, int>();
+            AllAsset = new Dictionary<FacilityType, Dictionary<string, int>>();
+            foreach(FacilityType ftype in (Enum.GetValues(typeof(FacilityType)))) {
+                AllAsset.Add(ftype, new Dictionary<string, int>());
+            }
         }
 
         public void _UpdateAsset(string content, FacilityType type)
         {
-            Dictionary<string, int> map = new Dictionary<string, int>();
-            switch(type)
-            {
-                case FacilityType.ADV_COMPONENT:
-                    map = AdvCompFacility;
-                    break;
-                case FacilityType.ADV_LARGE_SHIP:
-                    map = AdvLargeShipFacility;
-                    break;
-                case FacilityType.ADV_MED_SHIP:
-                    map = AdvMedShipFacility;
-                    break;
-                case FacilityType.ADV_SMALL_SHIP:
-                    map = AdvSmallShipFacility;
-                    break;
-                case FacilityType.FUEL_COMP:
-                    map = FuelAndComponentFacility;
-                    break;
-                case FacilityType.LARGE_SHIP:
-                    map = LargeShipFacility;
-                    break;
-                case FacilityType.MEDIUM_SHIP:
-                    map = MedShipFacility;
-                    break;
-                case FacilityType.SMALL_SHIP:
-                    map = SmallShipFacility;
-                    break;
-                case FacilityType.REACTION:
-                    map = ReactionFacility;
-                    break;
-                default:
-                    break;
-
-            }
+            if (!AllAsset.ContainsKey(type)) return; 
+            Dictionary<string, int> map = AllAsset[type];
+            
             map.Clear();
             string[] assets = content.Split("\n");
             foreach(string asset in assets)
@@ -130,46 +92,33 @@ namespace EveCal
 
         public int _Get(FacilityType type, string iname)
         {
-            Dictionary<string, int> map;
-            switch(type)
-            {
-                case FacilityType.ADV_COMPONENT:
-                    map = AdvCompFacility;
-                    break;
-                case FacilityType.ADV_LARGE_SHIP: 
-                    map = AdvLargeShipFacility;
-                    break;
-                case FacilityType.ADV_SMALL_SHIP: 
-                    map = AdvSmallShipFacility;
-                    break;
-                case FacilityType.ADV_MED_SHIP:
-                    map = AdvMedShipFacility;
-                    break;
-                case FacilityType.FUEL_COMP:
-                    map = FuelAndComponentFacility;
-                    break;
-                case FacilityType.LARGE_SHIP:
-                    map = LargeShipFacility;
-                    break;
-                case FacilityType.MEDIUM_SHIP:
-                    map = MedShipFacility;
-                    break;
-                case FacilityType.SMALL_SHIP:
-                    map = SmallShipFacility;
-                    break;
-                case FacilityType.REACTION:
-                    map = ReactionFacility;
-                    break;
-                default:
-                    map = null;
-                    break;
-            }
-            if(map == null) return 0;
+            if (!AllAsset.ContainsKey(type)) return 0;
+            Dictionary<string, int> map = AllAsset[type];
             if(map.ContainsKey(iname))
             {
                 return map[iname];
             }
             return 0;
+        }
+
+        public Dictionary<string, int> _GetHaulable()
+        {
+            Dictionary<string, int> map = new Dictionary<string, int>();
+
+            foreach(FacilityType facility in AllAsset.Keys)
+            {
+                foreach(string mat in AllAsset[facility].Keys)
+                {
+                    BP bp = Loader.Get(mat);
+                    if(bp != null && bp.MakeAt() == facility) 
+                    {
+                        if(!map.ContainsKey(mat))map.Add(mat, 0);
+                        map[mat] += AllAsset[facility][mat];
+                    }
+                }
+            }
+
+            return map;
         }
     }
 }

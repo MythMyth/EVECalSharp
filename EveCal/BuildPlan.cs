@@ -24,10 +24,11 @@ namespace EveCal
     internal class BuildPlan
     {
         Dictionary<string, int> outputItems;
-
+        Dictionary<FacilityType, Dictionary<string, int>> demand;
         public BuildPlan()
         {
             outputItems = new Dictionary<string, int>();
+            demand = new Dictionary<FacilityType, Dictionary<string, int>>();  
         }
 
         public bool Add(string item, int amount)
@@ -40,10 +41,31 @@ namespace EveCal
             return false;
         }
 
+        int FindInDemand(string item, Dictionary<string, int> haulable)
+        {
+            int result = 0;
+            foreach(FacilityType facility in demand.Keys)
+            {
+                if(demand[facility].ContainsKey(item))
+                {
+                    int demandInThisFacility = demand[facility][item] - Storage.Get(facility, item);
+                    if(haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0 && ((!Loader.Have(item)) || (Loader.Get(item).MakeAt() != facility))) {
+                        int haul = Math.Min(demandInThisFacility, haulable[item]);
+                        demandInThisFacility -= haul;
+                        haulable[item] -= haul;
+                    }
+                    result += ((demandInThisFacility < 0) ? 0 : demandInThisFacility);
+                }
+            }
+            return result;
+        }
+
         public List<ItemWorkDetail> MakePlan(bool BPRunWithMax)
         {
             List<ItemWorkDetail> plan = new List<ItemWorkDetail>();
             Dictionary<string, int> allNode = new Dictionary<string, int>();
+            Dictionary<string, int> haulable = Storage.GetHaulable();
+            demand.Clear();
             foreach (string key in outputItems.Keys)
             {
                 GetAllNode(key, allNode);
@@ -63,10 +85,15 @@ namespace EveCal
                 BP bp = Loader.Get(item);
                 if(bp != null)
                 {
-                    Dictionary<string, int> run_material = bp.Cal(workDetail.amount, ref workDetail.jobRun, BPRunWithMax);
+                    Dictionary<string, int> run_material = bp.Cal(workDetail.amount + FindInDemand(workDetail.name, haulable), ref workDetail.jobRun, BPRunWithMax);
+                    if(!demand.ContainsKey(bp.MakeAt()))
+                    {
+                        demand.Add(bp.MakeAt(), new Dictionary<string, int>());
+                    }
                     foreach(var pair in run_material)
                     {
-                        allNode[pair.Key] += pair.Value;
+                        if (!demand[bp.MakeAt()].ContainsKey(pair.Key)) demand[bp.MakeAt()].Add(pair.Key, 0);
+                        demand[bp.MakeAt()][pair.Key] += pair.Value;
                     }
                 }
                 plan.Add(workDetail);
