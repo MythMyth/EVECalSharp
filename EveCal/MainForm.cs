@@ -31,7 +31,8 @@ namespace EveCal
 
         private void AssetButton_Click(object sender, EventArgs e)
         {
-
+            AssetViewer assetView = new AssetViewer();
+            assetView.Show();
         }
 
         private void MakePlanButton_Click(object sender, EventArgs e)
