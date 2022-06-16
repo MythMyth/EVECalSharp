@@ -9,6 +9,7 @@ namespace EveCal
 {
     public enum FacilityType
     {
+        SOURCE,
         ADV_COMPONENT,
         ADV_LARGE_SHIP,
         ADV_MED_SHIP,
@@ -109,6 +110,12 @@ namespace EveCal
             {
                 foreach(string mat in AllAsset[facility].Keys)
                 {
+                    if(facility == FacilityType.SOURCE)
+                    {
+                        if (!map.ContainsKey(mat)) map.Add(mat, 0);
+                        map[mat] += AllAsset[facility][mat];
+                        continue;
+                    }
                     BP bp = Loader.Get(mat);
                     if(bp != null && bp.MakeAt() == facility) 
                     {

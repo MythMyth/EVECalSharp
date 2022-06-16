@@ -28,5 +28,15 @@ namespace EveCal
             }
             outputTxt.Text = output;
         }
+
+        private void AssetButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MakePlanButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

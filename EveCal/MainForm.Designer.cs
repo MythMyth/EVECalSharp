@@ -28,19 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.inputTxt = new System.Windows.Forms.TextBox();
             this.outputTxt = new System.Windows.Forms.TextBox();
+            this.AssetButton = new System.Windows.Forms.Button();
+            this.MakePlanButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // inputTxt
-            // 
-            this.inputTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.inputTxt.Location = new System.Drawing.Point(12, 12);
-            this.inputTxt.Multiline = true;
-            this.inputTxt.Name = "inputTxt";
-            this.inputTxt.Size = new System.Drawing.Size(350, 426);
-            this.inputTxt.TabIndex = 0;
             // 
             // outputTxt
             // 
@@ -53,13 +44,34 @@
             this.outputTxt.Size = new System.Drawing.Size(354, 426);
             this.outputTxt.TabIndex = 1;
             // 
+            // AssetButton
+            // 
+            this.AssetButton.Location = new System.Drawing.Point(12, 12);
+            this.AssetButton.Name = "AssetButton";
+            this.AssetButton.Size = new System.Drawing.Size(107, 23);
+            this.AssetButton.TabIndex = 2;
+            this.AssetButton.Text = "Update Asset";
+            this.AssetButton.UseVisualStyleBackColor = true;
+            this.AssetButton.Click += new System.EventHandler(this.AssetButton_Click);
+            // 
+            // MakePlanButton
+            // 
+            this.MakePlanButton.Location = new System.Drawing.Point(12, 51);
+            this.MakePlanButton.Name = "MakePlanButton";
+            this.MakePlanButton.Size = new System.Drawing.Size(107, 23);
+            this.MakePlanButton.TabIndex = 3;
+            this.MakePlanButton.Text = "Make Plan";
+            this.MakePlanButton.UseVisualStyleBackColor = true;
+            this.MakePlanButton.Click += new System.EventHandler(this.MakePlanButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MakePlanButton);
+            this.Controls.Add(this.AssetButton);
             this.Controls.Add(this.outputTxt);
-            this.Controls.Add(this.inputTxt);
             this.Name = "MainForm";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -69,8 +81,8 @@
         }
 
         #endregion
-
-        private TextBox inputTxt;
         private TextBox outputTxt;
+        private Button AssetButton;
+        private Button MakePlanButton;
     }
 }
