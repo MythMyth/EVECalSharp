@@ -81,11 +81,11 @@ namespace EveCal
             {
                 ItemWorkDetail workDetail = new ItemWorkDetail();
                 workDetail.name = item;
-                workDetail.amount = allNode[item];
+                workDetail.amount = allNode[item] + FindInDemand(workDetail.name, haulable);
                 BP bp = Loader.Get(item);
                 if(bp != null)
                 {
-                    Dictionary<string, int> run_material = bp.Cal(workDetail.amount + FindInDemand(workDetail.name, haulable), ref workDetail.jobRun, BPRunWithMax);
+                    Dictionary<string, int> run_material = bp.Cal(workDetail.amount, ref workDetail.jobRun, BPRunWithMax);
                     if(!demand.ContainsKey(bp.MakeAt()))
                     {
                         demand.Add(bp.MakeAt(), new Dictionary<string, int>());

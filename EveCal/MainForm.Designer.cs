@@ -28,21 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.outputTxt = new System.Windows.Forms.TextBox();
             this.AssetButton = new System.Windows.Forms.Button();
             this.MakePlanButton = new System.Windows.Forms.Button();
+            this.planList = new System.Windows.Forms.ListView();
+            this.columnHeader0 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
-            // 
-            // outputTxt
-            // 
-            this.outputTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.outputTxt.Location = new System.Drawing.Point(434, 12);
-            this.outputTxt.Multiline = true;
-            this.outputTxt.Name = "outputTxt";
-            this.outputTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.outputTxt.Size = new System.Drawing.Size(354, 426);
-            this.outputTxt.TabIndex = 1;
             // 
             // AssetButton
             // 
@@ -64,25 +56,58 @@
             this.MakePlanButton.UseVisualStyleBackColor = true;
             this.MakePlanButton.Click += new System.EventHandler(this.MakePlanButton_Click);
             // 
+            // planList
+            // 
+            this.planList.BackColor = System.Drawing.SystemColors.Info;
+            this.planList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader0,
+            this.columnHeader1,
+            this.columnHeader2});
+            this.planList.GridLines = true;
+            this.planList.Location = new System.Drawing.Point(286, 12);
+            this.planList.MultiSelect = false;
+            this.planList.Name = "planList";
+            this.planList.Size = new System.Drawing.Size(502, 426);
+            this.planList.TabIndex = 4;
+            this.planList.UseCompatibleStateImageBehavior = false;
+            this.planList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader0
+            // 
+            this.columnHeader0.Text = "Item";
+            this.columnHeader0.Width = 360;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = " ";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Amount";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.planList);
             this.Controls.Add(this.MakePlanButton);
             this.Controls.Add(this.AssetButton);
-            this.Controls.Add(this.outputTxt);
             this.Name = "MainForm";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private TextBox outputTxt;
         private Button AssetButton;
         private Button MakePlanButton;
+        private ListView planList;
+        private ColumnHeader Items;
+        private ColumnHeader columnHeader0;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

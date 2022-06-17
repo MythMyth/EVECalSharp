@@ -14,19 +14,34 @@ namespace EveCal
             plan.Add("MA Cerberus 0 3 6", 1);
             plan.MakePlan(true);
             List<ItemWorkDetail> works = plan.MakePlan(true);
-            string output = "";
-            foreach(ItemWorkDetail work in works)
+            planList.Items.Clear();
+            planList.Groups.Add(new ListViewGroup("Buy"));
+            planList.Groups.Add(new ListViewGroup("Run"));
+            planList.Groups.Add(new ListViewGroup("Haul"));
+            foreach (ItemWorkDetail work in works)
             {
                 if(work.jobRun == 0)
-                    output += work.name + " Buy: " + work.amount + "\r\n";
+                {
+                    ListViewItem item = new ListViewItem(work.name);
+                    item.SubItems.Add("x");
+                    item.SubItems.Add("" + work.amount);
+                    item.Group = planList.Groups[0];
+                    planList.Items.Add(item);
+                }    
+                    
             }
-            output += "==========================\r\n";
             foreach (ItemWorkDetail work in works)
             {
                 if (work.jobRun != 0)
-                    output += work.name + " Run:" + work.jobRun + "\r\n";
+                {
+                    ListViewItem item = new ListViewItem(work.name);
+                    item.SubItems.Add("x");
+                    item.SubItems.Add("" + work.jobRun);
+                    item.Group = planList.Groups[1];
+                    planList.Items.Add(item);
+                }
             }
-            outputTxt.Text = output;
+
         }
 
         private void AssetButton_Click(object sender, EventArgs e)
