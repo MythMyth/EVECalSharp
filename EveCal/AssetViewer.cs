@@ -70,6 +70,13 @@ namespace EveCal
             if(currBtn != null) currBtn.BackColor = Color.White;
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
+            Dictionary<string, int> map = Storage.GetFacilityAsset((FacilityType)currBtn.Tag);
+            string text = "";
+            foreach(string key in map.Keys)
+            {
+                text += key + "\t" + map[key] + "\r\n";
+            }
+            AssetTextBox.Text = text;
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)

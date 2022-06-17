@@ -20,11 +20,13 @@ namespace EveCal
         SMALL_SHIP,
         REACTION
     };
+
+    
     internal class Storage
     {
         static Storage instance;
         static Mutex mutex = new Mutex();
-
+        const string storagePath = "storage";
         public static Storage GetInstance()
         {
             mutex.WaitOne();
@@ -51,21 +53,63 @@ namespace EveCal
             return GetInstance()._GetHaulable();
         }
 
+        public static Dictionary<string, int> GetFacilityAsset(FacilityType type)
+        {
+            return GetInstance()._GetFacilityAsset(type);
+        }
+
         Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
 
         public Storage()
         {
             AllAsset = new Dictionary<FacilityType, Dictionary<string, int>>();
+            if(!Directory.Exists(storagePath))
+            {
+                Directory.CreateDirectory(storagePath);
+            }
             foreach(FacilityType ftype in (Enum.GetValues(typeof(FacilityType)))) {
                 AllAsset.Add(ftype, new Dictionary<string, int>());
+                string filename = storagePath + "\\" + ftype;
+                if (File.Exists(filename))
+                {
+                    string[] lines = LoadFile(filename);
+                    foreach(string line in lines)
+                    {
+                        string[] parts = line.Split('\t');
+                        if(parts.Length > 1)
+                        {
+                            string name = parts[0].Trim();
+                            int number = int.Parse(parts[1].Trim());
+                            if (parts[1].Trim() == "") number = 1;
+                            if (AllAsset[ftype].ContainsKey(parts[0].Trim()))
+                            {
+                                AllAsset[ftype][name] += number;
+                            } else
+                            {
+                                AllAsset[ftype].Add(name, number);
+                            }
+                        }
+                    }
+                }
             }
+        }
+
+        string[] LoadFile(string fname)
+        {
+            string text = File.ReadAllText(fname);
+            return text.Split("\n");
         }
 
         public void _UpdateAsset(string content, FacilityType type)
         {
             if (!AllAsset.ContainsKey(type)) return; 
             Dictionary<string, int> map = AllAsset[type];
-            
+            if(!File.Exists(storagePath + "\\" + type))
+            {
+                File.Create(storagePath + "\\" + type).Close();
+            }
+            FileStream f = File.Open(storagePath + "\\" + type, FileMode.Truncate);
+            StreamWriter writer = new StreamWriter(f);
             map.Clear();
             string[] assets = content.Split("\n");
             foreach(string asset in assets)
@@ -78,6 +122,9 @@ namespace EveCal
                     if (info[1].Trim() != "")
                     {
                         number = int.Parse(info[1].Trim());
+                    } else
+                    {
+                        number = 1;
                     }
                     if(map.ContainsKey(assetName))
                     {
@@ -86,9 +133,11 @@ namespace EveCal
                     {
                         map.Add(assetName, number);
                     }
+                    writer.WriteLine(assetName + "\t" + number);
                 }
             }
-
+            writer.Close();
+            f.Close();
         }
 
         public int _Get(FacilityType type, string iname)
@@ -100,6 +149,11 @@ namespace EveCal
                 return map[iname];
             }
             return 0;
+        }
+
+        public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
+        {
+            return AllAsset[type];
         }
 
         public Dictionary<string, int> _GetHaulable()

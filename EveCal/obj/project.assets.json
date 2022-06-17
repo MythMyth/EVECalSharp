@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\Myth\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj",
+      "projectUniqueName": "C:\\Users\\Myth\\Source\\Repos\\EVECalSharp\\EveCal\\EveCal.csproj",
       "projectName": "EveCal",
-      "projectPath": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\obj\\",
+      "projectPath": "C:\\Users\\Myth\\Source\\Repos\\EVECalSharp\\EveCal\\EveCal.csproj",
+      "packagesPath": "C:\\Users\\Myth\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Myth\\Source\\Repos\\EVECalSharp\\EveCal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Myth\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
