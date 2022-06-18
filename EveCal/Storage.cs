@@ -81,13 +81,11 @@ namespace EveCal
                             string name = parts[0].Trim();
                             int number = int.Parse(parts[1].Trim());
                             if (parts[1].Trim() == "") number = 1;
-                            if (AllAsset[ftype].ContainsKey(parts[0].Trim()))
+                            if (!AllAsset[ftype].ContainsKey(name))
                             {
-                                AllAsset[ftype][name] += number;
-                            } else
-                            {
-                                AllAsset[ftype].Add(name, number);
+                                AllAsset[ftype].Add(name, 0);
                             }
+                            AllAsset[ftype][name] += number;
                         }
                     }
                 }
@@ -126,13 +124,11 @@ namespace EveCal
                     {
                         number = 1;
                     }
-                    if(map.ContainsKey(assetName))
+                    if(!map.ContainsKey(assetName))
                     {
-                        map[assetName] += number;
-                    } else
-                    {
-                        map.Add(assetName, number);
+                        map.Add(assetName, 0);
                     }
+                    map[assetName] += number;
                     writer.WriteLine(assetName + "\t" + number);
                 }
             }

@@ -41,7 +41,7 @@ namespace EveCal
             return false;
         }
 
-        int FindInDemand(string item, Dictionary<string, int> haulable)
+        int FindInDemand(string item, Dictionary<string, int> haulable, Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>> haulPlan)
         {
             int result = 0;
             foreach(FacilityType facility in demand.Keys)
@@ -53,6 +53,27 @@ namespace EveCal
                         int haul = Math.Min(demandInThisFacility, haulable[item]);
                         demandInThisFacility -= haul;
                         haulable[item] -= haul;
+                        if(haul > 0) { 
+                            BP bp = Loader.Get(item);
+                            Tuple < FacilityType, FacilityType > road;
+                            if (bp == null)
+                            {
+                                //If null mean it a raw material
+                                road = new Tuple<FacilityType, FacilityType>(FacilityType.SOURCE, facility);
+                            } else
+                            {
+                                road = new Tuple<FacilityType, FacilityType>(bp.MakeAt(), facility);
+                            }
+                            if(!haulPlan.ContainsKey(road))
+                            {
+                                haulPlan.Add(road, new Dictionary<string, int>());
+                            }
+                            if (!haulPlan[road].ContainsKey(item))
+                            {
+                                haulPlan[road].Add(item, 0);
+                            }
+                            haulPlan[road][item] += haul;
+                        }
                     }
                     result += ((demandInThisFacility < 0) ? 0 : demandInThisFacility);
                 }
@@ -65,6 +86,7 @@ namespace EveCal
             List<ItemWorkDetail> plan = new List<ItemWorkDetail>();
             Dictionary<string, int> allNode = new Dictionary<string, int>();
             Dictionary<string, int> haulable = Storage.GetHaulable();
+            Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>> haulPlan = new Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>>();
             demand.Clear();
             foreach (string key in outputItems.Keys)
             {
@@ -81,7 +103,7 @@ namespace EveCal
             {
                 ItemWorkDetail workDetail = new ItemWorkDetail();
                 workDetail.name = item;
-                workDetail.amount = allNode[item] + FindInDemand(workDetail.name, haulable);
+                workDetail.amount = allNode[item] + FindInDemand(workDetail.name, haulable, haulPlan);
                 BP bp = Loader.Get(item);
                 if(bp != null)
                 {
