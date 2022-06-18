@@ -28,11 +28,11 @@ namespace EveCal.BPs
             } else 
             {
                 output = 200;
-                material[lines[1]] = 5;
-                material[lines[2]] = 100;
-                material[lines[3]] = 100;
+                material[lines[1].Trim()] = 5;
+                material[lines[2].Trim()] = 100;
+                material[lines[3].Trim()] = 100;
             }
-            name = fname.Replace("_", " "); 
+            name = fname.Replace("_", " ").Trim(); 
             RigReduce = ConfigLoader.GetReduction("REACTION_RIG");
             FacilityReduce = ConfigLoader.GetReduction("REACTION_FAC");
             _MakeAt = FacilityType.REACTION;

@@ -20,11 +20,11 @@ namespace EveCal.BPs
             {
                 string[] pair = lines[i].Split(" x ");
                 if(pair.Length < 2) continue;
-                string matName = pair[0];
+                string matName = pair[0].Trim();
                 string matNum = pair[1];
                 material[matName] = int.Parse(matNum);
             }
-            name = fname.Replace("_", " ");
+            name = fname.Replace("_", " ").Trim();
             ME = 10;
             RigReduce = ConfigLoader.GetReduction("ADV_COMP_RIG");
             FacilityReduce = ConfigLoader.GetReduction("ADV_COMP_FAC");
