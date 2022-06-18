@@ -26,8 +26,8 @@ namespace EveCal.BPs
             }
             name = fname.Replace("_", " ");
             ME = 10;
-            RigReduce = Loader.GetReduction("ADV_COMP_RIG");
-            FacilityReduce = Loader.GetReduction("ADV_COMP_FAC");
+            RigReduce = ConfigLoader.GetReduction("ADV_COMP_RIG");
+            FacilityReduce = ConfigLoader.GetReduction("ADV_COMP_FAC");
             _MakeAt = FacilityType.ADV_COMPONENT;
         }
     }

@@ -10,8 +10,8 @@ namespace EveCal.BPs
     {
         public LargeShip(string fname) {
             _MakeAt = FacilityType.LARGE_SHIP;
-            RigReduce = Loader.GetReduction("LARGE_RIG");
-            FacilityReduce = Loader.GetReduction("LARGE_FAC");
+            RigReduce = ConfigLoader.GetReduction("LARGE_RIG");
+            FacilityReduce = ConfigLoader.GetReduction("LARGE_FAC");
         }
     }
 }

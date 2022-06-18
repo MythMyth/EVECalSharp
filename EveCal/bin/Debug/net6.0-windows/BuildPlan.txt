@@ -1,0 +1,110 @@
+Run plan:
+
+Nitrogen Fuel Block                  ||    200
+Sulfuric Acid                        ||    100
+Platinum Technite                    ||    100
+Neo Mercurite                        ||    100
+Nanotransistors                      ||    100
+Oxygen Fuel Block                    ||    200
+Crystallite Alloy                    ||    300
+Thulium Hafnite                      ||    100
+Photonic Metamaterials               ||    200
+Carbon Polymers                      ||    300
+Crystalline Carbonide                ||    400
+Fullerides                           ||    100
+Oscillator Capacitor Unit            ||    8000
+Hydrogen Fuel Block                  ||    200
+Hexite                               ||    200
+Hyperflurite                         ||    100
+Ferrofluid                           ||    200
+Prometium                            ||    100
+Ferrogel                             ||    100
+Ceramic Powder                       ||    200
+Sylramic Fibers                      ||    300
+Pulse Shield Emitter                 ||    8000
+Vanadium Hafnite                     ||    100
+Solerium                             ||    100
+Dysporite                            ||    100
+Hypersynaptic Fibers                 ||    100
+Magnetometric Sensor Cluster         ||    4000
+Silicon Diborite                     ||    300
+Phenolic Composites                  ||    100
+Photon Microprocessor                ||    16000
+Ion Thruster                         ||    4000
+Crystalline Carbonide Armor Plate    ||    60000
+Fluxed Condensates                   ||    100
+Fermionic Condensates                ||    100
+Fusion Reactor Unit                  ||    2000
+MA Ishtar 0 3 6                      ||    10
+Titanium Chromide                    ||    300
+Nonlinear Metamaterials              ||    200
+Titanium Carbide                     ||    400
+Scalar Capacitor Unit                ||    8000
+Gravimetric Sensor Cluster           ||    4000
+Magpulse Thruster                    ||    4000
+Titanium Diborite Armor Plate        ||    60000
+Quantum Microprocessor               ||    16000
+Sustained Shield Emitter             ||    8000
+Graviton Reactor Unit                ||    2000
+MA Cerberus 0 3 6                    ||    10
+
+
+Buy plan:
+
+Robotics	600
+Enriched Uranium	2160
+Mechanical Parts	2160
+Coolant	4860
+Strontium Clathrates	10800
+Oxygen	11880
+Heavy Water	91800
+Liquid Ozone	189000
+Nitrogen Isotopes	81000
+Nitrogen Fuel Block	1000
+Atmospheric Gases	10000
+Evaporite Deposits	10000
+Nitrogen Fuel Block	1500
+Platinum	10000
+Technetium	10000
+Helium Fuel Block	3500
+Mercury	10000
+Neodymium	10000
+Oxygen Isotopes	81000
+Cobalt	30000
+Cadmium	30000
+Hydrogen Fuel Block	2500
+Hafnium	30000
+Thulium	20000
+Helium Fuel Block	4000
+Hydrocarbons	30000
+Silicates	80000
+Morphite	2910
+Hydrogen Isotopes	81000
+Chromium	20000
+Platinum	20000
+Vanadium	10000
+Promethium	20000
+Dysprosium	30000
+Oxygen Fuel Block	3500
+Cadmium	10000
+Evaporite Deposits	20000
+Hydrogen Fuel Block	500
+Vanadium	10000
+Hafnium	10000
+Oxygen Fuel Block	1000
+Chromium	40000
+Caesium	10000
+Helium Fuel Block	500
+Mercury	10000
+Vexor	10
+Construction Blocks	2910
+Evaporite Deposits	30000
+Caesarium Cadmide	20000
+R.A.M.- Starship Tech	350
+Neodymium	10000
+Titanium	30000
+Caracal	10
+
+
+Haul plan:
+

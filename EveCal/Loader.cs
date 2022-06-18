@@ -12,9 +12,7 @@ namespace EveCal
         static Loader instance;
         static Mutex mutex = new Mutex();
         Dictionary<string, BP> allBP;
-        Dictionary<string, double> FacilityAndRigReduce;
 
-        const string ReduceConfigFile = "Reduction.cfg";
         static Loader GetInstance()
         {
             mutex.WaitOne();
@@ -36,15 +34,9 @@ namespace EveCal
             return GetInstance()._Get(bpName);
         }
 
-        public static double GetReduction(string val)
-        {
-            return GetInstance()._GetReduction(val);
-        }
 
         public Loader() {
             allBP = new Dictionary<string, BP>();
-            FacilityAndRigReduce = new Dictionary<string, double>();
-            LoadReductionConfig();
 
             LoadReactionFuelAndAdvComponent();
             LoadShipBPs();
@@ -120,33 +112,7 @@ namespace EveCal
             }
         }
 
-        void LoadReductionConfig()
-        {
-            if (!File.Exists(ReduceConfigFile)) return;
-            string[] lines = File.ReadAllLines(ReduceConfigFile);
-            FacilityAndRigReduce.Clear();
-            foreach(string line in lines)
-            {
-                string[] parts = line.Split("=");
-                if (parts.Length < 2) continue;
-                string name = parts[0].Trim();
-                string val = parts[1].Trim();
-                if (val.Length == 0) continue;
-                if (val[0] < '0' || val[0] > '9')
-                {
-                    if(FacilityAndRigReduce.ContainsKey(val))
-                    {
-                        FacilityAndRigReduce.Add(name, FacilityAndRigReduce[val]);
-                    } else
-                    {
-                        continue;
-                    }
-                } else
-                {
-                    FacilityAndRigReduce.Add(name, double.Parse(val));
-                }
-            }
-        }
+        
         public bool _Have(string bpName)
         {
             return allBP.ContainsKey(bpName);
@@ -161,10 +127,5 @@ namespace EveCal
             return null;
         }
 
-        public double _GetReduction(string val)
-        {
-            if (FacilityAndRigReduce.ContainsKey(val)) return FacilityAndRigReduce[val];
-            return 0;
-        }
     }
 }

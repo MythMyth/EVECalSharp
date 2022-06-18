@@ -10,8 +10,8 @@ namespace EveCal.BPs
     {
         public MediumShip(string fname) {
             _MakeAt = FacilityType.MEDIUM_SHIP;
-            RigReduce = Loader.GetReduction("MED_RIG");
-            FacilityReduce = Loader.GetReduction("MED_FAC");
+            RigReduce = ConfigLoader.GetReduction("MED_RIG");
+            FacilityReduce = ConfigLoader.GetReduction("MED_FAC");
         }
     }
 }

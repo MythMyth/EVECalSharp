@@ -13,7 +13,7 @@ namespace EveCal.BPs
             string text = System.IO.File.ReadAllText(fname);
             fname = fname.Split("\\").Last();
             string[] lines = text.Split("\n");
-            maxRun = 1000;
+            maxRun = 100;
             RigReduce = 2.6;
             string indicator = lines[0].Trim();
             if(indicator == "CM")
@@ -33,8 +33,8 @@ namespace EveCal.BPs
                 material[lines[3]] = 100;
             }
             name = fname.Replace("_", " "); 
-            RigReduce = Loader.GetReduction("REACTION_RIG");
-            FacilityReduce = Loader.GetReduction("REACTION_FAC");
+            RigReduce = ConfigLoader.GetReduction("REACTION_RIG");
+            FacilityReduce = ConfigLoader.GetReduction("REACTION_FAC");
             _MakeAt = FacilityType.REACTION;
         }
     }

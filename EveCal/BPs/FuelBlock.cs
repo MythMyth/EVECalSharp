@@ -38,8 +38,8 @@ namespace EveCal.BPs
             }
             ME = 10;
             TE = 20;
-            RigReduce = Loader.GetReduction("FUEL_COMP_RIG");
-            FacilityReduce = Loader.GetReduction("FUEL_COMP_FAC");
+            RigReduce = ConfigLoader.GetReduction("FUEL_COMP_RIG");
+            FacilityReduce = ConfigLoader.GetReduction("FUEL_COMP_FAC");
             _MakeAt = FacilityType.FUEL_COMP;
         }
     }
