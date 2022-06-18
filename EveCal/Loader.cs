@@ -11,7 +11,10 @@ namespace EveCal
     {
         static Loader instance;
         static Mutex mutex = new Mutex();
-        Dictionary<string, BP> allBP = new Dictionary<string, BP>();
+        Dictionary<string, BP> allBP;
+        Dictionary<string, double> FacilityAndRigReduce;
+
+        const string ReduceConfigFile = "Reduction.cfg";
         static Loader GetInstance()
         {
             mutex.WaitOne();
@@ -34,6 +37,8 @@ namespace EveCal
         }
 
         public Loader() {
+            allBP = new Dictionary<string, BP>();
+            FacilityAndRigReduct = new Dictionary<string, double>();
             string[] freactions = Directory.GetFiles("Blueprint\\Reaction");
             foreach(string filePath in freactions)
             {
@@ -97,8 +102,37 @@ namespace EveCal
                         break;
                 }
             }
+
+            LoadReductionConfig();
         }
 
+        void LoadReductionConfig()
+        {
+            if (!File.Exists(ReduceConfigFile)) return;
+            string[] lines = File.ReadAllLines(ReduceConfigFile);
+            FacilityAndRigReduce.Clear();
+            foreach(string line in lines)
+            {
+                string[] parts = line.Split("=");
+                if (parts.Length < 2) continue;
+                string name = parts[0].Trim();
+                string val = parts[1].Trim();
+                if (val.Length == 0) continue;
+                if (val[0] < '0' || val[0] > '9')
+                {
+                    if(FacilityAndRigReduce.ContainsKey(val))
+                    {
+                        FacilityAndRigReduce.Add(name, FacilityAndRigReduce[val]);
+                    } else
+                    {
+                        continue;
+                    }
+                } else
+                {
+                    FacilityAndRigReduce.Add(name, double.Parse(val));
+                }
+            }
+        }
         public bool _Have(string bpName)
         {
             return allBP.ContainsKey(bpName);

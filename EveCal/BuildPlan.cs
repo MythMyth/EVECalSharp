@@ -7,7 +7,7 @@ using EveCal.BPs;
 
 namespace EveCal
 {
-
+    using HaulDetail = Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>>;
     public class ItemWorkDetail
     {
         public string name;
@@ -41,7 +41,7 @@ namespace EveCal
             return false;
         }
 
-        int FindInDemand(string item, Dictionary<string, int> haulable, Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>> haulPlan)
+        int FindInDemand(string item, Dictionary<string, int> haulable, HaulDetail haulPlan)
         {
             int result = 0;
             foreach(FacilityType facility in demand.Keys)
@@ -81,12 +81,12 @@ namespace EveCal
             return result;
         }
 
-        public List<ItemWorkDetail> MakePlan(bool BPRunWithMax)
+        public Tuple<List<ItemWorkDetail>, HaulDetail> MakePlan(bool BPRunWithMax)
         {
             List<ItemWorkDetail> plan = new List<ItemWorkDetail>();
             Dictionary<string, int> allNode = new Dictionary<string, int>();
             Dictionary<string, int> haulable = Storage.GetHaulable();
-            Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>> haulPlan = new Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>>();
+            HaulDetail haulPlan = new HaulDetail();
             demand.Clear();
             foreach (string key in outputItems.Keys)
             {
@@ -121,7 +121,7 @@ namespace EveCal
                 plan.Add(workDetail);
             }
             plan.Reverse();
-            return plan;
+            return new Tuple<List<ItemWorkDetail>, HaulDetail>(plan, haulPlan);
         }
 
         void GetAllNode(string node, Dictionary<string, int> allNode)
