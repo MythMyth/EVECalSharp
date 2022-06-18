@@ -10,6 +10,9 @@ namespace EveCal.BPs
     {
         public AdvSmallShip(string fname) {
             _MakeAt = FacilityType.ADV_SMALL_SHIP;
+
+            RigReduce = Loader.GetReduction("ADV_SMALL_RIG");
+            FacilityReduce = Loader.GetReduction("ADV_SMALL_FAC");
         }
     }
 }

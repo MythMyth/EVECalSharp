@@ -32,7 +32,9 @@ namespace EveCal.BPs
                 material[lines[2]] = 100;
                 material[lines[3]] = 100;
             }
-            name = fname.Replace("_", " ");
+            name = fname.Replace("_", " "); 
+            RigReduce = Loader.GetReduction("REACTION_RIG");
+            FacilityReduce = Loader.GetReduction("REACTION_FAC");
             _MakeAt = FacilityType.REACTION;
         }
     }

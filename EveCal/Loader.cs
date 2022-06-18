@@ -36,18 +36,31 @@ namespace EveCal
             return GetInstance()._Get(bpName);
         }
 
+        public static double GetReduction(string val)
+        {
+            return GetInstance()._GetReduction(val);
+        }
+
         public Loader() {
             allBP = new Dictionary<string, BP>();
-            FacilityAndRigReduct = new Dictionary<string, double>();
+            FacilityAndRigReduce = new Dictionary<string, double>();
+            LoadReductionConfig();
+
+            LoadReactionFuelAndAdvComponent();
+            LoadShipBPs();
+        }
+
+        void LoadReactionFuelAndAdvComponent()
+        {
             string[] freactions = Directory.GetFiles("Blueprint\\Reaction");
-            foreach(string filePath in freactions)
+            foreach (string filePath in freactions)
             {
                 Reaction r = new Reaction(filePath);
                 allBP.Add(r.GetName(), r);
             }
 
             string[] fadvcomp = Directory.GetFiles("Blueprint\\AdvancedComponent");
-            foreach(string filePath in fadvcomp)
+            foreach (string filePath in fadvcomp)
             {
                 AdvComponent advc = new AdvComponent(filePath);
                 allBP.Add(advc.GetName(), advc);
@@ -61,13 +74,16 @@ namespace EveCal
             allBP.Add("Hellium Fuel Block", hellium);
             allBP.Add("Hydrogen Fuel Block", hydro);
             allBP.Add("Nitrogen Fuel Block", nitro);
-            allBP.Add("Oxygen Fuel Block", oxy); 
+            allBP.Add("Oxygen Fuel Block", oxy);
+        }
 
+        void LoadShipBPs()
+        {
             string[] shipbps = Directory.GetFiles("Blueprint\\Ship");
-            foreach(string filePath in shipbps)
+            foreach (string filePath in shipbps)
             {
                 string indicator = filePath.Split("\\").Last().Substring(0, 2);
-                switch(indicator)
+                switch (indicator)
                 {
                     case "SB":
                         SmallShip sb = new SmallShip(filePath);
@@ -102,8 +118,6 @@ namespace EveCal
                         break;
                 }
             }
-
-            LoadReductionConfig();
         }
 
         void LoadReductionConfig()
@@ -145,6 +159,12 @@ namespace EveCal
                 return allBP[bpName];
             }
             return null;
+        }
+
+        public double _GetReduction(string val)
+        {
+            if (FacilityAndRigReduce.ContainsKey(val)) return FacilityAndRigReduce[val];
+            return 0;
         }
     }
 }
