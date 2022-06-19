@@ -12,8 +12,8 @@ namespace EveCal
         private void MainForm_Load(object sender, EventArgs e)
         {
             BuildPlan plan = new BuildPlan();
-            plan.Add("MA Ishtar 0 3 6", 1);
-            plan.Add("MA Cerberus 0 3 6", 1);
+            plan.Add("MA Ishtar 1 5 10", 10);
+            plan.Add("MA Cerberus 1 5 10", 10);
             plan.MakePlan(true);
             currPlan = plan.MakePlan(true);
             RunList.Items.Clear();
