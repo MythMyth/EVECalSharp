@@ -11,9 +11,34 @@ namespace EveCal
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            
+
+        }
+
+        private void AssetButton_Click(object sender, EventArgs e)
+        {
+            AssetViewer assetView = new AssetViewer();
+            assetView.Show();
+        }
+
+        private void MakePlanButton_Click(object sender, EventArgs e)
+        {
+
+            string[] lines = OutputText.Text.Split('\n');
+
             BuildPlan plan = new BuildPlan();
-            plan.Add("MA Ishtar 1 5 10", 10);
-            plan.Add("MA Cerberus 1 5 10", 10);
+            foreach (string line in lines)
+            {
+                string[] part = line.Split('\t');
+                if(part.Length < 2)
+                {
+                    plan.Add(part[0].Trim(), 1);
+                } else
+                {
+                    plan.Add(part[0].Trim(), int.Parse(part[1]));
+                }
+            }
+
             plan.MakePlan(true);
             currPlan = plan.MakePlan(true);
             RunList.Items.Clear();
@@ -21,14 +46,14 @@ namespace EveCal
             HaulList.Items.Clear();
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
-                if(work.jobRun == 0)
+                if (work.jobRun == 0)
                 {
                     ListViewItem item = new ListViewItem(work.name);
                     item.SubItems.Add("x");
                     item.SubItems.Add("" + work.amount);
                     BuyList.Items.Add(item);
-                }    
-                    
+                }
+
             }
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
@@ -46,7 +71,7 @@ namespace EveCal
                 FacilityType haulFrom = key.Item1, haulTo = key.Item2;
                 ListViewGroup gr = new ListViewGroup("" + haulFrom + " -> " + haulTo);
                 HaulList.Groups.Add(gr);
-                foreach(string item in currPlan.Item2[key].Keys)
+                foreach (string item in currPlan.Item2[key].Keys)
                 {
                     ListViewItem listItem = new ListViewItem(item);
                     listItem.SubItems.Add(" x ");
@@ -56,16 +81,6 @@ namespace EveCal
                 }
             }
 
-        }
-
-        private void AssetButton_Click(object sender, EventArgs e)
-        {
-            AssetViewer assetView = new AssetViewer();
-            assetView.Show();
-        }
-
-        private void MakePlanButton_Click(object sender, EventArgs e)
-        {
             FileStream fs;
             if (File.Exists("BuildPlan.txt"))
             {

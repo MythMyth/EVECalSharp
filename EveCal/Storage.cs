@@ -18,7 +18,8 @@ namespace EveCal
         LARGE_SHIP,
         MEDIUM_SHIP,
         SMALL_SHIP,
-        REACTION
+        REACTION, 
+        MODULE
     };
 
     

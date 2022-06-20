@@ -25,7 +25,7 @@ namespace EveCal.BPs
                 int amount = int.Parse(pair[1]);
                 material[matName] = amount;
             }
-            name = fname.Replace("_", " ").Trim();
+            name = fname.Replace("_", " ").Trim().Substring(3);
             RigReduce = ConfigLoader.GetReduction("ADV_MED_RIG");
             FacilityReduce = ConfigLoader.GetReduction("ADV_MED_FAC");
             _MakeAt = FacilityType.ADV_MED_SHIP;

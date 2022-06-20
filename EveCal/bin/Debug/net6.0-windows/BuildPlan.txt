@@ -35,7 +35,7 @@ Crystalline Carbonide Armor Plate    ||    60000
 Fluxed Condensates                   ||    100
 Fermionic Condensates                ||    100
 Fusion Reactor Unit                  ||    2000
-MA Ishtar 1 5 10                     ||    10
+Ishtar 1 5 10                        ||    10
 Titanium Chromide                    ||    300
 Nonlinear Metamaterials              ||    200
 Titanium Carbide                     ||    300
@@ -46,7 +46,7 @@ Titanium Diborite Armor Plate        ||    60000
 Quantum Microprocessor               ||    16000
 Sustained Shield Emitter             ||    8000
 Graviton Reactor Unit                ||    2000
-MA Cerberus 1 5 10                   ||    10
+Cerberus 1 5 10                      ||    10
 
 
 Buy plan:

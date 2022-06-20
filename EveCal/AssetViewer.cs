@@ -28,6 +28,7 @@ namespace EveCal
             ButtonMap.Add(FacilityType.MEDIUM_SHIP, button8);
             ButtonMap.Add(FacilityType.SMALL_SHIP, button9);
             ButtonMap.Add(FacilityType.REACTION, button10);
+            ButtonMap.Add(FacilityType.MODULE, button11);
             SetButtonTitle();
 
         }
@@ -63,6 +64,9 @@ namespace EveCal
 
             ButtonMap[FacilityType.REACTION].Tag = FacilityType.REACTION;
             ButtonMap[FacilityType.REACTION].Text = "Reaction";
+
+            ButtonMap[FacilityType.REACTION].Tag = FacilityType.MODULE;
+            ButtonMap[FacilityType.REACTION].Text = "Module";
         }
 
         private void button_Click(object sender, EventArgs e)

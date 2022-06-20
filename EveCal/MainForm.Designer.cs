@@ -48,6 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.OutputText = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // AssetButton
@@ -220,11 +221,22 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Haul:";
             // 
+            // OutputText
+            // 
+            this.OutputText.AcceptsReturn = true;
+            this.OutputText.AcceptsTab = true;
+            this.OutputText.Location = new System.Drawing.Point(12, 62);
+            this.OutputText.Multiline = true;
+            this.OutputText.Name = "OutputText";
+            this.OutputText.Size = new System.Drawing.Size(220, 218);
+            this.OutputText.TabIndex = 11;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 483);
+            this.Controls.Add(this.OutputText);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -266,5 +278,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private TextBox OutputText;
     }
 }

@@ -40,6 +40,27 @@ namespace EveCal
 
             LoadReactionFuelAndAdvComponent();
             LoadShipBPs();
+            LoadModule();
+            LoadRam();
+        }
+
+        void LoadRam()
+        {
+            foreach(string s in RAM.rams)
+            {
+                RAM r = new RAM(s);
+                allBP.Add(s, r);
+            }
+        }
+
+        void LoadModule()
+        {
+            string[] fmodules = Directory.GetFiles("Blueprint\\Module");
+            foreach (string fmod in fmodules)
+            {
+                Module m = new Module(fmod);
+                allBP.Add(m.GetName(), m);
+            }
         }
 
         void LoadReactionFuelAndAdvComponent()
