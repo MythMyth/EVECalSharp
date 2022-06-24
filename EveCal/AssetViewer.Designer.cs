@@ -41,6 +41,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
+            this.RunningJob = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AssetTextBox
@@ -187,11 +188,23 @@
             this.button11.UseVisualStyleBackColor = false;
             this.button11.Click += new System.EventHandler(this.button_Click);
             // 
+            // RunningJob
+            // 
+            this.RunningJob.BackColor = System.Drawing.SystemColors.Window;
+            this.RunningJob.Location = new System.Drawing.Point(236, 547);
+            this.RunningJob.Name = "RunningJob";
+            this.RunningJob.Size = new System.Drawing.Size(215, 101);
+            this.RunningJob.TabIndex = 4;
+            this.RunningJob.Text = "Running";
+            this.RunningJob.UseVisualStyleBackColor = false;
+            this.RunningJob.Click += new System.EventHandler(this.RunningJob_Click);
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.RunningJob);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button9);
@@ -227,5 +240,6 @@
         private Button button9;
         private Button button10;
         private Button button11;
+        private Button RunningJob;
     }
 }

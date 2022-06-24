@@ -90,21 +90,21 @@ namespace EveCal
             demand.Clear();
             foreach (string key in outputItems.Keys)
             {
-                GetAllNode(key, allNode);
+                GetAllNode(key.Trim(), allNode);
             }
 
             foreach (var pair in outputItems)
             {
-                allNode[pair.Key] = pair.Value;
+                allNode[pair.Key.Trim()] = pair.Value;
             }
 
             List<string> reverseBuildOrder = TopologicalSort(allNode);
             foreach (string item in reverseBuildOrder)
             {
                 ItemWorkDetail workDetail = new ItemWorkDetail();
-                workDetail.name = item;
+                workDetail.name = item.Trim();
                 workDetail.amount = allNode[item] + FindInDemand(workDetail.name, haulable, haulPlan);
-                BP bp = Loader.Get(item);
+                BP bp = Loader.Get(item.Trim());
                 if(bp != null)
                 {
                     Dictionary<string, int> run_material = bp.Cal(workDetail.amount, ref workDetail.jobRun, BPRunWithMax);
@@ -114,8 +114,8 @@ namespace EveCal
                     }
                     foreach(var pair in run_material)
                     {
-                        if (!demand[bp.MakeAt()].ContainsKey(pair.Key)) demand[bp.MakeAt()].Add(pair.Key, 0);
-                        demand[bp.MakeAt()][pair.Key] += pair.Value;
+                        if (!demand[bp.MakeAt()].ContainsKey(pair.Key.Trim())) demand[bp.MakeAt()].Add(pair.Key.Trim(), 0);
+                        demand[bp.MakeAt()][pair.Key.Trim()] += pair.Value;
                     }
                 }
                 plan.Add(workDetail);
@@ -133,7 +133,7 @@ namespace EveCal
             {
                 foreach(string key in bp.material.Keys)
                 {
-                    GetAllNode(key, allNode);
+                    GetAllNode(key.Trim(), allNode);
                 }
             }
         }
@@ -144,12 +144,12 @@ namespace EveCal
             Dictionary<string, bool> visited = new Dictionary<string, bool>();
             foreach( string key in allNode.Keys )
             {
-                visited.Add(key, false);
+                visited.Add(key.Trim(), false);
             }
             Stack<string> stack = new Stack<string>();
             foreach(string key in allNode.Keys)
             {
-                TopologicalSortUtil(key, stack, visited);
+                TopologicalSortUtil(key.Trim(), stack, visited);
             }
             while(stack.Count > 0)
             {
@@ -172,7 +172,7 @@ namespace EveCal
             visited[node] = true;
             foreach(string Key in bp.material.Keys)
             {
-                TopologicalSortUtil(Key, sortStack, visited);
+                TopologicalSortUtil(Key.Trim(), sortStack, visited);
             }
             sortStack.Push(node);
         }

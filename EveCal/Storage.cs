@@ -28,6 +28,9 @@ namespace EveCal
         static Storage instance;
         static Mutex mutex = new Mutex();
         const string storagePath = "storage";
+
+        Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
+        Dictionary<string, int> Running;
         public static Storage GetInstance()
         {
             mutex.WaitOne();
@@ -59,11 +62,20 @@ namespace EveCal
             return GetInstance()._GetFacilityAsset(type);
         }
 
-        Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
+        public static void SetRunningJob(string s)
+        {
+            GetInstance()._SetRunningJob(s);
+        }
+
+        public static Dictionary<string, int> GetRunningJob()
+        {
+            return GetInstance()._GetRunningJob();
+        }
 
         public Storage()
         {
             AllAsset = new Dictionary<FacilityType, Dictionary<string, int>>();
+            Running = new Dictionary<string, int>();
             if(!Directory.Exists(storagePath))
             {
                 Directory.CreateDirectory(storagePath);
@@ -120,7 +132,7 @@ namespace EveCal
                     int number = 0;
                     if (info[1].Trim() != "")
                     {
-                        number = int.Parse(info[1].Trim());
+                        number = int.Parse(info[1].Replace(",", "").Trim());
                     } else
                     {
                         number = 1;
@@ -176,7 +188,47 @@ namespace EveCal
                 }
             }
 
+            foreach(string key in Running.Keys)
+            {
+                BP bp = Loader.Get(key.Trim());
+                if (bp == null) continue;
+                if (!map.ContainsKey(key.Trim())) map.Add(key.Trim(), 0);
+                map[key.Trim()] += (bp.GetOutput() * Running[key]);
+            }
+
             return map;
         }
+
+        public void _SetRunningJob(string s)
+        {
+            string[] jobs = s.Split("\n");
+            foreach(string job in jobs)
+            {
+                string[] col = job.Split("\t");
+                int jobRun =  int.Parse(col[1]);
+                if (col[2].Trim() == "Reaction")
+                {
+                    string bpName = col[3].Trim().Replace(" Reaction Formula", "");
+                    if(!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
+                    Running[bpName] += jobRun;
+                } else if(col[2].Trim() == "Manufacturing")
+                {
+                    string bpName = col[3].Trim().Replace(" Blueprint", "");
+                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
+                    Running[bpName] += jobRun;
+                } else if(col[2].Trim() == "")
+                {
+                    string bpName = col[3].Trim();
+                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
+                    Running[bpName] += jobRun;
+                }
+            }
+        }
+
+        public Dictionary<string, int> _GetRunningJob()
+        {
+            return Running;
+        }
+
     }
 }

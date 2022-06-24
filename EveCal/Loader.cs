@@ -79,12 +79,12 @@ namespace EveCal
                 allBP.Add(advc.GetName(), advc);
             }
 
-            FuelBlock hellium = new FuelBlock("Hellium");
+            FuelBlock hellium = new FuelBlock("Helium");
             FuelBlock hydro = new FuelBlock("Hydrogen");
             FuelBlock nitro = new FuelBlock("Nitrogen");
             FuelBlock oxy = new FuelBlock("Oxygen");
 
-            allBP.Add("Hellium Fuel Block", hellium);
+            allBP.Add("Helium Fuel Block", hellium);
             allBP.Add("Hydrogen Fuel Block", hydro);
             allBP.Add("Nitrogen Fuel Block", nitro);
             allBP.Add("Oxygen Fuel Block", oxy);

@@ -65,8 +65,8 @@ namespace EveCal
             ButtonMap[FacilityType.REACTION].Tag = FacilityType.REACTION;
             ButtonMap[FacilityType.REACTION].Text = "Reaction";
 
-            ButtonMap[FacilityType.REACTION].Tag = FacilityType.MODULE;
-            ButtonMap[FacilityType.REACTION].Text = "Module";
+            ButtonMap[FacilityType.MODULE].Tag = FacilityType.MODULE;
+            ButtonMap[FacilityType.MODULE].Text = "Module";
         }
 
         private void button_Click(object sender, EventArgs e)
@@ -85,7 +85,22 @@ namespace EveCal
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
+            if (currBtn == RunningJob) Storage.SetRunningJob(AssetTextBox.Text);
             if(currBtn != null) Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag);
+        }
+
+        private void RunningJob_Click(object sender, EventArgs e)
+        {
+            if (currBtn != null) currBtn.BackColor = Color.White;
+            currBtn = (Button)sender;
+            currBtn.BackColor = Color.Aqua;
+            Dictionary<string, int> map = Storage.GetRunningJob();
+            string text = "";
+            foreach (string key in map.Keys)
+            {
+                text += "\t" + map[key] + "\t\t" + key + "\r\n";
+            }
+            AssetTextBox.Text = text;
         }
     }
 }

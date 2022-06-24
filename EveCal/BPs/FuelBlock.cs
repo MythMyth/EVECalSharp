@@ -20,7 +20,7 @@ namespace EveCal.BPs
             material["Oxygen"] = 22;
             material["Heavy Water"] = 170;
             material["Liquid Ozone"] = 350;
-            if (fname == "Hellium")
+            if (fname == "Helium")
             {
                 material["Helium Isotopes"] = 450;
             }

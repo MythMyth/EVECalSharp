@@ -46,7 +46,7 @@ namespace EveCal
             HaulList.Items.Clear();
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
-                if (work.jobRun == 0)
+                if (work.jobRun == 0 && work.amount != 0)
                 {
                     ListViewItem item = new ListViewItem(work.name);
                     item.SubItems.Add("x");
@@ -140,14 +140,14 @@ namespace EveCal
             string text = "";
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
-                if (work.jobRun == 0)
+                if (work.jobRun == 0 && work.amount != 0)
                 {
                     maxLen = Math.Max(maxLen, work.name.Length);
                 }
             }
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
-                if (work.jobRun == 0)
+                if (work.jobRun == 0 && work.amount != 0)
                 {
                     string line = work.name.Trim() + "\t" + work.amount + "\n";
                     text += line;
