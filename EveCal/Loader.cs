@@ -34,6 +34,10 @@ namespace EveCal
             return GetInstance()._Get(bpName);
         }
 
+        public static Dictionary<string, BP> GetAllBP()
+        {
+            return GetInstance()._GetAllBP();
+        }
 
         public Loader() {
             allBP = new Dictionary<string, BP>();
@@ -133,6 +137,10 @@ namespace EveCal
             }
         }
 
+        public Dictionary<string, BP> _GetAllBP()
+        {
+            return allBP;
+        }
         
         public bool _Have(string bpName)
         {

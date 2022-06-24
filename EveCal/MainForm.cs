@@ -1,5 +1,6 @@
 namespace EveCal
 {
+    using EveCal.BPs;
     using HaulDetail = Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>>;
     public partial class MainForm : Form
     {
@@ -11,7 +12,11 @@ namespace EveCal
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            Dictionary<string, BP> all = Loader.GetAllBP();
+            foreach(string key in all.Keys)
+            {
+                allBPList.Items.Add(key);
+            }
 
         }
 
@@ -184,6 +189,31 @@ namespace EveCal
             }
             
             return text;
+        }
+
+        string itemName = "";
+
+        private void allBPList_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            if(e.Item != null)
+            {
+                itemName = e.Item.Text;
+            } else
+            {
+                itemName = "";
+            }
+        }
+
+        private void allBPList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string text = OutputText.Text.Trim();
+            if(text != "")
+            {
+                text += "\r\n" + itemName;
+            } else
+            {
+                text = itemName;
+            }
         }
     }
 }

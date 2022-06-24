@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.OutputText = new System.Windows.Forms.TextBox();
+            this.allBPList = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // AssetButton
@@ -79,7 +80,7 @@
             this.columnHeader1,
             this.columnHeader2});
             this.RunList.GridLines = true;
-            this.RunList.Location = new System.Drawing.Point(251, 35);
+            this.RunList.Location = new System.Drawing.Point(795, 41);
             this.RunList.MultiSelect = false;
             this.RunList.Name = "RunList";
             this.RunList.Size = new System.Drawing.Size(214, 403);
@@ -110,7 +111,7 @@
             this.columnHeader4,
             this.columnHeader5});
             this.BuyList.GridLines = true;
-            this.BuyList.Location = new System.Drawing.Point(486, 35);
+            this.BuyList.Location = new System.Drawing.Point(1030, 41);
             this.BuyList.MultiSelect = false;
             this.BuyList.Name = "BuyList";
             this.BuyList.Size = new System.Drawing.Size(214, 403);
@@ -141,7 +142,7 @@
             this.columnHeader7,
             this.columnHeader8});
             this.HaulList.GridLines = true;
-            this.HaulList.Location = new System.Drawing.Point(719, 35);
+            this.HaulList.Location = new System.Drawing.Point(1263, 41);
             this.HaulList.MultiSelect = false;
             this.HaulList.Name = "HaulList";
             this.HaulList.Size = new System.Drawing.Size(214, 403);
@@ -166,7 +167,7 @@
             // 
             // CopyRunPlan
             // 
-            this.CopyRunPlan.Location = new System.Drawing.Point(251, 444);
+            this.CopyRunPlan.Location = new System.Drawing.Point(795, 450);
             this.CopyRunPlan.Name = "CopyRunPlan";
             this.CopyRunPlan.Size = new System.Drawing.Size(214, 23);
             this.CopyRunPlan.TabIndex = 7;
@@ -176,7 +177,7 @@
             // 
             // CopyBuyPlan
             // 
-            this.CopyBuyPlan.Location = new System.Drawing.Point(486, 444);
+            this.CopyBuyPlan.Location = new System.Drawing.Point(1030, 450);
             this.CopyBuyPlan.Name = "CopyBuyPlan";
             this.CopyBuyPlan.Size = new System.Drawing.Size(214, 23);
             this.CopyBuyPlan.TabIndex = 7;
@@ -186,7 +187,7 @@
             // 
             // CopyHaulPlan
             // 
-            this.CopyHaulPlan.Location = new System.Drawing.Point(719, 444);
+            this.CopyHaulPlan.Location = new System.Drawing.Point(1263, 450);
             this.CopyHaulPlan.Name = "CopyHaulPlan";
             this.CopyHaulPlan.Size = new System.Drawing.Size(214, 23);
             this.CopyHaulPlan.TabIndex = 7;
@@ -197,7 +198,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(251, 12);
+            this.label1.Location = new System.Drawing.Point(795, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 15);
             this.label1.TabIndex = 8;
@@ -206,7 +207,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(486, 12);
+            this.label2.Location = new System.Drawing.Point(1030, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 15);
             this.label2.TabIndex = 9;
@@ -215,7 +216,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(719, 12);
+            this.label3.Location = new System.Drawing.Point(1263, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 10;
@@ -225,17 +226,28 @@
             // 
             this.OutputText.AcceptsReturn = true;
             this.OutputText.AcceptsTab = true;
-            this.OutputText.Location = new System.Drawing.Point(12, 62);
+            this.OutputText.Location = new System.Drawing.Point(351, 41);
             this.OutputText.Multiline = true;
             this.OutputText.Name = "OutputText";
-            this.OutputText.Size = new System.Drawing.Size(220, 218);
+            this.OutputText.Size = new System.Drawing.Size(421, 430);
             this.OutputText.TabIndex = 11;
+            // 
+            // allBPList
+            // 
+            this.allBPList.Location = new System.Drawing.Point(12, 41);
+            this.allBPList.Name = "allBPList";
+            this.allBPList.Size = new System.Drawing.Size(333, 430);
+            this.allBPList.TabIndex = 12;
+            this.allBPList.UseCompatibleStateImageBehavior = false;
+            this.allBPList.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.allBPList_ItemMouseHover);
+            this.allBPList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.allBPList_MouseDoubleClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(945, 483);
+            this.ClientSize = new System.Drawing.Size(1499, 483);
+            this.Controls.Add(this.allBPList);
             this.Controls.Add(this.OutputText);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -279,5 +291,6 @@
         private Label label2;
         private Label label3;
         private TextBox OutputText;
+        private ListView allBPList;
     }
 }
