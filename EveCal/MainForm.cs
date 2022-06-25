@@ -86,7 +86,7 @@ namespace EveCal
             foreach (var key in currPlan.Item2.Keys)
             {
                 FacilityType haulFrom = key.Item1, haulTo = key.Item2;
-                ListViewGroup gr = new ListViewGroup("" + haulFrom + " -> " + haulTo);
+                ListViewGroup gr = new ListViewGroup("" + Storage.GetName(haulFrom) + " \n-> \n" + Storage.GetName(haulTo));
                 HaulList.Groups.Add(gr);
                 foreach (string item in currPlan.Item2[key].Keys)
                 {
@@ -184,7 +184,7 @@ namespace EveCal
             string text = "";
             foreach (var haulroad in currPlan.Item2.Keys)
             {
-                string road = "" + haulroad.Item1 + "->" + haulroad.Item2+ "\n";
+                string road = "" + Storage.GetName(haulroad.Item1) + "\n->\n" + Storage.GetName(haulroad.Item2) + "\n";
                 text += road;
 
                 int maxLen = 0;

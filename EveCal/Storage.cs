@@ -30,6 +30,7 @@ namespace EveCal
         const string storagePath = "storage";
 
         Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
+        Dictionary<FacilityType, string> FacilityName;
         Dictionary<string, int> Running;
         public static Storage GetInstance()
         {
@@ -42,9 +43,9 @@ namespace EveCal
             return instance;
         }
 
-        public static void UpdateAsset(string content, FacilityType type)
+        public static void UpdateAsset(string content, FacilityType type, string name)
         {
-            GetInstance()._UpdateAsset(content, type);
+            GetInstance()._UpdateAsset(content, type, name);
         }
 
         public static int Get(FacilityType type, string iname)
@@ -72,11 +73,17 @@ namespace EveCal
             return GetInstance()._GetRunningJob();
         }
 
+        public static string GetName(FacilityType type)
+        {
+            return GetInstance()._GetName(type);
+        }
+
         public Storage()
         {
             AllAsset = new Dictionary<FacilityType, Dictionary<string, int>>();
             Running = new Dictionary<string, int>();
-            if(!Directory.Exists(storagePath))
+            FacilityName = new Dictionary<FacilityType, string>();
+            if (!Directory.Exists(storagePath))
             {
                 Directory.CreateDirectory(storagePath);
             }
@@ -86,9 +93,24 @@ namespace EveCal
                 if (File.Exists(filename))
                 {
                     string[] lines = LoadFile(filename);
-                    foreach(string line in lines)
+                    int len = lines.Length;
+                    int start = 0;
+                    if(len > 0)
                     {
-                        string[] parts = line.Split('\t');
+                        if (lines[0].Split("\t").Length == 1)
+                        {
+                            start = 1;
+                            FacilityName.Add(ftype, lines[0]);
+                        }
+                        else
+                        {
+                            FacilityName.Add(ftype, ftype.ToString());
+                        } 
+                            
+                    }
+                    for (int i = start; i < len; i++)
+                    {
+                        string[] parts = lines[i].Split('\t');
                         if(parts.Length > 1)
                         {
                             string name = parts[0].Trim();
@@ -127,7 +149,7 @@ namespace EveCal
             return text.Split("\n");
         }
 
-        public void _UpdateAsset(string content, FacilityType type)
+        public void _UpdateAsset(string content, FacilityType type, string name)
         {
             if (!AllAsset.ContainsKey(type)) return; 
             Dictionary<string, int> map = AllAsset[type];
@@ -139,6 +161,8 @@ namespace EveCal
             StreamWriter writer = new StreamWriter(f);
             map.Clear();
             string[] assets = content.Split("\n");
+            writer.WriteLine(name);
+            FacilityName[type] = name;
             foreach(string asset in assets)
             {
                 string[] info = asset.Split("\t");
@@ -258,6 +282,12 @@ namespace EveCal
         public Dictionary<string, int> _GetRunningJob()
         {
             return Running;
+        }
+
+        public string _GetName(FacilityType type)
+        {
+            if (FacilityName.ContainsKey(type)) return FacilityName[type];
+            return "";
         }
 
     }

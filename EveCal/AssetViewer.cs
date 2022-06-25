@@ -81,12 +81,19 @@ namespace EveCal
                 text += key + "\t" + map[key] + "\r\n";
             }
             AssetTextBox.Text = text;
+            facilityName.Text = Storage.GetName((FacilityType)currBtn.Tag);
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            if (currBtn == RunningJob) Storage.SetRunningJob(AssetTextBox.Text);
-            else if(currBtn != null) Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag);
+            if (currBtn == RunningJob)
+            {
+                Storage.SetRunningJob(AssetTextBox.Text);
+            }
+            else if (currBtn != null)
+            {
+                Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag, facilityName.Text);
+            }
         }
 
         private void RunningJob_Click(object sender, EventArgs e)
@@ -101,6 +108,7 @@ namespace EveCal
                 text += "\t" + map[key] + "\t\t" + key + "\r\n";
             }
             AssetTextBox.Text = text;
+            facilityName.Text = "";
         }
     }
 }

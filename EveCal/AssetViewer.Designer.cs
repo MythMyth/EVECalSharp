@@ -42,6 +42,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.RunningJob = new System.Windows.Forms.Button();
+            this.facilityName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // AssetTextBox
@@ -49,10 +50,10 @@
             this.AssetTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AssetTextBox.Location = new System.Drawing.Point(457, 12);
+            this.AssetTextBox.Location = new System.Drawing.Point(457, 41);
             this.AssetTextBox.Multiline = true;
             this.AssetTextBox.Name = "AssetTextBox";
-            this.AssetTextBox.Size = new System.Drawing.Size(1031, 708);
+            this.AssetTextBox.Size = new System.Drawing.Size(1031, 679);
             this.AssetTextBox.TabIndex = 1;
             // 
             // UpdateButton
@@ -199,11 +200,21 @@
             this.RunningJob.UseVisualStyleBackColor = false;
             this.RunningJob.Click += new System.EventHandler(this.RunningJob_Click);
             // 
+            // facilityName
+            // 
+            this.facilityName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.facilityName.Location = new System.Drawing.Point(457, 12);
+            this.facilityName.Name = "facilityName";
+            this.facilityName.Size = new System.Drawing.Size(1031, 23);
+            this.facilityName.TabIndex = 5;
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.facilityName);
             this.Controls.Add(this.RunningJob);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button11);
@@ -241,5 +252,6 @@
         private Button button10;
         private Button button11;
         private Button RunningJob;
+        private TextBox facilityName;
     }
 }
