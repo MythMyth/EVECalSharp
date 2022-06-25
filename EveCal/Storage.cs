@@ -252,6 +252,7 @@ namespace EveCal
             foreach(string job in jobs)
             {
                 string[] col = job.Split("\t");
+                if(col.Length < 4) continue;
                 int jobRun =  int.Parse(col[1]);
                 if (col[2].Trim() == "Reaction")
                 {

@@ -49,11 +49,11 @@ namespace EveCal
                 if(demand[facility].ContainsKey(item))
                 {
                     int demandInThisFacility = demand[facility][item] - Storage.Get(facility, item);
-                    if(haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0 && ((!Loader.Have(item)) || (Loader.Get(item).MakeAt() != facility))) {
+                    if(haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0) {
                         int haul = Math.Min(demandInThisFacility, haulable[item]);
                         demandInThisFacility -= haul;
                         haulable[item] -= haul;
-                        if(haul > 0) { 
+                        if(haul > 0 && ((!Loader.Have(item)) || (Loader.Get(item).MakeAt() != facility))) { 
                             BP bp = Loader.Get(item);
                             Tuple < FacilityType, FacilityType > road;
                             if (bp == null)

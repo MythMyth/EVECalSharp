@@ -1,30 +1,19 @@
 Run plan:
 
-Nitrogen Fuel Block                         ||    200
-Sulfuric Acid                               ||    100
-Platinum Technite                           ||    100
-Helium Fuel Block                           ||    200
-Neo Mercurite                               ||    100
 Nanotransistors                             ||    100
-Oxygen Fuel Block                           ||    400
-Titanium Chromide                           ||    500
-Hydrogen Fuel Block                         ||    200
-Ferrofluid                                  ||    200
+Titanium Chromide                           ||    300
 Nonlinear Metamaterials                     ||    300
 Carbon Polymers                             ||    200
 Fullerides                                  ||    100
 Silicon Diborite                            ||    500
 Titanium Carbide                            ||    700
 Scalar Capacitor Unit                       ||    12000
-Caracal                                     ||    20
 Vanadium Hafnite                            ||    200
 Solerium                                    ||    100
-Dysporite                                   ||    100
 Hypersynaptic Fibers                        ||    100
 Gravimetric Sensor Cluster                  ||    12000
 Caesarium Cadmide                           ||    200
 Phenolic Composites                         ||    200
-Hexite                                      ||    300
 Hyperflurite                                ||    100
 Prometium                                   ||    100
 Ferrogel                                    ||    100
@@ -35,12 +24,10 @@ Sylramic Fibers                             ||    400
 Titanium Diborite Armor Plate               ||    140000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
-Fluxed Condensates                          ||    100
 Fermionic Condensates                       ||    100
 Graviton Reactor Unit                       ||    2000
-Cerberus 1 5 10                             ||    25
+Cerberus 1 5 10                             ||    24
 Crystallite Alloy                           ||    300
-Thulium Hafnite                             ||    100
 Photonic Metamaterials                      ||    200
 Crystalline Carbonide                       ||    300
 Oscillator Capacitor Unit                   ||    8000
@@ -72,69 +59,43 @@ Multispectrum Shield Hardener II 10 5 10    ||    100
 
 Buy plan:
 
-Robotics	1000
-Enriched Uranium	3390
-Mechanical Parts	2750
-Coolant	7620
-Strontium Clathrates	16930
-Oxygen	16865
-Heavy Water	143900
-Liquid Ozone	296260
-Nitrogen Isotopes	76181
-Atmospheric Gases	0
-Evaporite Deposits	56445
-Platinum	26665
-Technetium	9579
-Helium Isotopes	0
-Mercury	19480
-Neodymium	9711
-Oxygen Isotopes	152362
-Chromium	52145
-Titanium	26608
-Hydrogen Isotopes	76181
-Hafnium	7534
-Dysprosium	29220
-Hydrocarbons	0
-Silicates	0
-Morphite	1334
-Tritanium	15452054
-Pyerite	2163925
-Mexallon	355315
-Isogen	84423
-Nocxium	36570
-Zydrine	2258
-Megacyte	753
-Vanadium	0
+Evaporite Deposits	49007
+Hafnium	7522
+Morphite	1199
+Nocxium	20950
 Caesium	29220
-Cadmium	0
-Promethium	19480
-Construction Blocks	1190
-Thulium	4461
-Cobalt	28633
-Transmitter	500
-Miniature Electronics	500
-Superconductors	2160
-Tungsten	859
+Construction Blocks	1055
 Hydrogen Batteries	1080
-Scandium	9740
 
 
 Haul plan:
 
-SOURCE->ADV_MED_SHIP
-    Construction Blocks    ||    3535
+MJ-5F9 - B E A N S T A R
+->
+XU7-CH - Modules
+    Superconductors          ||    2160
+    Miniature Electronics    ||    500
+    Transmitter              ||    500
+    Megacyte                 ||    753
+    Zydrine                  ||    2258
+    Isogen                   ||    1131
+    Mexallon                 ||    129696
+    Pyerite                  ||    1712935
+    Tritanium                ||    2067691
 
 ====================
 
-MEDIUM_SHIP->ADV_MED_SHIP
-    Caracal    ||    5
+JZ-UQC - EC Medium Ships
+->
+JZ-UQC - EC T2 Medium Ships
+    Caracal    ||    1
 
 ====================
 
-SOURCE->FUEL_COMP
-    Helium Isotopes     ||    76181
-    Oxygen              ||    1760
-    Mechanical Parts    ||    640
+MJ-5F9 - B E A N S T A R
+->
+XU7-CH - EC T2 Components
+    Nocxium    ||    15620
 
 ====================
 
