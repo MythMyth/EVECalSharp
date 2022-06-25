@@ -12,10 +12,22 @@ namespace EveCal
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //Create groups
+
+            allBPList.Clear();
+            Dictionary<FacilityType, ListViewGroup> gr_map = new Dictionary<FacilityType, ListViewGroup>();
+            foreach(FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
+            {
+                gr_map.Add(facilityType, new ListViewGroup(facilityType.ToString()));
+                allBPList.Groups.Add(gr_map[facilityType]);
+            }
+
             Dictionary<string, BP> all = Loader.GetAllBP();
             foreach(string key in all.Keys)
             {
-                allBPList.Items.Add(key);
+                ListViewItem item = new ListViewItem(key);
+                item.Group = gr_map[all[key].MakeAt()];
+                allBPList.Items.Add(item);
             }
 
         }
@@ -214,6 +226,7 @@ namespace EveCal
             {
                 text = itemName;
             }
+            OutputText.Text = text;
         }
     }
 }

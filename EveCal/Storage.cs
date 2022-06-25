@@ -103,6 +103,22 @@ namespace EveCal
                     }
                 }
             }
+
+            if(File.Exists(storagePath + "\\Running"))
+            {
+                string[] lines = LoadFile(storagePath + "\\Running");
+                foreach(string line in lines)
+                {
+                    string[] parts = line.Split("\t");
+                    if(parts.Length > 1)
+                    {
+                        string name = parts[0].Trim();
+                        int number = int.Parse(parts[1]);
+                        if (!Running.ContainsKey(name)) Running.Add(name, 0);
+                        Running[name] += number;
+                    }
+                }
+            }
         }
 
         string[] LoadFile(string fname)
@@ -201,7 +217,14 @@ namespace EveCal
 
         public void _SetRunningJob(string s)
         {
+            if (!File.Exists(storagePath + "\\Running"))
+            {
+                File.Create(storagePath + "\\Running").Close();
+            }
+            FileStream f = File.Open(storagePath + "\\Running", FileMode.Truncate);
+            StreamWriter writer = new StreamWriter(f);
             string[] jobs = s.Split("\n");
+            Running.Clear();
             foreach(string job in jobs)
             {
                 string[] col = job.Split("\t");
@@ -223,6 +246,13 @@ namespace EveCal
                     Running[bpName] += jobRun;
                 }
             }
+
+            foreach(string key in Running.Keys)
+            {
+                writer.WriteLine(key + "\t" + Running[key]);
+            }
+            writer.Close();
+            f.Close();
         }
 
         public Dictionary<string, int> _GetRunningJob()

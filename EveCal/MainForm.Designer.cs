@@ -50,6 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.OutputText = new System.Windows.Forms.TextBox();
             this.allBPList = new System.Windows.Forms.ListView();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // AssetButton
@@ -74,6 +75,8 @@
             // 
             // RunList
             // 
+            this.RunList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.RunList.BackColor = System.Drawing.SystemColors.Info;
             this.RunList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
@@ -83,7 +86,7 @@
             this.RunList.Location = new System.Drawing.Point(795, 41);
             this.RunList.MultiSelect = false;
             this.RunList.Name = "RunList";
-            this.RunList.Size = new System.Drawing.Size(214, 403);
+            this.RunList.Size = new System.Drawing.Size(320, 678);
             this.RunList.TabIndex = 4;
             this.RunList.UseCompatibleStateImageBehavior = false;
             this.RunList.View = System.Windows.Forms.View.Details;
@@ -105,16 +108,18 @@
             // 
             // BuyList
             // 
+            this.BuyList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.BuyList.BackColor = System.Drawing.SystemColors.Info;
             this.BuyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
             this.BuyList.GridLines = true;
-            this.BuyList.Location = new System.Drawing.Point(1030, 41);
+            this.BuyList.Location = new System.Drawing.Point(1130, 41);
             this.BuyList.MultiSelect = false;
             this.BuyList.Name = "BuyList";
-            this.BuyList.Size = new System.Drawing.Size(214, 403);
+            this.BuyList.Size = new System.Drawing.Size(320, 678);
             this.BuyList.TabIndex = 5;
             this.BuyList.UseCompatibleStateImageBehavior = false;
             this.BuyList.View = System.Windows.Forms.View.Details;
@@ -136,16 +141,18 @@
             // 
             // HaulList
             // 
+            this.HaulList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.HaulList.BackColor = System.Drawing.SystemColors.Info;
             this.HaulList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
             this.HaulList.GridLines = true;
-            this.HaulList.Location = new System.Drawing.Point(1263, 41);
+            this.HaulList.Location = new System.Drawing.Point(1469, 41);
             this.HaulList.MultiSelect = false;
             this.HaulList.Name = "HaulList";
-            this.HaulList.Size = new System.Drawing.Size(214, 403);
+            this.HaulList.Size = new System.Drawing.Size(320, 678);
             this.HaulList.TabIndex = 6;
             this.HaulList.UseCompatibleStateImageBehavior = false;
             this.HaulList.View = System.Windows.Forms.View.Details;
@@ -167,9 +174,10 @@
             // 
             // CopyRunPlan
             // 
-            this.CopyRunPlan.Location = new System.Drawing.Point(795, 450);
+            this.CopyRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CopyRunPlan.Location = new System.Drawing.Point(795, 725);
             this.CopyRunPlan.Name = "CopyRunPlan";
-            this.CopyRunPlan.Size = new System.Drawing.Size(214, 23);
+            this.CopyRunPlan.Size = new System.Drawing.Size(320, 23);
             this.CopyRunPlan.TabIndex = 7;
             this.CopyRunPlan.Text = "Copy";
             this.CopyRunPlan.UseVisualStyleBackColor = true;
@@ -177,9 +185,10 @@
             // 
             // CopyBuyPlan
             // 
-            this.CopyBuyPlan.Location = new System.Drawing.Point(1030, 450);
+            this.CopyBuyPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CopyBuyPlan.Location = new System.Drawing.Point(1130, 725);
             this.CopyBuyPlan.Name = "CopyBuyPlan";
-            this.CopyBuyPlan.Size = new System.Drawing.Size(214, 23);
+            this.CopyBuyPlan.Size = new System.Drawing.Size(320, 23);
             this.CopyBuyPlan.TabIndex = 7;
             this.CopyBuyPlan.Text = "Copy";
             this.CopyBuyPlan.UseVisualStyleBackColor = true;
@@ -187,9 +196,10 @@
             // 
             // CopyHaulPlan
             // 
-            this.CopyHaulPlan.Location = new System.Drawing.Point(1263, 450);
+            this.CopyHaulPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CopyHaulPlan.Location = new System.Drawing.Point(1469, 725);
             this.CopyHaulPlan.Name = "CopyHaulPlan";
-            this.CopyHaulPlan.Size = new System.Drawing.Size(214, 23);
+            this.CopyHaulPlan.Size = new System.Drawing.Size(320, 23);
             this.CopyHaulPlan.TabIndex = 7;
             this.CopyHaulPlan.Text = "Copy";
             this.CopyHaulPlan.UseVisualStyleBackColor = true;
@@ -207,7 +217,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1030, 18);
+            this.label2.Location = new System.Drawing.Point(1130, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 15);
             this.label2.TabIndex = 9;
@@ -216,7 +226,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1263, 18);
+            this.label3.Location = new System.Drawing.Point(1469, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 10;
@@ -226,27 +236,39 @@
             // 
             this.OutputText.AcceptsReturn = true;
             this.OutputText.AcceptsTab = true;
+            this.OutputText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.OutputText.Location = new System.Drawing.Point(351, 41);
             this.OutputText.Multiline = true;
             this.OutputText.Name = "OutputText";
-            this.OutputText.Size = new System.Drawing.Size(421, 430);
+            this.OutputText.Size = new System.Drawing.Size(421, 707);
             this.OutputText.TabIndex = 11;
             // 
             // allBPList
             // 
+            this.allBPList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.allBPList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9});
             this.allBPList.Location = new System.Drawing.Point(12, 41);
+            this.allBPList.MultiSelect = false;
             this.allBPList.Name = "allBPList";
-            this.allBPList.Size = new System.Drawing.Size(333, 430);
+            this.allBPList.Size = new System.Drawing.Size(333, 707);
             this.allBPList.TabIndex = 12;
             this.allBPList.UseCompatibleStateImageBehavior = false;
+            this.allBPList.View = System.Windows.Forms.View.Tile;
             this.allBPList.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.allBPList_ItemMouseHover);
             this.allBPList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.allBPList_MouseDoubleClick);
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1499, 483);
+            this.ClientSize = new System.Drawing.Size(1809, 760);
             this.Controls.Add(this.allBPList);
             this.Controls.Add(this.OutputText);
             this.Controls.Add(this.label3);
@@ -292,5 +314,6 @@
         private Label label3;
         private TextBox OutputText;
         private ListView allBPList;
+        private ColumnHeader columnHeader9;
     }
 }

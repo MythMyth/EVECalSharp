@@ -1,125 +1,121 @@
 Run plan:
 
-Multispectrum Shield Hardener I             ||    100
-Hexite                                      ||    300
-Hyperflurite                                ||    100
-Ferrofluid                                  ||    200
-Prometium                                   ||    100
-Ferrogel                                    ||    100
-Ceramic Powder                              ||    300
-Sylramic Fibers                             ||    400
-Titanium Chromide                           ||    500
-Silicon Diborite                            ||    500
-Titanium Carbide                            ||    700
-Sustained Shield Emitter                    ||    12000
-Fernite Alloy                               ||    100
-Fernite Carbide                             ||    100
-Deflection Shield Emitter                   ||    4000
-Crystallite Alloy                           ||    300
-Carbon Polymers                             ||    200
-Crystalline Carbonide                       ||    300
-Pulse Shield Emitter                        ||    8000
-R.A.M.- Shield Tech                         ||    400
-Rolled Tungsten Alloy                       ||    100
+Nitrogen Fuel Block                         ||    200
 Sulfuric Acid                               ||    100
-Tungsten Carbide                            ||    100
-Linear Shield Emitter                       ||    4000
-Multispectrum Shield Hardener II 10 5 10    ||    100
-Large Shield Extender I                     ||    100
-Large Shield Extender II 10 5 10            ||    100
-Drone Damage Amplifier I                    ||    200
-Caesarium Cadmide                           ||    200
-Vanadium Hafnite                            ||    200
-Phenolic Composites                         ||    200
 Platinum Technite                           ||    100
+Helium Fuel Block                           ||    200
 Neo Mercurite                               ||    100
 Nanotransistors                             ||    100
-Thulium Hafnite                             ||    100
-Photonic Metamaterials                      ||    200
-Photon Microprocessor                       ||    16000
-R.A.M.- Electronics                         ||    200
-Drone Damage Amplifier II 11 4 14           ||    110
+Titanium Chromide                           ||    500
+Ferrofluid                                  ||    200
 Nonlinear Metamaterials                     ||    300
+Carbon Polymers                             ||    200
 Fullerides                                  ||    100
+Silicon Diborite                            ||    500
+Titanium Carbide                            ||    700
 Scalar Capacitor Unit                       ||    12000
+Vanadium Hafnite                            ||    200
 Solerium                                    ||    100
 Dysporite                                   ||    100
 Hypersynaptic Fibers                        ||    100
 Gravimetric Sensor Cluster                  ||    12000
+Caesarium Cadmide                           ||    200
+Phenolic Composites                         ||    200
+Hexite                                      ||    300
+Hyperflurite                                ||    100
+Prometium                                   ||    100
+Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
 R.A.M.- Starship Tech                       ||    600
+Ceramic Powder                              ||    300
+Sylramic Fibers                             ||    400
 Titanium Diborite Armor Plate               ||    140000
 Quantum Microprocessor                      ||    32000
+Sustained Shield Emitter                    ||    12000
 Fluxed Condensates                          ||    100
 Fermionic Condensates                       ||    100
 Graviton Reactor Unit                       ||    2000
 Cerberus 1 5 10                             ||    24
+Crystallite Alloy                           ||    300
+Thulium Hafnite                             ||    100
+Photonic Metamaterials                      ||    200
+Crystalline Carbonide                       ||    300
 Oscillator Capacitor Unit                   ||    8000
+Pulse Shield Emitter                        ||    8000
 Magnetometric Sensor Cluster                ||    4000
 Vexor                                       ||    10
+Photon Microprocessor                       ||    16000
 Ion Thruster                                ||    4000
 Crystalline Carbonide Armor Plate           ||    60000
 Fusion Reactor Unit                         ||    2000
 Ishtar 1 5 10                               ||    10
+Drone Damage Amplifier I                    ||    200
+R.A.M.- Electronics                         ||    200
+Drone Damage Amplifier II 11 4 14           ||    110
 EM Shield Hardener I                        ||    100
+R.A.M.- Shield Tech                         ||    400
+Rolled Tungsten Alloy                       ||    100
+Tungsten Carbide                            ||    100
+Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
+Large Shield Extender I                     ||    100
+Large Shield Extender II 10 5 10            ||    100
+Multispectrum Shield Hardener I             ||    100
+Fernite Alloy                               ||    100
+Fernite Carbide                             ||    100
+Deflection Shield Emitter                   ||    4000
+Multispectrum Shield Hardener II 10 5 10    ||    100
 
 
 Buy plan:
 
-Tritanium	5945870
-Pyerite	0
-Mexallon	0
-Isogen	84423
-Robotics	0
-Enriched Uranium	0
-Mechanical Parts	0
-Coolant	0
-Strontium Clathrates	0
-Oxygen	0
-Heavy Water	0
-Liquid Ozone	0
-Hydrogen Isotopes	0
-Hydrogen Fuel Block	0
-Nitrogen Isotopes	0
-Nitrogen Fuel Block	0
-Chromium	0
-Platinum	0
-Vanadium	0
-Promethium	19480
-Hafnium	7534
-Dysprosium	0
-Oxygen Isotopes	0
-Oxygen Fuel Block	0
-Cadmium	0
-Helium Isotopes	0
-Helium Fuel Block	0
-Evaporite Deposits	22482
-Silicates	0
-Titanium	0
+Robotics	253
+Enriched Uranium	1356
+Mechanical Parts	716
+Coolant	3048
+Strontium Clathrates	6772
+Oxygen	5690
+Heavy Water	57560
+Liquid Ozone	118504
+Nitrogen Isotopes	76181
+Evaporite Deposits	58747
+Platinum	9810
+Helium Isotopes	76181
+Titanium	14031
+Hafnium	36742
 Morphite	1199
-Superconductors	0
-Scandium	0
-Cobalt	0
-Hydrocarbons	0
 Nocxium	36570
-Tungsten	0
-Atmospheric Gases	0
-Hydrogen Batteries	1080
 Zydrine	2258
 Megacyte	753
+Caesium	29220
+Promethium	19480
+Construction Blocks	1055
+Thulium	1679
 Transmitter	500
 Miniature Electronics	500
-Caesium	29220
-Technetium	0
-Mercury	0
-Neodymium	0
-Thulium	0
-Caracal	0
-Construction Blocks	1055
+Hydrogen Batteries	1080
 
 
 Haul plan:
+
+SOURCE->REACTION
+    Tungsten              ||    859
+    Thulium               ||    2254
+    Titanium              ||    2049
+    Neodymium             ||    1183
+    Platinum              ||    5799
+    Evaporite Deposits    ||    7434
+
+====================
+
+SOURCE->MODULE
+    Superconductors    ||    2160
+    Isogen             ||    1131
+    Mexallon           ||    129696
+    Pyerite            ||    1712935
+    Tritanium          ||    2067691
+
+====================
 
 SOURCE->ADV_MED_SHIP
     Construction Blocks    ||    3535
@@ -131,41 +127,23 @@ MEDIUM_SHIP->ADV_MED_SHIP
 
 ====================
 
-SOURCE->REACTION
-    Thulium               ||    4461
-    Neodymium             ||    9711
-    Mercury               ||    19480
-    Technetium            ||    9579
-    Tungsten              ||    859
-    Cobalt                ||    28633
-    Scandium              ||    9740
-    Titanium              ||    26608
-    Evaporite Deposits    ||    33963
-    Dysprosium            ||    29220
-    Platinum              ||    26665
-    Chromium              ||    52145
-
-====================
-
-SOURCE->MODULE
-    Superconductors    ||    2160
-    Mexallon           ||    129696
-    Pyerite            ||    1712935
-    Tritanium          ||    364524
-
-====================
-
-FUEL_COMP->REACTION
-    Helium Fuel Block      ||    7305
-    Oxygen Fuel Block      ||    13149
-    Nitrogen Fuel Block    ||    6331
-    Hydrogen Fuel Block    ||    5357
-
-====================
-
 SOURCE->ADV_COMPONENT
-    Mexallon    ||    225498
-    Pyerite     ||    450990
+    Isogen       ||    83292
+    Mexallon     ||    225498
+    Pyerite      ||    450990
+    Tritanium    ||    564756
+
+====================
+
+SOURCE->MEDIUM_SHIP
+    Tritanium    ||    3677947
+
+====================
+
+SOURCE->FUEL_COMP
+    Oxygen              ||    1760
+    Mechanical Parts    ||    640
+    Robotics            ||    147
 
 ====================
 

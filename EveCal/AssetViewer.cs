@@ -86,7 +86,7 @@ namespace EveCal
         private void UpdateButton_Click(object sender, EventArgs e)
         {
             if (currBtn == RunningJob) Storage.SetRunningJob(AssetTextBox.Text);
-            if(currBtn != null) Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag);
+            else if(currBtn != null) Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag);
         }
 
         private void RunningJob_Click(object sender, EventArgs e)

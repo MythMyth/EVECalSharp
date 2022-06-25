@@ -1,0 +1,1 @@
+copy /Y EveCal\bin\Release\net6.0-windows\* Output 
