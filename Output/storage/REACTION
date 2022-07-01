@@ -1,4 +1,4 @@
-XU7-CH - T2 Reaction
+XU7-CH - T2 Reaction
 Caesarium Cadmide Reaction Formula	3
 Carbon Fiber Reaction Formula	3
 Carbon Polymers Reaction Formula	3
@@ -6,33 +6,41 @@ Ceramic Powder Reaction Formula	3
 Crystalline Carbonide Reaction Formula	3
 Crystallite Alloy Reaction Formula	3
 Dysporite Reaction Formula	2
+Dysporite Reaction Formula	1
 Fermionic Condensates Reaction Formula	3
 Fernite Alloy Reaction Formula	3
 Fernite Carbide Reaction Formula	3
 Ferrofluid Reaction Formula	2
 Ferrogel Reaction Formula	3
 Fluxed Condensates Reaction Formula	2
+Fluxed Condensates Reaction Formula	1
 Fulleride Reaction Formula	3
 Hexite Reaction Formula	2
 Hyperflurite Reaction Formula	3
 Hypersynaptic Fibers Reaction Formula	3
 Nanotransistors Reaction Formula	3
 Neo Mercurite Reaction Formula	2
+Neo Mercurite Reaction Formula	1
 Nonlinear Metamaterials Reaction Formula	3
 Phenolic Composites Reaction Formula	3
 Photonic Metamaterials Reaction Formula	3
 Plasmonic Metamaterials Reaction Formula	3
 Platinum Technite Reaction Formula	2
+Platinum Technite Reaction Formula	1
 Promethium Mercurite Reaction Formula	3
 Prometium Reaction Formula	3
 Rolled Tungsten Alloy Reaction Formula	3
 Silicon Diborite Reaction Formula	3
 Solerium Reaction Formula	3
 Sulfuric Acid Reaction Formula	2
+Sulfuric Acid Reaction Formula	1
 Sylramic Fibers Reaction Formula	3
 Terahertz Metamaterials Reaction Formula	3
 Thulium Hafnite Reaction Formula	2
+Thulium Hafnite Reaction Formula	1
 Titanium Carbide Reaction Formula	3
+Titanium Chromide Reaction Formula	1
+Titanium Chromide Reaction Formula	1
 Titanium Chromide Reaction Formula	1
 Tungsten Carbide Reaction Formula	3
 Vanadium Hafnite Reaction Formula	3
@@ -40,22 +48,54 @@ Helium Fuel Block	7026
 Hydrogen Fuel Block	6539
 Nitrogen Fuel Block	5565
 Oxygen Fuel Block	14539
-Atmospheric Gases	150858
-Cadmium	162422
-Chromium	140229
-Cobalt	103364
+Dysporite	20000
+Fluxed Condensates	20000
+Neo Mercurite	20000
+Platinum Technite	20000
+Sulfuric Acid	20000
+Thulium Hafnite	20000
+Titanium Chromide	20000
+Titanium Chromide	20000
+Atmospheric Gases	44764
+Atmospheric Gases	7292
+Atmospheric Gases	98802
+Cadmium	155266
+Cadmium	7156
+Caesium	129220
+Chromium	139438
+Chromium	791
+Cobalt	3975
+Cobalt	587
+Cobalt	98802
 Dysprosium	78981
-Evaporite Deposits	28913
+Evaporite Deposits	21479
+Evaporite Deposits	58747
+Evaporite Deposits	7434
 Hafnium	11958
-Hydrocarbons	99914
-Mercury	45256
-Neodymium	20038
-Platinum	185348
+Hafnium	56742
+Hydrocarbons	25935
+Hydrocarbons	73979
+Mercury	14728
+Mercury	30528
+Neodymium	1741
+Neodymium	18297
+Platinum	152257
+Platinum	33091
 Promethium	50000
 Scandium	169838
-Silicates	107619
-Technetium	39765
-Thulium	17801
-Titanium	91432
-Tungsten	13424
-Vanadium	280230
+Silicates	105570
+Silicates	2049
+Technetium	161
+Technetium	19340
+Technetium	20264
+Thulium	11679
+Thulium	15547
+Thulium	2254
+Titanium	10528
+Titanium	22092
+Titanium	58812
+Tungsten	4543
+Tungsten	8881
+Vanadium	230009
+Vanadium	50221
+Windy Vu's Amarr Shuttle	1
