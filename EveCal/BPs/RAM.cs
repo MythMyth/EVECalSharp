@@ -12,6 +12,7 @@ namespace EveCal.BPs
         public RAM(string fname)
         {
             name = fname;
+            output = 100;
             maxRun = 200;
             ME = 10;
             TE = 20;
