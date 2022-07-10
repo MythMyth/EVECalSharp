@@ -1,6 +1,8 @@
 namespace EveCal
 {
     using EveCal.BPs;
+    using System.Web.Http;
+    using System.Web.Http.Results;
     using HaulDetail = Dictionary<Tuple<FacilityType, FacilityType>, Dictionary<string, int>>;
     public partial class MainForm : Form
     {
@@ -228,5 +230,13 @@ namespace EveCal
             }
             OutputText.Text = text;
         }
+                private void login_btn_Click(object sender, EventArgs e)
+        {
+            SSO sso = new SSO();
+            sso.Show();
+        }
+
+        
+
     }
 }

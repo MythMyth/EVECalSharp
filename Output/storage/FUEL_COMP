@@ -1,30 +1,30 @@
-MJ-5F9 EC Structures, Fuel, Components
+MJ-5F9 EC Structures, Fuel, Components
+Helium Fuel Block Blueprint	1
+Helium Fuel Block Blueprint	1
+Helium Fuel Block Blueprint	1
+Helium Fuel Block Blueprint	1
+Hydrogen Fuel Block Blueprint	1
+Hydrogen Fuel Block Blueprint	1
+Hydrogen Fuel Block Blueprint	1
+Hydrogen Fuel Block Blueprint	1
+Hydrogen Fuel Block Blueprint	1
+Nitrogen Fuel Block Blueprint	1
+Nitrogen Fuel Block Blueprint	1
+Nitrogen Fuel Block Blueprint	1
+Nitrogen Fuel Block Blueprint	1
+Nitrogen Fuel Block Blueprint	1
+Oxygen Fuel Block Blueprint	1
+Oxygen Fuel Block Blueprint	1
+Oxygen Fuel Block Blueprint	1
+Oxygen Fuel Block Blueprint	1
+Oxygen Fuel Block Blueprint	1
 Oxygen	37
-Helium Fuel Block	8000
-Helium Fuel Block Blueprint	1
-Helium Fuel Block Blueprint	1
-Helium Fuel Block Blueprint	1
-Helium Fuel Block Blueprint	1
-Hydrogen Fuel Block Blueprint	1
-Hydrogen Fuel Block Blueprint	1
-Hydrogen Fuel Block Blueprint	1
-Hydrogen Fuel Block Blueprint	1
-Hydrogen Fuel Block Blueprint	1
-Nitrogen Fuel Block Blueprint	1
-Nitrogen Fuel Block Blueprint	1
-Nitrogen Fuel Block Blueprint	1
-Nitrogen Fuel Block Blueprint	1
-Nitrogen Fuel Block Blueprint	1
-Oxygen Fuel Block Blueprint	1
-Oxygen Fuel Block Blueprint	1
-Oxygen Fuel Block Blueprint	1
-Oxygen Fuel Block Blueprint	1
-Oxygen Fuel Block Blueprint	1
-Heavy Water	31232
 Helium Isotopes	32
 Liquid Ozone	773
 Strontium Clathrates	1615
-Coolant	1525
+Heavy Water	31232
 Enriched Uranium	679
 Mechanical Parts	679
 Robotics	147
+Coolant	1525
+Helium Fuel Block	8000

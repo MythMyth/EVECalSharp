@@ -1,34 +1,18 @@
 Run plan:
 
-Nanotransistors                             ||    100
-Nonlinear Metamaterials                     ||    300
-Carbon Polymers                             ||    200
-Fullerides                                  ||    100
-Silicon Diborite                            ||    500
-Titanium Carbide                            ||    700
+Titanium Carbide                            ||    200
 Scalar Capacitor Unit                       ||    12000
 Caracal                                     ||    10
-Vanadium Hafnite                            ||    200
-Solerium                                    ||    100
-Hypersynaptic Fibers                        ||    100
 Gravimetric Sensor Cluster                  ||    12000
-Caesarium Cadmide                           ||    200
-Phenolic Composites                         ||    200
-Hyperflurite                                ||    100
-Prometium                                   ||    100
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-R.A.M.- Starship Tech                       ||    400
-Ceramic Powder                              ||    300
-Sylramic Fibers                             ||    400
 Titanium Diborite Armor Plate               ||    140000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
 Fermionic Condensates                       ||    100
 Graviton Reactor Unit                       ||    2000
 Cerberus 1 5 10                             ||    24
-Crystallite Alloy                           ||    300
-Photonic Metamaterials                      ||    200
+Crystallite Alloy                           ||    100
 Crystalline Carbonide                       ||    300
 Oscillator Capacitor Unit                   ||    8000
 Pulse Shield Emitter                        ||    8000
@@ -39,13 +23,11 @@ Crystalline Carbonide Armor Plate           ||    60000
 Fusion Reactor Unit                         ||    2000
 Ishtar 1 5 10                               ||    10
 Drone Damage Amplifier II 11 4 14           ||    110
-R.A.M.- Shield Tech                         ||    400
 Rolled Tungsten Alloy                       ||    100
 Tungsten Carbide                            ||    100
 Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
 Large Shield Extender II 10 5 10            ||    100
-Fernite Alloy                               ||    100
 Fernite Carbide                             ||    100
 Deflection Shield Emitter                   ||    4000
 Multispectrum Shield Hardener II 10 5 10    ||    100
@@ -57,24 +39,39 @@ Buy plan:
 
 Haul plan:
 
-XU7-CH - EC T2 Components
+XU7-CH - EC T2 Components
 ->
-XU7-CH - Modules
+XU7-CH - Modules
+    R.A.M.- Shield Tech    ||    300
     R.A.M.- Electronics    ||    110
 
 ====================
 
-JZ-UQC - EC Medium Ships
+JZ-UQC - EC Medium Ships
 ->
-JZ-UQC - EC T2 Medium Ships
+JZ-UQC - EC T2 Medium Ships
     Vexor    ||    10
 
 ====================
 
-XU7-CH - EC T2 Components
+XU7-CH - T2 Reaction
 ->
-JZ-UQC - EC T2 Medium Ships
-    R.A.M.- Starship Tech    ||    200
+XU7-CH - EC T2 Components
+    Photonic Metamaterials     ||    40632
+    Sylramic Fibers            ||    2075501
+    Phenolic Composites        ||    264096
+    Hypersynaptic Fibers       ||    27088
+    Titanium Carbide           ||    5000000
+    Fullerides                 ||    186220
+    Nonlinear Metamaterials    ||    74492
+    Nanotransistors            ||    117264
+
+====================
+
+XU7-CH - EC T2 Components
+->
+JZ-UQC - EC T2 Medium Ships
+    R.A.M.- Starship Tech    ||    578
 
 ====================
 
