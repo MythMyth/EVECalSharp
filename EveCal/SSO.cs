@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace EveCal
             {
                 HttpListenerContext context = httpListener.GetContext(); // get a context
                                                                          // Now, you'll find the request URL in context.Request.Url
+                if (!context.Request.Url.ToString().Contains("oauth-callback")) continue;
                 string code = context.Request.Url.Query;
                 code = code.Replace("?code=", "");
                 byte[] _responseArray = Encoding.UTF8.GetBytes("<html><head><title>Input Character</title></head>" +
@@ -45,7 +47,7 @@ namespace EveCal
                 context.Response.KeepAlive = false; // set the KeepAlive bool to false
                 context.Response.Close(); // close the connection
                 Console.WriteLine("Respone given to a request.");
-                
+                getToken(code);
             }
         }
         string login_path = "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:5000/oauth-callback&client_id=bde31e1c883541088a340b124b3734f5";
@@ -56,7 +58,7 @@ namespace EveCal
             {
                 Process.Start(defalutBrowser, login_path);
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
                 
             }
@@ -79,7 +81,7 @@ namespace EveCal
             }
             catch(Exception e)
             {
-
+                errorLbl.Text = e.Message;
             }
 
             return ret;
@@ -87,30 +89,75 @@ namespace EveCal
 
         async Task getToken(string code)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>()
+            var body = new Dictionary<string, string>()
             {
                 { "grant_type", "authorization_code" },
                 { "code", code }
             };
             HttpClient client = new HttpClient();
-            HttpContent content = new FormUrlEncodedContent(body);
-            client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-            client.DefaultRequestHeaders.Add("Authorization ", "Basic YmRlMzFlMWM4ODM1NDEwODhhMzQwYjEyNGIzNzM0ZjU6QjZPQjdzMXhhSG41WlRDZFBZUE14b2tMYzlkYmF0UkxlblV4THhlUg==");
+            var content = new FormUrlEncodedContent(body);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YmRlMzFlMWM4ODM1NDEwODhhMzQwYjEyNGIzNzM0ZjU6QjZPQjdzMXhhSG41WlRDZFBZUE14b2tMYzlkYmF0UkxlblV4THhlUg==");
+            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = await client.PostAsync(token_path, content);
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>( (await response.Content.ReadAsStringAsync()).ToString());
-
+            if(res.ContainsKey("access_token"))
+            {
+                await getCharInfo(code, res["access_token"], res["refresh_token"]);
+                errorLbl.Text = "";
+            } else
+            {
+                errorLbl.Text = "Get token failed";
+            }
         }
 
         async Task getRefreshToken(string code, string refreshToken)
         {
-
+            Dictionary<string, string> body = new Dictionary<string, string>()
+            {
+                { "grant_type", "refresh_token" },
+                { "refresh_token", refreshToken }
+            };
+            HttpClient client = new HttpClient();
+            HttpContent content = new FormUrlEncodedContent(body);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YmRlMzFlMWM4ODM1NDEwODhhMzQwYjEyNGIzNzM0ZjU6QjZPQjdzMXhhSG41WlRDZFBZUE14b2tMYzlkYmF0UkxlblV4THhlUg");
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PostAsync(token_path, content);
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            if (res.ContainsKey("access_token"))
+            {
+                await getCharInfo(code, res["access_token"], res["refresh_token"]);
+                errorLbl.Text = "";
+            } else
+            {
+                errorLbl.Text = "Get refresh token failed";
+            }
         }
         string verify_url = "https://login.eveonline.com/oauth/verify";
-        async Task getCharInfo(string token) { 
+        async Task getCharInfo(string code, string token, string refresh) { 
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await client.GetAsync(verify_url);
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            if(res.ContainsKey("CharacterID"))
+            {
+                CharacterManager.AddCharacter(new CharInfo(res["CharacterName"], res["CharacterID"], token, refresh, code));
+                ShowCharacterList();
+                errorLbl.Text = "";
+            } else
+            {
+                errorLbl.Text = "Get character info failed";
+            }
         }
+
+        private void ShowCharacterList()
+        {
+            charList.Items.Clear();
+            Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
+            foreach(string cid in chars.Keys)
+            {
+                charList.Items.Add(cid + " - " + chars[cid].Name);
+            }
+        }
+
     }
 }
