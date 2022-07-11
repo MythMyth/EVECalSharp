@@ -20,6 +20,9 @@ namespace EveCal
     {
         HttpListener httpListener;
         string defalutBrowser;
+        string login_path = "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:5000/oauth-callback&client_id=";
+        string token_path = "https://login.eveonline.com/oauth/token";
+        string autho_code;
         public SSO()
         {
             InitializeComponent();
@@ -30,6 +33,18 @@ namespace EveCal
             Thread _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
             defalutBrowser = GetDefaultBrowserName();
+            try
+            {
+                string[] keys = File.ReadAllLines("key.cfg");
+                keys[0] = keys[0].Trim();
+                keys[1] = keys[1].Trim();
+                autho_code = Convert.ToBase64String(Encoding.UTF8.GetBytes(keys[0] + ":" + keys[1]));
+                login_path += keys[0];
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         void ResponseThread()
@@ -50,8 +65,6 @@ namespace EveCal
                 getToken(code);
             }
         }
-        string login_path = "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:5000/oauth-callback&client_id=bde31e1c883541088a340b124b3734f5";
-        string token_path = "https://login.eveonline.com/oauth/token";
         private void add_char_Click(object sender, EventArgs e)
         {
             try
