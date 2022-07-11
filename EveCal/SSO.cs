@@ -43,7 +43,7 @@ namespace EveCal
             }
             catch(Exception ex)
             {
-
+                autho_code = "";
             }
         }
 
