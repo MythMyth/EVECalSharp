@@ -53,16 +53,58 @@ namespace EveCal
         public CharacterManager()
         {
             characters = new Dictionary<string, CharInfo>();
+            if (!Directory.Exists("Character"))
+            {
+                Directory.CreateDirectory("Character");
+            }
+            LoadCharacters();
         }
+        void LoadCharacters()
+        {
+            DirectoryInfo d = new DirectoryInfo("Character");
+            foreach (FileInfo inf in d.GetFiles())
+            {
+                string name = inf.Name;
+                int idx = name.LastIndexOf('\\');
+                name = name.Substring(idx + 1);
+                string[] lines = File.ReadAllLines("Character\\" + name);
+                if (lines.Length >= 5)
+                {
+                    CharInfo c = new CharInfo(lines[0].Trim(), lines[1].Trim(), lines[2].Trim(), lines[3].Trim(), lines[4].Trim());
+                    characters.Add(c.Id, c);
+                }
+            }
+        }
+
 
         public void _AddCharacter(CharInfo info)
         {
             if(characters.ContainsKey(info.Id))
             {
                 characters[info.Id] = info;
+                FileStream fs = new FileStream("Character\\" + info.Id, FileMode.Truncate);
+                StreamWriter writer = new StreamWriter(fs);
+                writer.WriteLine(info.Name);
+                writer.WriteLine(info.Id);
+                writer.WriteLine(info.token);
+                writer.WriteLine(info.refresh);
+                writer.WriteLine(info.code);
+                writer.Flush();
+                writer.Close();
+                fs.Close();
             } else
             {
                 characters.Add(info.Id, info);
+                FileStream fs = new FileStream("Character\\" + info.Id, FileMode.Create);
+                StreamWriter writer = new StreamWriter(fs);
+                writer.WriteLine(info.Name);
+                writer.WriteLine(info.Id);
+                writer.WriteLine(info.token);
+                writer.WriteLine(info.refresh);
+                writer.WriteLine(info.code);
+                writer.Flush();
+                writer.Close();
+                fs.Close();
             }
         }
 

@@ -29,7 +29,7 @@ namespace EveCal
             httpListener = new HttpListener();
             httpListener.Prefixes.Add("http://localhost:5000/");
             httpListener.Start();
-
+            
             Thread _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
             defalutBrowser = GetDefaultBrowserName();
