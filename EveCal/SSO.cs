@@ -109,7 +109,7 @@ namespace EveCal
             };
             HttpClient client = new HttpClient();
             var content = new FormUrlEncodedContent(body);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YmRlMzFlMWM4ODM1NDEwODhhMzQwYjEyNGIzNzM0ZjU6QjZPQjdzMXhhSG41WlRDZFBZUE14b2tMYzlkYmF0UkxlblV4THhlUg==");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
             //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = await client.PostAsync(token_path, content);
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>( (await response.Content.ReadAsStringAsync()).ToString());
@@ -132,7 +132,7 @@ namespace EveCal
             };
             HttpClient client = new HttpClient();
             HttpContent content = new FormUrlEncodedContent(body);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "YmRlMzFlMWM4ODM1NDEwODhhMzQwYjEyNGIzNzM0ZjU6QjZPQjdzMXhhSG41WlRDZFBZUE14b2tMYzlkYmF0UkxlblV4THhlUg");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = await client.PostAsync(token_path, content);
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
@@ -168,7 +168,7 @@ namespace EveCal
             Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
             foreach(string cid in chars.Keys)
             {
-                charList.Items.Add(cid + " - " + chars[cid].Name);
+                charList.Items.Add(new ListViewItem(cid + " - " + chars[cid].Name));
             }
         }
 
