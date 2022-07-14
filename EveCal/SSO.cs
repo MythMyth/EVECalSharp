@@ -77,6 +77,10 @@ namespace EveCal
                 context.Response.Close(); // close the connection
                 Console.WriteLine("Respone given to a request.");
                 CharacterManager.GetToken(code);
+                Invoke(delegate
+                {
+                    ShowCharacterList();
+                });
             }
         }
         private void add_char_Click(object sender, EventArgs e)

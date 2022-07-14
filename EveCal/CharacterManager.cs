@@ -52,21 +52,21 @@ namespace EveCal
             mutex.ReleaseMutex();
         }
 
-        public static async Task GetRefreshToken(string code, string refreshToken)
+        public static void GetRefreshToken(string code, string refreshToken)
         {
             mutex.WaitOne();
-            await GetInstance()._GetRefreshToken(code, refreshToken);
+            GetInstance()._GetRefreshToken(code, refreshToken);
             mutex.ReleaseMutex();
         }
 
-        public static async Task GetToken(string code)
+        public static void GetToken(string code)
         {
             mutex.WaitOne();
-            await GetInstance()._GetToken(code);
+            GetInstance()._GetToken(code);
             mutex.ReleaseMutex();
         }
 
-        public async Task _GetToken(string code)
+        public void _GetToken(string code)
         {
             var body = new Dictionary<string, string>()
             {
@@ -77,11 +77,12 @@ namespace EveCal
             var content = new FormUrlEncodedContent(body);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
             //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync(token_path, content);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            var response = client.PostAsync(token_path, content).GetAwaiter().GetResult();
+            string res_data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(res_data);
             if (res.ContainsKey("access_token"))
             {
-                await _GetCharInfo(code, res["access_token"], res["refresh_token"]);
+                _GetCharInfo(code, res["access_token"], res["refresh_token"]);
             }
             else
             {
@@ -90,12 +91,13 @@ namespace EveCal
         }
 
         string verify_url = "https://login.eveonline.com/oauth/verify";
-        async Task _GetCharInfo(string code, string token, string refresh)
+        void _GetCharInfo(string code, string token, string refresh)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync(verify_url);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            var response = client.GetAsync(verify_url).GetAwaiter().GetResult();
+            string res_data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(res_data);
             if (res.ContainsKey("CharacterID"))
             {
                 _AddCharacter(new CharInfo(res["CharacterName"], res["CharacterID"], token, refresh, code));
@@ -105,7 +107,7 @@ namespace EveCal
             }
         }
 
-        public async Task _GetRefreshToken(string code, string refreshToken)
+        public void _GetRefreshToken(string code, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>()
             {
@@ -116,11 +118,12 @@ namespace EveCal
             HttpContent content = new FormUrlEncodedContent(body);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync(token_path, content);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            var response = client.PostAsync(token_path, content).GetAwaiter().GetResult();
+            string res_data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(res_data);
             if (res.ContainsKey("access_token"))
             {
-                await _GetCharInfo(code, res["access_token"], res["refresh_token"]);
+                _GetCharInfo(code, res["access_token"], res["refresh_token"]);
             } 
             else
             {
