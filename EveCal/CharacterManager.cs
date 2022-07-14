@@ -59,7 +59,52 @@ namespace EveCal
             mutex.ReleaseMutex();
         }
 
+        public static async Task GetToken(string code)
+        {
+            mutex.WaitOne();
+            await GetInstance()._GetToken(code);
+            mutex.ReleaseMutex();
+        }
+
+        public async Task _GetToken(string code)
+        {
+            var body = new Dictionary<string, string>()
+            {
+                { "grant_type", "authorization_code" },
+                { "code", code }
+            };
+            HttpClient client = new HttpClient();
+            var content = new FormUrlEncodedContent(body);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
+            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PostAsync(token_path, content);
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            if (res.ContainsKey("access_token"))
+            {
+                await _GetCharInfo(code, res["access_token"], res["refresh_token"]);
+            }
+            else
+            {
+
+            }
+        }
+
         string verify_url = "https://login.eveonline.com/oauth/verify";
+        async Task _GetCharInfo(string code, string token, string refresh)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync(verify_url);
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            if (res.ContainsKey("CharacterID"))
+            {
+                _AddCharacter(new CharInfo(res["CharacterName"], res["CharacterID"], token, refresh, code));
+            }
+            else
+            {
+            }
+        }
+
         public async Task _GetRefreshToken(string code, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>()
@@ -75,14 +120,7 @@ namespace EveCal
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
             if (res.ContainsKey("access_token"))
             {
-                HttpClient cclient = new HttpClient();
-                cclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", res["access_token"]);
-                var cresponse = await cclient.GetAsync(verify_url);
-                Dictionary<string, string> cres = JsonConvert.DeserializeObject<Dictionary<string, string>>((await cresponse.Content.ReadAsStringAsync()).ToString());
-                if (res.ContainsKey("CharacterID"))
-                {
-                    _AddCharacter(new CharInfo(cres["CharacterName"], cres["CharacterID"], res["access_token"], res["refresh_token"], code));
-                }
+                await _GetCharInfo(code, res["access_token"], res["refresh_token"]);
             } 
             else
             {

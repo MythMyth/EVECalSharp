@@ -76,7 +76,7 @@ namespace EveCal
                 context.Response.KeepAlive = false; // set the KeepAlive bool to false
                 context.Response.Close(); // close the connection
                 Console.WriteLine("Respone given to a request.");
-                getToken(code);
+                CharacterManager.GetToken(code);
             }
         }
         private void add_char_Click(object sender, EventArgs e)
@@ -119,45 +119,7 @@ namespace EveCal
             return ret;
         }
 
-        async Task getToken(string code)
-        {
-            var body = new Dictionary<string, string>()
-            {
-                { "grant_type", "authorization_code" },
-                { "code", code }
-            };
-            HttpClient client = new HttpClient();
-            var content = new FormUrlEncodedContent(body);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
-            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync(token_path, content);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>( (await response.Content.ReadAsStringAsync()).ToString());
-            if(res.ContainsKey("access_token"))
-            {
-                await getCharInfo(code, res["access_token"], res["refresh_token"]);
-                errorLbl.Text = "";
-            } else
-            {
-                errorLbl.Text = "Get token failed";
-            }
-        }
-
-        string verify_url = "https://login.eveonline.com/oauth/verify";
-        async Task getCharInfo(string code, string token, string refresh) { 
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync(verify_url);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
-            if(res.ContainsKey("CharacterID"))
-            {
-                CharacterManager.AddCharacter(new CharInfo(res["CharacterName"], res["CharacterID"], token, refresh, code));
-                ShowCharacterList();
-                errorLbl.Text = "";
-            } else
-            {
-                errorLbl.Text = "Get character info failed";
-            }
-        }
+        
 
         private void ShowCharacterList()
         {
