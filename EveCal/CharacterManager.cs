@@ -42,6 +42,12 @@ namespace EveCal
             mutex.ReleaseMutex();
         }
 
+        public static void RemoveCharacter(string cid) {
+            mutex.WaitOne();
+            GetInstance()._RemoveCharacter(cid);
+            mutex.ReleaseMutex();
+        }
+
         public static Dictionary<string, CharInfo> GetCharList()
         {
             mutex.WaitOne();
@@ -106,6 +112,12 @@ namespace EveCal
                 writer.Close();
                 fs.Close();
             }
+        }
+
+        public void _RemoveCharacter(string id)
+        {
+            characters.Remove(id);
+            File.Delete("Character\\" + id);
         }
 
         public Dictionary<string, CharInfo> _GetCharList()

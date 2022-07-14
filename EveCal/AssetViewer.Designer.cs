@@ -43,6 +43,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.RunningJob = new System.Windows.Forms.Button();
             this.facilityName = new System.Windows.Forms.TextBox();
+            this.reload = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AssetTextBox
@@ -209,11 +210,22 @@
             this.facilityName.Size = new System.Drawing.Size(1031, 23);
             this.facilityName.TabIndex = 5;
             // 
+            // reload
+            // 
+            this.reload.Location = new System.Drawing.Point(51, 726);
+            this.reload.Name = "reload";
+            this.reload.Size = new System.Drawing.Size(312, 23);
+            this.reload.TabIndex = 6;
+            this.reload.Text = "Load data";
+            this.reload.UseVisualStyleBackColor = true;
+            this.reload.Click += new System.EventHandler(this.reload_Click);
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.reload);
             this.Controls.Add(this.facilityName);
             this.Controls.Add(this.RunningJob);
             this.Controls.Add(this.button10);
@@ -253,5 +265,6 @@
         private Button button11;
         private Button RunningJob;
         private TextBox facilityName;
+        private Button reload;
     }
 }

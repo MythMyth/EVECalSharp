@@ -110,5 +110,10 @@ namespace EveCal
             AssetTextBox.Text = text;
             facilityName.Text = "";
         }
+
+        private void reload_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

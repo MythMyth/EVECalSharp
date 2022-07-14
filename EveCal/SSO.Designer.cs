@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.charList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.add_char = new System.Windows.Forms.Button();
             this.delete_char = new System.Windows.Forms.Button();
             this.errorLbl = new System.Windows.Forms.Label();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // charList
@@ -43,11 +43,12 @@
             this.charList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.charList.Location = new System.Drawing.Point(12, 42);
+            this.charList.MultiSelect = false;
             this.charList.Name = "charList";
             this.charList.Size = new System.Drawing.Size(268, 367);
             this.charList.TabIndex = 0;
             this.charList.UseCompatibleStateImageBehavior = false;
-            this.charList.View = System.Windows.Forms.View.Details;
+            this.charList.View = System.Windows.Forms.View.Tile;
             // 
             // add_char
             // 

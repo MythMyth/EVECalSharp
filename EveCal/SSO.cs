@@ -23,13 +23,14 @@ namespace EveCal
         string login_path = "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:5000/oauth-callback&client_id=";
         string token_path = "https://login.eveonline.com/oauth/token";
         string autho_code;
+        List<string> charIds;
         public SSO()
         {
             InitializeComponent();
             httpListener = new HttpListener();
             httpListener.Prefixes.Add("http://localhost:5000/");
             httpListener.Start();
-            
+            charIds = new List<string>();
             Thread _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
             defalutBrowser = GetDefaultBrowserName();
@@ -45,6 +46,7 @@ namespace EveCal
             {
                 autho_code = "";
             }
+            ShowCharacterList();
         }
 
         void ResponseThread()
@@ -79,7 +81,12 @@ namespace EveCal
 
         private void delete_char_Click(object sender, EventArgs e)
         {
-
+            if(charList.SelectedItems.Count > 0)
+            {
+                string id = charIds[charList.Items.IndexOf(charList.SelectedItems[0])];
+                CharacterManager.RemoveCharacter(id);
+                ShowCharacterList();
+            }
         }
 
         string GetDefaultBrowserName()
@@ -166,9 +173,11 @@ namespace EveCal
         {
             charList.Items.Clear();
             Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
+            charIds.Clear();
             foreach(string cid in chars.Keys)
             {
                 charList.Items.Add(new ListViewItem(cid + " - " + chars[cid].Name));
+                charIds.Add(cid);
             }
         }
 
