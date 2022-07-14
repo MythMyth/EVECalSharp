@@ -23,7 +23,9 @@ namespace EveCal
         string login_path = "https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:5000/oauth-callback&client_id=";
         string token_path = "https://login.eveonline.com/oauth/token";
         string autho_code;
+        bool thread_run;
         List<string> charIds;
+        Thread _responseThread;
         public SSO()
         {
             InitializeComponent();
@@ -31,7 +33,8 @@ namespace EveCal
             httpListener.Prefixes.Add("http://localhost:5000/");
             httpListener.Start();
             charIds = new List<string>();
-            Thread _responseThread = new Thread(ResponseThread);
+            thread_run = true;
+            _responseThread = new Thread(ResponseThread);
             _responseThread.Start();
             defalutBrowser = GetDefaultBrowserName();
             try
@@ -51,9 +54,18 @@ namespace EveCal
 
         void ResponseThread()
         {
-            while (true)
+            while (thread_run)
             {
-                HttpListenerContext context = httpListener.GetContext(); // get a context
+                HttpListenerContext context;
+                try
+                {
+                    context = httpListener.GetContext();
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
+                 // get a context
                                                                          // Now, you'll find the request URL in context.Request.Url
                 if (!context.Request.Url.ToString().Contains("oauth-callback")) continue;
                 string code = context.Request.Url.Query;
@@ -130,28 +142,6 @@ namespace EveCal
             }
         }
 
-        async Task getRefreshToken(string code, string refreshToken)
-        {
-            Dictionary<string, string> body = new Dictionary<string, string>()
-            {
-                { "grant_type", "refresh_token" },
-                { "refresh_token", refreshToken }
-            };
-            HttpClient client = new HttpClient();
-            HttpContent content = new FormUrlEncodedContent(body);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync(token_path, content);
-            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
-            if (res.ContainsKey("access_token"))
-            {
-                await getCharInfo(code, res["access_token"], res["refresh_token"]);
-                errorLbl.Text = "";
-            } else
-            {
-                errorLbl.Text = "Get refresh token failed";
-            }
-        }
         string verify_url = "https://login.eveonline.com/oauth/verify";
         async Task getCharInfo(string code, string token, string refresh) { 
             HttpClient client = new HttpClient();
@@ -181,5 +171,10 @@ namespace EveCal
             }
         }
 
+        private void SSO_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            httpListener.Prefixes.Remove("http://localhost:5000/");
+            httpListener.Stop();
+        }
     }
 }

@@ -91,6 +91,7 @@
             this.Controls.Add(this.charList);
             this.Name = "SSO";
             this.Text = "SSO";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SSO_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

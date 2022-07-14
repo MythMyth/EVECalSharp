@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +28,8 @@ namespace EveCal
         static CharacterManager instance;
         static Mutex mutex = new Mutex();
         Dictionary<string, CharInfo> characters;
+        string autho_code;
+        string token_path = "https://login.eveonline.com/oauth/token";
         static CharacterManager GetInstance()
         {
             if (instance == null)
@@ -48,6 +52,44 @@ namespace EveCal
             mutex.ReleaseMutex();
         }
 
+        public static async Task GetRefreshToken(string code, string refreshToken)
+        {
+            mutex.WaitOne();
+            await GetInstance()._GetRefreshToken(code, refreshToken);
+            mutex.ReleaseMutex();
+        }
+
+        string verify_url = "https://login.eveonline.com/oauth/verify";
+        public async Task _GetRefreshToken(string code, string refreshToken)
+        {
+            Dictionary<string, string> body = new Dictionary<string, string>()
+            {
+                { "grant_type", "refresh_token" },
+                { "refresh_token", refreshToken }
+            };
+            HttpClient client = new HttpClient();
+            HttpContent content = new FormUrlEncodedContent(body);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PostAsync(token_path, content);
+            Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>((await response.Content.ReadAsStringAsync()).ToString());
+            if (res.ContainsKey("access_token"))
+            {
+                HttpClient cclient = new HttpClient();
+                cclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", res["access_token"]);
+                var cresponse = await cclient.GetAsync(verify_url);
+                Dictionary<string, string> cres = JsonConvert.DeserializeObject<Dictionary<string, string>>((await cresponse.Content.ReadAsStringAsync()).ToString());
+                if (res.ContainsKey("CharacterID"))
+                {
+                    _AddCharacter(new CharInfo(cres["CharacterName"], cres["CharacterID"], res["access_token"], res["refresh_token"], code));
+                }
+            } 
+            else
+            {
+
+            }
+        }
+
         public static Dictionary<string, CharInfo> GetCharList()
         {
             mutex.WaitOne();
@@ -64,6 +106,18 @@ namespace EveCal
                 Directory.CreateDirectory("Character");
             }
             LoadCharacters();
+
+            try
+            {
+                string[] keys = File.ReadAllLines("key.cfg");
+                keys[0] = keys[0].Trim();
+                keys[1] = keys[1].Trim();
+                autho_code = Convert.ToBase64String(Encoding.UTF8.GetBytes(keys[0] + ":" + keys[1]));
+            }
+            catch (Exception ex)
+            {
+                autho_code = "";
+            }
         }
         void LoadCharacters()
         {
