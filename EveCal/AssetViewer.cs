@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,9 @@ namespace EveCal
 {
     public partial class AssetViewer : Form
     {
-
         Dictionary<FacilityType, Button> ButtonMap = new Dictionary<FacilityType, Button>();
         Button currBtn;
+        string indy_path = "https://esi.evetech.net/latest/characters/{character_id}/industry/jobs";
         public AssetViewer()
         {
             InitializeComponent();
@@ -113,6 +114,42 @@ namespace EveCal
 
         private void reload_Click(object sender, EventArgs e)
         {
+            Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
+            List<Dictionary<string, string>> all_jobs = new List<Dictionary<string, string>>();
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            List<string> ids = new List<string>();
+            foreach (string cid in chars.Keys)
+            {
+                CharacterManager.GetRefreshToken(chars[cid].code, chars[cid].refresh);
+                Dictionary<string, string> body = new Dictionary<string, string>()
+                {
+                    { "character_id ", cid },
+                    { "datasource", "tranquility" },
+                    { "include_completed", "false" },
+                    { "token", chars[cid].token }
+                };
+                HttpClient client = new HttpClient();
+                HttpContent content = new FormUrlEncodedContent(body);
+                var response = client.GetAsync(indy_path.Replace("{character_id}", cid) + "?character_id=" + cid + "&datasource=tranquility&include_completed=false&token=" + chars[cid].token)
+                    .GetAwaiter().GetResult();
+                string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    List<Dictionary<string, string>> jobs = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
+                    foreach (Dictionary<string, string> job in jobs)
+                    {
+                        all_jobs.Add(job);
+                        if (!map.ContainsKey(job["blueprint_type_id"]))
+                        {
+                            map.Add(job["blueprint_type_id"], 1);
+                            ids.Add(job["blueprint_type_id"]);
+                        }
+                    }
+                }                
+            }
+            Cache.AddIds(ids);
+            Storage.SetRunningJob(all_jobs);
+
 
         }
     }

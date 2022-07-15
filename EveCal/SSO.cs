@@ -49,6 +49,23 @@ namespace EveCal
             {
                 autho_code = "";
             }
+
+            try
+            {
+                string[] scopes = File.ReadAllLines("scope_list.cfg");
+                string scope_str = "";
+                foreach(string s in scopes)
+                {
+                    scope_str += "+" + s;
+                }
+                scope_str = scope_str.Substring(1);
+                login_path += "&scope=" + scope_str;
+            } 
+            catch(Exception e)
+            {
+
+            }
+
             ShowCharacterList();
         }
 

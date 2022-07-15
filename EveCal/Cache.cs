@@ -23,10 +23,10 @@ namespace EveCal
             return instance;
         }
 
-        public static async Task AddIds(List<string> ids)
+        public static void AddIds(List<string> ids)
         {
             mutex.WaitOne();
-            await GetInstance()._AddIds(ids);
+            GetInstance()._AddIds(ids);
             mutex.ReleaseMutex();
         }
 
@@ -37,30 +37,30 @@ namespace EveCal
             return ret;
         }
 
-        public async Task _AddIds(List<string> ids)
+        public void _AddIds(List<string> ids)
         {
-            string request_ids = "[";
+            string request_ids = "";
             foreach(string id in ids)
             {
                 if(!names.ContainsKey(id))
                 {
-                    request_ids += id + ",";
+                    request_ids += "," + id;
                 }
             }
-            request_ids += "]";
-
+            if (request_ids.Length > 0)
+                request_ids = request_ids.Substring(1);
+            request_ids = "[" + request_ids + "]";
             var body = new Dictionary<string, string>()
             {
-                { "datasource", "tranquility" },
-                { "ids ", request_ids }
+                { request_ids , "ids"}
             };
             HttpClient client = new HttpClient();
-            var content = new FormUrlEncodedContent(body);
-            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync("https://esi.evetech.net/latest/universe/names/", content);
-            if(response.IsSuccessStatusCode)
+            var content = new StringContent(request_ids);
+            var response = client.PostAsync("https://esi.evetech.net/latest/universe/names/?datasource=tranquility", content).GetAwaiter().GetResult();
+            string res_str = (response.Content.ReadAsStringAsync().GetAwaiter().GetResult()).ToString();
+            if (response.IsSuccessStatusCode)
             {
-                List < Dictionary<string, string>> res = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>((await response.Content.ReadAsStringAsync()).ToString());
+                List < Dictionary<string, string>> res = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
                 foreach(var item in res)
                 {
                     if(item.ContainsKey("category") && item["category"] == "inventory_type")

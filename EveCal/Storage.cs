@@ -22,6 +22,19 @@ namespace EveCal
         MODULE
     };
 
+    public enum ActivityType
+    {
+        Manufacturing = 1,
+        Researching_Technology = 2,
+        Researching_Time_Productivity = 3,
+        Researching_Material_Productivity = 4,
+        Copying = 5,
+        Duplicating = 6,
+        Reverse_Engineering = 7,
+        Invention = 8,
+        Reaction = 9
+    }
+
     
     internal class Storage
     {
@@ -66,6 +79,11 @@ namespace EveCal
         public static void SetRunningJob(string s)
         {
             GetInstance()._SetRunningJob(s);
+        }
+
+        public static void SetRunningJob(List<Dictionary<string, string>> jobs)
+        {
+            GetInstance()._SetRunningJob(jobs);
         }
 
         public static Dictionary<string, int> GetRunningJob()
@@ -278,6 +296,27 @@ namespace EveCal
             }
             writer.Close();
             f.Close();
+        }
+
+        public void _SetRunningJob(List<Dictionary<string, string>> jobs)
+        {
+            Running.Clear();
+            foreach (Dictionary<string, string> job in jobs)
+            {
+                if (int.Parse(job["activity_id"]) == (int)ActivityType.Reaction)
+                {
+                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Reaction Formula", "");
+                    int jobRun = int.Parse(job["runs"]);
+                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
+                    Running[bpName] += jobRun;
+                } else if (int.Parse(job["activity_id"]) == (int)ActivityType.Manufacturing)
+                {
+                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Blueprint", "");
+                    int jobRun = int.Parse(job["runs"]);
+                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
+                    Running[bpName] += jobRun;
+                }
+            }
         }
 
         public Dictionary<string, int> _GetRunningJob()
