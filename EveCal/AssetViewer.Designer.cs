@@ -44,6 +44,8 @@
             this.RunningJob = new System.Windows.Forms.Button();
             this.facilityName = new System.Windows.Forms.TextBox();
             this.reload = new System.Windows.Forms.Button();
+            this.FacilityList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // AssetTextBox
@@ -54,7 +56,7 @@
             this.AssetTextBox.Location = new System.Drawing.Point(457, 41);
             this.AssetTextBox.Multiline = true;
             this.AssetTextBox.Name = "AssetTextBox";
-            this.AssetTextBox.Size = new System.Drawing.Size(1031, 679);
+            this.AssetTextBox.Size = new System.Drawing.Size(571, 679);
             this.AssetTextBox.TabIndex = 1;
             // 
             // UpdateButton
@@ -220,11 +222,29 @@
             this.reload.UseVisualStyleBackColor = true;
             this.reload.Click += new System.EventHandler(this.reload_Click);
             // 
+            // FacilityList
+            // 
+            this.FacilityList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.FacilityList.Location = new System.Drawing.Point(1038, 41);
+            this.FacilityList.MultiSelect = false;
+            this.FacilityList.Name = "FacilityList";
+            this.FacilityList.Size = new System.Drawing.Size(450, 679);
+            this.FacilityList.TabIndex = 7;
+            this.FacilityList.UseCompatibleStateImageBehavior = false;
+            this.FacilityList.View = System.Windows.Forms.View.List;
+            this.FacilityList.SelectedIndexChanged += new System.EventHandler(this.FacilityList_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 300;
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.FacilityList);
             this.Controls.Add(this.reload);
             this.Controls.Add(this.facilityName);
             this.Controls.Add(this.RunningJob);
@@ -266,5 +286,7 @@
         private Button RunningJob;
         private TextBox facilityName;
         private Button reload;
+        private ListView FacilityList;
+        private ColumnHeader columnHeader1;
     }
 }

@@ -39,6 +39,14 @@ namespace EveCal
             return instance;
         }
 
+        public static string GetRandomToken()
+        {
+            mutex.WaitOne();
+            string token = GetInstance()._GetRandomToken();
+            mutex.ReleaseMutex();
+            return token;
+        }
+
         public static void AddCharacter(CharInfo info)
         {
             mutex.WaitOne();
@@ -209,6 +217,11 @@ namespace EveCal
             }
         }
 
+        public string _GetRandomToken()
+        {
+            if (characters.Count == 0) return "";
+            return characters[characters.Keys.ToArray()[0]].token;
+        }
         public void _RemoveCharacter(string id)
         {
             characters.Remove(id);

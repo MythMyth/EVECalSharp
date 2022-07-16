@@ -1,4 +1,5 @@
 ﻿using EveCal.BPs;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +42,11 @@ namespace EveCal
         static Storage instance;
         static Mutex mutex = new Mutex();
         const string storagePath = "storage";
-
-        Dictionary<FacilityType, Dictionary<string, int>> AllAsset;
+        string struct_path = "https://esi.evetech.net/latest/universe/structures/{structure_id}";
+        Dictionary<FacilityType, Dictionary<string, int>> SortedAssets;
+        Dictionary<string, Dictionary<string, int>> AllAsset;
+        Dictionary<string, string> LocationName;
+        Dictionary<FacilityType, string> FacilityMatch;
         Dictionary<FacilityType, string> FacilityName;
         Dictionary<string, int> Running;
         public static Storage GetInstance()
@@ -55,7 +59,10 @@ namespace EveCal
             mutex.ReleaseMutex();
             return instance;
         }
-
+        public static void UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
+        {
+            GetInstance()._UpdateAsset(assets);
+        }
         public static void UpdateAsset(string content, FacilityType type, string name)
         {
             GetInstance()._UpdateAsset(content, type, name);
@@ -96,17 +103,35 @@ namespace EveCal
             return GetInstance()._GetName(type);
         }
 
+        public static Dictionary<string, string> GetFacilityNames()
+        {
+            return GetInstance()._GetFacilityNames();
+        }
+
+        public static Dictionary<FacilityType, string> GetFacilityMatch()
+        {
+            return GetInstance()._GetFacilityMatch();
+        }
+
+        public static void SaveFacilityMatch()
+        {
+            GetInstance()._SaveFacilityMatch();
+        }
+
         public Storage()
         {
-            AllAsset = new Dictionary<FacilityType, Dictionary<string, int>>();
+            SortedAssets = new Dictionary<FacilityType, Dictionary<string, int>>();
             Running = new Dictionary<string, int>();
             FacilityName = new Dictionary<FacilityType, string>();
+            AllAsset = new Dictionary<string, Dictionary<string, int>>();
+            LocationName = new Dictionary<string, string>();
+            FacilityMatch = new Dictionary<FacilityType, string>();
             if (!Directory.Exists(storagePath))
             {
                 Directory.CreateDirectory(storagePath);
             }
             foreach(FacilityType ftype in (Enum.GetValues(typeof(FacilityType)))) {
-                AllAsset.Add(ftype, new Dictionary<string, int>());
+                SortedAssets.Add(ftype, new Dictionary<string, int>());
                 string filename = storagePath + "\\" + ftype;
                 if (File.Exists(filename))
                 {
@@ -134,11 +159,11 @@ namespace EveCal
                             string name = parts[0].Trim();
                             int number = int.Parse(parts[1].Trim());
                             if (parts[1].Trim() == "") number = 1;
-                            if (!AllAsset[ftype].ContainsKey(name))
+                            if (!SortedAssets[ftype].ContainsKey(name))
                             {
-                                AllAsset[ftype].Add(name, 0);
+                                SortedAssets[ftype].Add(name, 0);
                             }
-                            AllAsset[ftype][name] += number;
+                            SortedAssets[ftype][name] += number;
                         }
                     }
                 }
@@ -159,18 +184,194 @@ namespace EveCal
                     }
                 }
             }
+            LoadFacilityMatch();
+            LoadLocationName();
+            LoadAllAsset();
         }
 
+        void LoadFacilityMatch()
+        {
+            if (File.Exists(storagePath + "\\FacilityMatch"))
+            {
+                string[] all_match = File.ReadAllLines(storagePath + "\\FacilityMatch");
+                foreach (string line in all_match)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    FacilityType type = (FacilityType)int.Parse(p[0]);
+                    string id = p[1].Trim();
+                    if (FacilityMatch.ContainsKey(type))
+                    {
+                        FacilityMatch[type] = id;
+                    }
+                    else
+                    {
+                        FacilityMatch.Add(type, id);
+                    }
+                }
+            }
+            else
+            {
+                File.Create(storagePath + "\\FacilityMatch");
+            }
+        }
+
+        void _SaveFacilityMatch()
+        {
+            FileStream fs;
+            if(File.Exists(storagePath + "\\FacilityMatch"))
+            {
+                fs = File.Open(storagePath + "\\FacilityMatch", FileMode.Truncate);
+            } else
+            {
+                fs = File.Open(storagePath + "\\FacilityMatch", FileMode.OpenOrCreate);
+            }
+            StreamWriter writer = new StreamWriter(fs);
+            foreach(FacilityType type in FacilityMatch.Keys)
+            {
+                writer.WriteLine("" + (int)type + "\t" + FacilityMatch[type]);
+            }
+            writer.Close();
+            fs.Close(); 
+        }
+
+        void LoadLocationName()
+        {
+            if (File.Exists(storagePath + "\\FacilityName"))
+            {
+                string[] lines = File.ReadAllLines(storagePath + "\\FacilityName");
+                foreach(string line in lines)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    string id = p[0].Trim();
+                    string name = p[1];
+                    if(!LocationName.ContainsKey(id))
+                    {
+                        LocationName.Add(id, name);
+                    } else
+                    {
+                        LocationName[id] = name;
+                    }
+                }
+            }
+            else
+            {
+                File.Create(storagePath + "\\FacilityName");
+            }
+        }
+
+        void SaveLocationName()
+        {
+            FileStream fs;
+            if (File.Exists(storagePath + "\\FacilityName"))
+            {
+                fs = File.Open(storagePath + "\\FacilityName", FileMode.Truncate);
+            } else
+            {
+                fs = File.Open(storagePath + "\\FacilityName", FileMode.OpenOrCreate);
+            }
+            StreamWriter writer = new StreamWriter(fs);
+            foreach(string id in LocationName.Keys)
+            {
+                writer.WriteLine(id + "\t" + LocationName[id]);
+            }
+            writer.Close();
+            fs.Close();
+        }
+
+        void LoadAllAsset()
+        {
+            if (!Directory.Exists(storagePath + "\\AllAsset"))
+            {
+                Directory.CreateDirectory(storagePath + "\\AllAsset");
+            }
+            AllAsset.Clear();
+            string[] allAssetFiles = Directory.GetFiles(storagePath + "\\AllAsset");
+            foreach (string file in allAssetFiles)
+            {
+                string[] lines = File.ReadAllLines(file);
+                string facId = file.Split('\\').Last();
+                if(!AllAsset.ContainsKey(facId)) {
+                    AllAsset.Add(facId, new Dictionary<string, int>());
+                }
+                foreach (string line in lines)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    string name = p[0].Trim();
+                    int qty = int.Parse(p[1].Trim());
+                    if (!AllAsset[facId].ContainsKey(name))
+                    {
+                        AllAsset[facId].Add(name, 0);
+                    }
+                    AllAsset[facId][name] += qty;
+                }
+            }
+        }
+
+        void SaveAllAsset()
+        {
+            foreach(string facId in AllAsset.Keys)
+            {
+                FileStream fs;
+                if(File.Exists(storagePath + "\\AllAsset\\" + facId))
+                {
+                    fs = File.Open(storagePath + "\\AllAsset\\" + facId, FileMode.Truncate);
+                } else
+                {
+                    fs = File.Open(storagePath + "\\AllAsset\\" + facId, FileMode.OpenOrCreate);
+                }
+                StreamWriter writer = new StreamWriter(fs);
+                foreach(string id in AllAsset[facId].Keys)
+                {
+                    writer.WriteLine(id + "\t" + AllAsset[facId][id]);
+                }
+                writer.Close();
+                fs.Close();
+            }
+        }
         string[] LoadFile(string fname)
         {
             string text = File.ReadAllText(fname);
             return text.Split("\n");
         }
-
+        public void _UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
+        {
+            AllAsset.Clear();
+            foreach(string locid in assets.Keys)
+            {
+                AllAsset.Add(locid, new Dictionary<string, int>());
+                foreach(string id in assets[locid].Keys)
+                {
+                    if (!AllAsset[locid].ContainsKey(id))
+                    {
+                        AllAsset[locid].Add(Cache.GetName(id), 0);
+                    }
+                    AllAsset[locid][Cache.GetName(id)] += assets[locid][id];
+                }
+                HttpClient client = new HttpClient();
+                var response = client.GetAsync(struct_path.Replace("{structure_id}", locid) + "?token=" + CharacterManager.GetRandomToken()).GetAwaiter().GetResult();
+                string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Dictionary<string, object> res = JsonConvert.DeserializeObject<Dictionary<string, object>>(res_str);
+                    if(LocationName.ContainsKey(locid))
+                    {
+                        LocationName[locid] = res["name"].ToString();
+                    } else
+                    {
+                        LocationName.Add(locid, res["name"].ToString());
+                    }
+                }
+            }
+            SaveAllAsset();
+            SaveLocationName();
+        }
         public void _UpdateAsset(string content, FacilityType type, string name)
         {
-            if (!AllAsset.ContainsKey(type)) return; 
-            Dictionary<string, int> map = AllAsset[type];
+            if (!SortedAssets.ContainsKey(type)) return; 
+            Dictionary<string, int> map = SortedAssets[type];
             if(!File.Exists(storagePath + "\\" + type))
             {
                 File.Create(storagePath + "\\" + type).Close();
@@ -209,8 +410,8 @@ namespace EveCal
 
         public int _Get(FacilityType type, string iname)
         {
-            if (!AllAsset.ContainsKey(type)) return 0;
-            Dictionary<string, int> map = AllAsset[type];
+            if (!SortedAssets.ContainsKey(type)) return 0;
+            Dictionary<string, int> map = SortedAssets[type];
             if(map.ContainsKey(iname))
             {
                 return map[iname];
@@ -220,28 +421,28 @@ namespace EveCal
 
         public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
         {
-            return AllAsset[type];
+            return SortedAssets[type];
         }
 
         public Dictionary<string, int> _GetHaulable()
         {
             Dictionary<string, int> map = new Dictionary<string, int>();
 
-            foreach(FacilityType facility in AllAsset.Keys)
+            foreach(FacilityType facility in SortedAssets.Keys)
             {
-                foreach(string mat in AllAsset[facility].Keys)
+                foreach(string mat in SortedAssets[facility].Keys)
                 {
                     if(facility == FacilityType.SOURCE)
                     {
                         if (!map.ContainsKey(mat)) map.Add(mat, 0);
-                        map[mat] += AllAsset[facility][mat];
+                        map[mat] += SortedAssets[facility][mat];
                         continue;
                     }
                     BP bp = Loader.Get(mat);
                     if(bp != null && bp.MakeAt() == facility) 
                     {
                         if(!map.ContainsKey(mat))map.Add(mat, 0);
-                        map[mat] += AllAsset[facility][mat];
+                        map[mat] += SortedAssets[facility][mat];
                     }
                 }
             }
@@ -328,6 +529,16 @@ namespace EveCal
         {
             if (FacilityName.ContainsKey(type)) return FacilityName[type];
             return "";
+        }
+
+        public Dictionary<string, string> _GetFacilityNames()
+        {
+            return LocationName;
+        }
+
+        public Dictionary<FacilityType, string> _GetFacilityMatch()
+        {
+            return FacilityMatch;
         }
 
     }

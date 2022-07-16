@@ -14,11 +14,17 @@ namespace EveCal
     public partial class AssetViewer : Form
     {
         Dictionary<FacilityType, Button> ButtonMap = new Dictionary<FacilityType, Button>();
+        Dictionary<string, string> LocationName;
+        Dictionary<FacilityType, string> FacilityMatch;
+        List<string> syncFacilityListId;
+
         Button currBtn;
         string indy_path = "https://esi.evetech.net/latest/characters/{character_id}/industry/jobs";
+        string asset_path = "https://esi.evetech.net/latest/characters/{character_id}/assets";
         public AssetViewer()
         {
             InitializeComponent();
+            syncFacilityListId = new List<string>();
             ButtonMap.Add(FacilityType.SOURCE, button1);
             ButtonMap.Add(FacilityType.ADV_COMPONENT, button2);
             ButtonMap.Add(FacilityType.ADV_LARGE_SHIP, button3);
@@ -31,7 +37,7 @@ namespace EveCal
             ButtonMap.Add(FacilityType.REACTION, button10);
             ButtonMap.Add(FacilityType.MODULE, button11);
             SetButtonTitle();
-
+            LoadFacilityList();
         }
 
         void SetButtonTitle()
@@ -70,6 +76,20 @@ namespace EveCal
             ButtonMap[FacilityType.MODULE].Text = "Module";
         }
 
+        void LoadFacilityList()
+        {
+            LocationName = Storage.GetFacilityNames();
+            FacilityMatch = Storage.GetFacilityMatch();
+            syncFacilityListId.Clear();
+            FacilityList.Items.Clear();
+            foreach(string id in LocationName.Keys)
+            {
+                syncFacilityListId.Add(id);
+                FacilityList.Items.Add(new ListViewItem(LocationName[id]));
+            }
+            if (currBtn != null) currBtn.BackColor = Color.White;
+            currBtn = null;
+        }
         private void button_Click(object sender, EventArgs e)
         {
             if(currBtn != null) currBtn.BackColor = Color.White;
@@ -83,18 +103,38 @@ namespace EveCal
             }
             AssetTextBox.Text = text;
             facilityName.Text = Storage.GetName((FacilityType)currBtn.Tag);
+
+            FacilityType type = (FacilityType)currBtn.Tag;
+            if(FacilityMatch.ContainsKey(type))
+            {
+                string id = FacilityMatch[type];
+                int index = syncFacilityListId.IndexOf(id);
+                if(index > -1)
+                {
+                    FacilityList.Focus();
+                    FacilityList.Items[index].Selected = true;
+                }
+                else
+                {
+                    FacilityList.SelectedItems.Clear();
+                }
+            } else
+            {
+                FacilityList.SelectedItems.Clear();
+            }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            if (currBtn == RunningJob)
+            /*if (currBtn == RunningJob)
             {
                 Storage.SetRunningJob(AssetTextBox.Text);
             }
             else if (currBtn != null)
             {
                 Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag, facilityName.Text);
-            }
+            }*/
+            Storage.SaveFacilityMatch();
         }
 
         private void RunningJob_Click(object sender, EventArgs e)
@@ -118,19 +158,13 @@ namespace EveCal
             List<Dictionary<string, string>> all_jobs = new List<Dictionary<string, string>>();
             Dictionary<string, int> map = new Dictionary<string, int>();
             List<string> ids = new List<string>();
+            Dictionary<string, Dictionary<string, int>> assets = new Dictionary<string, Dictionary<string, int>>();
             foreach (string cid in chars.Keys)
             {
                 CharacterManager.GetRefreshToken(chars[cid].code, chars[cid].refresh);
-                Dictionary<string, string> body = new Dictionary<string, string>()
-                {
-                    { "character_id ", cid },
-                    { "datasource", "tranquility" },
-                    { "include_completed", "false" },
-                    { "token", chars[cid].token }
-                };
+
                 HttpClient client = new HttpClient();
-                HttpContent content = new FormUrlEncodedContent(body);
-                var response = client.GetAsync(indy_path.Replace("{character_id}", cid) + "?character_id=" + cid + "&datasource=tranquility&include_completed=false&token=" + chars[cid].token)
+                var response = client.GetAsync(indy_path.Replace("{character_id}", cid) + "?datasource=tranquility&include_completed=false&token=" + chars[cid].token)
                     .GetAwaiter().GetResult();
                 string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -145,12 +179,67 @@ namespace EveCal
                             ids.Add(job["blueprint_type_id"]);
                         }
                     }
-                }                
+                }
+
+                int assetPage = 1;
+                for(int currPage = 1; currPage <= assetPage; currPage++)
+                {
+                    response = client.GetAsync(asset_path.Replace("{character_id}", cid) + "?page=" + currPage + "&token=" + chars[cid].token).GetAwaiter().GetResult();
+                    res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+                    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        List<Dictionary<string, string>> items = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
+                        foreach(Dictionary<string, string> item in items)
+                        {
+                            if (item["location_flag"] != "Hangar") continue;
+                            string location = item["location_id"];
+                            string itemType = item["type_id"];
+                            if(!map.ContainsKey(itemType))
+                            {
+                                map.Add(itemType, 1);
+                                ids.Add(itemType);
+                            }
+                            int quantity = int.Parse(item["quantity"]);
+                            if(!assets.ContainsKey(location))
+                            {
+                                assets.Add(location, new Dictionary<string, int>());
+                            }
+                            if (!assets[location].ContainsKey(itemType))
+                            {
+                                assets[location].Add(itemType, 0);
+                            }
+                            assets[location][itemType] += quantity;
+                        }
+                    }
+                    if(response.Headers.Contains("x-pages"))
+                    {
+                        string xpage = response.Headers.GetValues("x-pages").First();
+                        assetPage = int.Parse(xpage);
+                    }
+                }
+                
             }
             Cache.AddIds(ids);
             Storage.SetRunningJob(all_jobs);
+            Storage.UpdateAsset(assets);
+        }
 
-
+        private void FacilityList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(FacilityList.SelectedItems.Count > 0 && currBtn != null && currBtn != RunningJob)
+            {
+                FacilityType type = (FacilityType)currBtn.Tag;
+                int selectedIndex = FacilityList.Items.IndexOf(FacilityList.SelectedItems[0]);
+                string id = syncFacilityListId[selectedIndex];
+                if (FacilityMatch.ContainsKey(type))
+                {
+                    FacilityMatch[type] = id;
+                }
+                else
+                {
+                    FacilityMatch.Add(type, id);
+                }
+            }
         }
     }
 }
