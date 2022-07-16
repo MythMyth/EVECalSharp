@@ -125,7 +125,7 @@ namespace EveCal
             HttpClient client = new HttpClient();
             HttpContent content = new FormUrlEncodedContent(body);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = client.PostAsync(token_path, content).GetAwaiter().GetResult();
             string res_data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(res_data);

@@ -1,7 +1,8 @@
 Run plan:
 
+Titanium Chromide                           ||    100
+Nonlinear Metamaterials                     ||    100
 Titanium Carbide                            ||    200
-Scalar Capacitor Unit                       ||    12000
 Caracal                                     ||    10
 Gravimetric Sensor Cluster                  ||    12000
 Ferrogel                                    ||    100
@@ -23,7 +24,6 @@ Crystalline Carbonide Armor Plate           ||    60000
 Fusion Reactor Unit                         ||    2000
 Ishtar 1 5 10                               ||    10
 Drone Damage Amplifier II 11 4 14           ||    110
-Rolled Tungsten Alloy                       ||    100
 Tungsten Carbide                            ||    100
 Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
@@ -54,17 +54,14 @@ JZ-UQC - EC T2 Medium Ships
 
 ====================
 
-XU7-CH - T2 Reaction
+XU7-CH - T2 Reaction
 ->
 XU7-CH - EC T2 Components
-    Photonic Metamaterials     ||    40632
-    Sylramic Fibers            ||    2075501
-    Phenolic Composites        ||    264096
-    Hypersynaptic Fibers       ||    27088
-    Titanium Carbide           ||    5000000
-    Fullerides                 ||    186220
-    Nonlinear Metamaterials    ||    74492
-    Nanotransistors            ||    117264
+    Photonic Metamaterials    ||    40632
+    Sylramic Fibers           ||    2075501
+    Phenolic Composites       ||    264096
+    Hypersynaptic Fibers      ||    27088
+    Titanium Carbide          ||    4000000
 
 ====================
 
@@ -72,6 +69,14 @@ XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
     R.A.M.- Starship Tech    ||    578
+    Scalar Capacitor Unit    ||    9672
+
+====================
+
+MJ-5F9 EC Structures, Fuel, Components
+->
+XU7-CH - T2 Reaction
+    Helium Fuel Block    ||    279
 
 ====================
 

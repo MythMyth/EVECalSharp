@@ -410,8 +410,8 @@ namespace EveCal
 
         public int _Get(FacilityType type, string iname)
         {
-            if (!SortedAssets.ContainsKey(type)) return 0;
-            Dictionary<string, int> map = SortedAssets[type];
+            if (!FacilityMatch.ContainsKey(type)) return 0;
+            Dictionary<string, int> map = AllAsset[FacilityMatch[type]];
             if(map.ContainsKey(iname))
             {
                 return map[iname];
@@ -421,28 +421,32 @@ namespace EveCal
 
         public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
         {
-            return SortedAssets[type];
+            if(FacilityMatch.ContainsKey(type))
+            {
+                return AllAsset[FacilityMatch[type]];
+            }
+            return new Dictionary<string, int>();
         }
 
         public Dictionary<string, int> _GetHaulable()
         {
             Dictionary<string, int> map = new Dictionary<string, int>();
 
-            foreach(FacilityType facility in SortedAssets.Keys)
+            foreach(FacilityType facility in FacilityMatch.Keys)
             {
-                foreach(string mat in SortedAssets[facility].Keys)
+                foreach(string mat in AllAsset[FacilityMatch[facility]].Keys)
                 {
                     if(facility == FacilityType.SOURCE)
                     {
                         if (!map.ContainsKey(mat)) map.Add(mat, 0);
-                        map[mat] += SortedAssets[facility][mat];
+                        map[mat] += AllAsset[FacilityMatch[facility]][mat];
                         continue;
                     }
                     BP bp = Loader.Get(mat);
                     if(bp != null && bp.MakeAt() == facility) 
                     {
                         if(!map.ContainsKey(mat))map.Add(mat, 0);
-                        map[mat] += SortedAssets[facility][mat];
+                        map[mat] += AllAsset[FacilityMatch[facility]][mat];
                     }
                 }
             }
@@ -527,7 +531,7 @@ namespace EveCal
 
         public string _GetName(FacilityType type)
         {
-            if (FacilityName.ContainsKey(type)) return FacilityName[type];
+            if (FacilityMatch.ContainsKey(type)) return LocationName[FacilityMatch[type]];
             return "";
         }
 
