@@ -17,6 +17,7 @@ namespace EveCal
         Dictionary<string, string> LocationName;
         Dictionary<FacilityType, string> FacilityMatch;
         List<string> syncFacilityListId;
+        Dictionary<string, CharInfo> chars;
 
         Button currBtn;
         string indy_path = "https://esi.evetech.net/latest/characters/{character_id}/industry/jobs";
@@ -25,6 +26,7 @@ namespace EveCal
         {
             InitializeComponent();
             syncFacilityListId = new List<string>();
+            chars = CharacterManager.GetCharList();
             ButtonMap.Add(FacilityType.SOURCE, button1);
             ButtonMap.Add(FacilityType.ADV_COMPONENT, button2);
             ButtonMap.Add(FacilityType.ADV_LARGE_SHIP, button3);
@@ -162,7 +164,6 @@ namespace EveCal
 
         void reloadAsset()
         {
-            Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
             List<Dictionary<string, string>> all_jobs = new List<Dictionary<string, string>>();
             Dictionary<string, int> map = new Dictionary<string, int>();
             List<string> ids = new List<string>();
@@ -200,9 +201,9 @@ namespace EveCal
                 {
                     Invoke(AppendCover, "failed, ");
                 }
-                if (response.Headers.Contains("etag"))
+                if (response.Headers.Contains("ETag"))
                 {
-                    chars[cid].IndyEtag = response.Headers.GetValues("etag").First();
+                    chars[cid].IndyEtag = response.Headers.GetValues("ETag").First();
                 }
                 Invoke(AppendCover, "Assets load ");
                 int assetPage = 1;
@@ -211,13 +212,13 @@ namespace EveCal
                 int failed = 0;
                 for (int currPage = 1; currPage <= assetPage; currPage++)
                 {
-                    response = client.GetAsync(asset_path.Replace("{character_id}", cid) + "?page=" + currPage + "&token=" + chars[cid].token).GetAwaiter().GetResult();
-                    if(client.DefaultRequestHeaders.Contains("If-None-Match")) client.DefaultRequestHeaders.Remove("If-None-Match");
                     while (chars[cid].AssetEtag.Count < currPage)
                     {
                         chars[cid].AssetEtag.Add("");
                     }
-                    if(chars[cid].AssetEtag[currPage - 1].Trim() != "") client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].AssetEtag[currPage - 1]);
+                    if (client.DefaultRequestHeaders.Contains("If-None-Match")) client.DefaultRequestHeaders.Remove("If-None-Match");
+                    if (chars[cid].AssetEtag[currPage - 1].Trim() != "") client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].AssetEtag[currPage - 1]);
+                    response = client.GetAsync(asset_path.Replace("{character_id}", cid) + "?page=" + currPage + "&token=" + chars[cid].token).GetAwaiter().GetResult();
                     res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -256,9 +257,9 @@ namespace EveCal
                     {
                         failed++;
                     }
-                    if (response.Headers.Contains("etag"))
+                    if (response.Headers.Contains("ETag"))
                     {
-                        chars[cid].AssetEtag[currPage - 1] = response.Headers.GetValues("etag").First();
+                        chars[cid].AssetEtag[currPage - 1] = response.Headers.GetValues("ETag").First();
                     }
                     Invoke(AppendCover, "success: " + success + ", not modified: " + not_modified + ", faield:" + failed);
                 }

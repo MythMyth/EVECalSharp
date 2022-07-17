@@ -193,7 +193,9 @@ namespace EveCal
         {
             if(characters.ContainsKey(info.Id))
             {
-                characters[info.Id] = info;
+                characters[info.Id].token = info.token;
+                characters[info.Id].refresh = info.refresh;
+                characters[info.Id].code = info.code;
                 FileStream fs = new FileStream("Character\\" + info.Id, FileMode.Truncate);
                 StreamWriter writer = new StreamWriter(fs);
                 writer.WriteLine(info.Name);
