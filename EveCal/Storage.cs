@@ -39,6 +39,7 @@ namespace EveCal
     
     internal class Storage
     {
+        
         static Storage instance;
         static Mutex mutex = new Mutex();
         const string storagePath = "storage";
@@ -49,6 +50,7 @@ namespace EveCal
         Dictionary<FacilityType, string> FacilityMatch;
         Dictionary<FacilityType, string> FacilityName;
         Dictionary<string, int> Running;
+        Mutex file_mutex;
         public static Storage GetInstance()
         {
             mutex.WaitOne();
@@ -126,6 +128,7 @@ namespace EveCal
             AllAsset = new Dictionary<string, Dictionary<string, int>>();
             LocationName = new Dictionary<string, string>();
             FacilityMatch = new Dictionary<FacilityType, string>();
+            file_mutex = new Mutex();
             if (!Directory.Exists(storagePath))
             {
                 Directory.CreateDirectory(storagePath);
@@ -191,6 +194,7 @@ namespace EveCal
 
         void LoadFacilityMatch()
         {
+            file_mutex.WaitOne();
             if (File.Exists(storagePath + "\\FacilityMatch"))
             {
                 string[] all_match = File.ReadAllLines(storagePath + "\\FacilityMatch");
@@ -214,10 +218,12 @@ namespace EveCal
             {
                 File.Create(storagePath + "\\FacilityMatch");
             }
+            file_mutex.ReleaseMutex();
         }
 
         void _SaveFacilityMatch()
         {
+            file_mutex.WaitOne();
             FileStream fs;
             if(File.Exists(storagePath + "\\FacilityMatch"))
             {
@@ -232,7 +238,8 @@ namespace EveCal
                 writer.WriteLine("" + (int)type + "\t" + FacilityMatch[type]);
             }
             writer.Close();
-            fs.Close(); 
+            fs.Close();
+            file_mutex.ReleaseMutex();
         }
 
         void LoadLocationName()
@@ -505,6 +512,12 @@ namespace EveCal
 
         public void _SetRunningJob(List<Dictionary<string, string>> jobs)
         {
+            if (!File.Exists(storagePath + "\\Running"))
+            {
+                File.Create(storagePath + "\\Running").Close();
+            }
+            FileStream f = File.Open(storagePath + "\\Running", FileMode.Truncate);
+            StreamWriter writer = new StreamWriter(f);
             Running.Clear();
             foreach (Dictionary<string, string> job in jobs)
             {
@@ -522,6 +535,12 @@ namespace EveCal
                     Running[bpName] += jobRun;
                 }
             }
+            foreach (string key in Running.Keys)
+            {
+                writer.WriteLine(key + "\t" + Running[key]);
+            }
+            writer.Close();
+            f.Close();
         }
 
         public Dictionary<string, int> _GetRunningJob()

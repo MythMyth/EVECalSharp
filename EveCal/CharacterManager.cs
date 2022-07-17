@@ -14,6 +14,8 @@ namespace EveCal
         public string token;
         public string refresh;
         public string code;
+        public string IndyEtag;
+        public List<string> AssetEtag;
         public CharInfo(string name, string id, string token, string refresh, string code)
         {
             Name = name;
@@ -21,6 +23,8 @@ namespace EveCal
             this.token = token;
             this.refresh = refresh;
             this.code = code;
+            IndyEtag = "";
+            AssetEtag = new List<string>();
         }
     }
     internal class CharacterManager
@@ -120,12 +124,11 @@ namespace EveCal
             Dictionary<string, string> body = new Dictionary<string, string>()
             {
                 { "grant_type", "refresh_token" },
-                { "refresh_token", refreshToken }
+                { "refresh_token", refreshToken },
             };
             HttpClient client = new HttpClient();
             HttpContent content = new FormUrlEncodedContent(body);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", autho_code);
-            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = client.PostAsync(token_path, content).GetAwaiter().GetResult();
             string res_data = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
             Dictionary<string, string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(res_data);

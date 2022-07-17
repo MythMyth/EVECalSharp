@@ -154,6 +154,14 @@ namespace EveCal
 
         private void reload_Click(object sender, EventArgs e)
         {
+            Thread thread = new Thread(reloadAsset);
+            coverLabel.Text = "Loading asset...";
+            coverLabel.Visible = true;
+            thread.Start();
+        }
+
+        void reloadAsset()
+        {
             Dictionary<string, CharInfo> chars = CharacterManager.GetCharList();
             List<Dictionary<string, string>> all_jobs = new List<Dictionary<string, string>>();
             Dictionary<string, int> map = new Dictionary<string, int>();
@@ -161,9 +169,14 @@ namespace EveCal
             Dictionary<string, Dictionary<string, int>> assets = new Dictionary<string, Dictionary<string, int>>();
             foreach (string cid in chars.Keys)
             {
+                Invoke(AppendCover, "\n" + cid + " - " + chars[cid].Name + ": Indy jobs ");
                 CharacterManager.GetRefreshToken(chars[cid].code, chars[cid].refresh);
-
                 HttpClient client = new HttpClient();
+                if (chars[cid].IndyEtag.Trim() != "")
+                {
+                    client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].IndyEtag);
+                }
+                
                 var response = client.GetAsync(indy_path.Replace("{character_id}", cid) + "?datasource=tranquility&include_completed=false&token=" + chars[cid].token)
                     .GetAwaiter().GetResult();
                 string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
@@ -179,28 +192,48 @@ namespace EveCal
                             ids.Add(job["blueprint_type_id"]);
                         }
                     }
+                    Invoke(AppendCover, "success, ");
+                } else if(response.StatusCode == System.Net.HttpStatusCode.NotModified)
+                {
+                    Invoke(AppendCover, "no modify, ");
+                } else
+                {
+                    Invoke(AppendCover, "failed, ");
                 }
-
+                if (response.Headers.Contains("etag"))
+                {
+                    chars[cid].IndyEtag = response.Headers.GetValues("etag").First();
+                }
+                Invoke(AppendCover, "Assets load ");
                 int assetPage = 1;
-                for(int currPage = 1; currPage <= assetPage; currPage++)
+                int success = 0;
+                int not_modified = 0;
+                int failed = 0;
+                for (int currPage = 1; currPage <= assetPage; currPage++)
                 {
                     response = client.GetAsync(asset_path.Replace("{character_id}", cid) + "?page=" + currPage + "&token=" + chars[cid].token).GetAwaiter().GetResult();
+                    if(client.DefaultRequestHeaders.Contains("If-None-Match")) client.DefaultRequestHeaders.Remove("If-None-Match");
+                    while (chars[cid].AssetEtag.Count < currPage)
+                    {
+                        chars[cid].AssetEtag.Add("");
+                    }
+                    if(chars[cid].AssetEtag[currPage - 1].Trim() != "") client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].AssetEtag[currPage - 1]);
                     res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
-                    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         List<Dictionary<string, string>> items = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
-                        foreach(Dictionary<string, string> item in items)
+                        foreach (Dictionary<string, string> item in items)
                         {
                             if (item["location_flag"] != "Hangar") continue;
                             string location = item["location_id"];
                             string itemType = item["type_id"];
-                            if(!map.ContainsKey(itemType))
+                            if (!map.ContainsKey(itemType))
                             {
                                 map.Add(itemType, 1);
                                 ids.Add(itemType);
                             }
                             int quantity = int.Parse(item["quantity"]);
-                            if(!assets.ContainsKey(location))
+                            if (!assets.ContainsKey(location))
                             {
                                 assets.Add(location, new Dictionary<string, int>());
                             }
@@ -210,20 +243,47 @@ namespace EveCal
                             }
                             assets[location][itemType] += quantity;
                         }
-                    }
-                    if(response.Headers.Contains("x-pages"))
+                        if (response.Headers.Contains("x-pages"))
+                        {
+                            string xpage = response.Headers.GetValues("x-pages").First();
+                            assetPage = int.Parse(xpage);
+                        }
+                        success++;
+                    } else if(response.StatusCode == System.Net.HttpStatusCode.NotModified)
                     {
-                        string xpage = response.Headers.GetValues("x-pages").First();
-                        assetPage = int.Parse(xpage);
+                        not_modified++;
+                    } else
+                    {
+                        failed++;
                     }
+                    if (response.Headers.Contains("etag"))
+                    {
+                        chars[cid].AssetEtag[currPage - 1] = response.Headers.GetValues("etag").First();
+                    }
+                    Invoke(AppendCover, "success: " + success + ", not modified: " + not_modified + ", faield:" + failed);
                 }
-                
             }
+            Invoke(AppendCover, "\n Update ids");
             Cache.AddIds(ids);
+            Invoke(AppendCover, "\n Update running jobs");
             Storage.SetRunningJob(all_jobs);
+            Invoke(AppendCover, "\n Update assets");
             Storage.UpdateAsset(assets);
+            Invoke(delegate
+            {
+                coverLabel.Visible = false;
+            });
         }
 
+        void AppendCover(string text)
+        {
+            coverLabel.Text = coverLabel.Text.ToString() + text;
+        }
+
+        void SetCover(string text)
+        {
+            coverLabel.Text = text;
+        }
         private void FacilityList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(FacilityList.SelectedItems.Count > 0 && currBtn != null && currBtn != RunningJob)

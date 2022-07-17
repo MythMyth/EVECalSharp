@@ -1,20 +1,14 @@
 Run plan:
 
-Titanium Chromide                           ||    100
-Nonlinear Metamaterials                     ||    100
-Titanium Carbide                            ||    200
 Caracal                                     ||    10
-Gravimetric Sensor Cluster                  ||    12000
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-Titanium Diborite Armor Plate               ||    140000
+Titanium Diborite Armor Plate               ||    80000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
-Fermionic Condensates                       ||    100
 Graviton Reactor Unit                       ||    2000
 Cerberus 1 5 10                             ||    24
-Crystallite Alloy                           ||    100
-Crystalline Carbonide                       ||    300
+Crystalline Carbonide                       ||    100
 Oscillator Capacitor Unit                   ||    8000
 Pulse Shield Emitter                        ||    8000
 Magnetometric Sensor Cluster                ||    4000
@@ -39,44 +33,42 @@ Buy plan:
 
 Haul plan:
 
-XU7-CH - EC T2 Components
+XU7-CH - EC T2 Components
 ->
-XU7-CH - Modules
+XU7-CH - EC Modules
     R.A.M.- Shield Tech    ||    300
     R.A.M.- Electronics    ||    110
 
 ====================
 
-JZ-UQC - EC Medium Ships
+JZ-UQC - EC Medium Ships
 ->
-JZ-UQC - EC T2 Medium Ships
+JZ-UQC - EC T2 Medium Ships
     Vexor    ||    10
 
 ====================
 
-XU7-CH - T2 Reaction
+XU7-CH - T2 Reactions
 ->
-XU7-CH - EC T2 Components
-    Photonic Metamaterials    ||    40632
-    Sylramic Fibers           ||    2075501
-    Phenolic Composites       ||    264096
-    Hypersynaptic Fibers      ||    27088
-    Titanium Carbide          ||    4000000
+XU7-CH - EC T2 Components
+    Crystalline Carbonide      ||    2000000
+    Photonic Metamaterials     ||    40632
+    Fermionic Condensates      ||    6772
+    Sylramic Fibers            ||    1516844
+    Phenolic Composites        ||    264096
+    Hypersynaptic Fibers       ||    6772
+    Titanium Carbide           ||    2996830
+    Nonlinear Metamaterials    ||    9484
 
 ====================
 
-XU7-CH - EC T2 Components
+XU7-CH - EC T2 Components
 ->
-JZ-UQC - EC T2 Medium Ships
-    R.A.M.- Starship Tech    ||    578
-    Scalar Capacitor Unit    ||    9672
-
-====================
-
-MJ-5F9 EC Structures, Fuel, Components
-->
-XU7-CH - T2 Reaction
-    Helium Fuel Block    ||    279
+JZ-UQC - EC T2 Medium Ships
+    Titanium Diborite Armor Plate    ||    60000
+    R.A.M.- Starship Tech            ||    578
+    Gravimetric Sensor Cluster       ||    8544
+    Scalar Capacitor Unit            ||    9672
 
 ====================
 

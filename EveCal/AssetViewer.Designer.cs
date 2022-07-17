@@ -46,6 +46,7 @@
             this.reload = new System.Windows.Forms.Button();
             this.FacilityList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.coverLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AssetTextBox
@@ -239,11 +240,25 @@
             // 
             this.columnHeader1.Width = 300;
             // 
+            // coverLabel
+            // 
+            this.coverLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.coverLabel.Location = new System.Drawing.Point(12, 9);
+            this.coverLabel.Name = "coverLabel";
+            this.coverLabel.Size = new System.Drawing.Size(1476, 762);
+            this.coverLabel.TabIndex = 8;
+            this.coverLabel.Text = "coverLabel";
+            this.coverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.coverLabel.Visible = false;
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.coverLabel);
             this.Controls.Add(this.FacilityList);
             this.Controls.Add(this.reload);
             this.Controls.Add(this.facilityName);
@@ -288,5 +303,6 @@
         private Button reload;
         private ListView FacilityList;
         private ColumnHeader columnHeader1;
+        private Label coverLabel;
     }
 }
