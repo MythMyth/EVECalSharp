@@ -210,7 +210,7 @@ namespace EveCal
                 int success = 0;
                 int not_modified = 0;
                 int failed = 0;
-                for (int currPage = 1; currPage <= assetPage; currPage++)
+                for (int currPage = 1; currPage <= assetPage+1; currPage++)
                 {
                     while (chars[cid].AssetEtag.Count < currPage)
                     {

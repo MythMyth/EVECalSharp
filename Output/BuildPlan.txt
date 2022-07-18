@@ -1,7 +1,7 @@
 Run plan:
 
+Helium Fuel Block                           ||    200
 Titanium Carbide                            ||    100
-Caracal                                     ||    10
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
 Titanium Diborite Armor Plate               ||    80000
@@ -30,6 +30,7 @@ Multispectrum Shield Hardener II 10 5 10    ||    100
 
 Buy plan:
 
+Helium Isotopes	76149
 
 
 Haul plan:
@@ -37,7 +38,8 @@ Haul plan:
 JZ-UQC - EC Medium Ships
 ->
 JZ-UQC - EC T2 Medium Ships
-    Vexor    ||    10
+    Vexor      ||    10
+    Caracal    ||    1
 
 ====================
 
@@ -62,10 +64,13 @@ JZ-UQC - EC T2 Medium Ships
 
 ====================
 
-MJ-5F9 - EC Structures, Fuel, Components
+MJ-5F9 - B E A N S T A R
 ->
-XU7-CH - T2 Reactions
-    Helium Fuel Block    ||    279
+MJ-5F9 - EC Structures, Fuel, Components
+    Liquid Ozone            ||    58479
+    Oxygen                  ||    3688
+    Strontium Clathrates    ||    1771
+    Robotics                ||    53
 
 ====================
 

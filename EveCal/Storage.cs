@@ -315,6 +315,18 @@ namespace EveCal
                     AllAsset[facId][name] += qty;
                 }
             }
+            Running.Clear();
+            if (File.Exists(storagePath + "\\Running"))
+            {
+                string[] lines = File.ReadAllLines(storagePath + "\\Running");
+                foreach(string line in lines)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    if(!Running.ContainsKey(p[0].Trim())) Running.Add(p[0].Trim(), 0);
+                    Running[p[0].Trim()] += int.Parse(p[1]);
+                }
+            }
         }
 
         void SaveAllAsset()
@@ -428,7 +440,7 @@ namespace EveCal
 
         public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
         {
-            if(FacilityMatch.ContainsKey(type))
+            if(FacilityMatch.ContainsKey(type) && AllAsset.ContainsKey(FacilityMatch[type]))
             {
                 return AllAsset[FacilityMatch[type]];
             }
@@ -441,6 +453,7 @@ namespace EveCal
 
             foreach(FacilityType facility in FacilityMatch.Keys)
             {
+                if (!AllAsset.ContainsKey(FacilityMatch[facility])) continue;
                 foreach(string mat in AllAsset[FacilityMatch[facility]].Keys)
                 {
                     if(facility == FacilityType.SOURCE)
