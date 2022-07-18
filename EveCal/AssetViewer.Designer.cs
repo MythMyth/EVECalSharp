@@ -64,11 +64,11 @@
             // 
             this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdateButton.Location = new System.Drawing.Point(457, 726);
+            this.UpdateButton.Location = new System.Drawing.Point(1038, 726);
             this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(1031, 42);
+            this.UpdateButton.Size = new System.Drawing.Size(450, 42);
             this.UpdateButton.TabIndex = 2;
-            this.UpdateButton.Text = "Update";
+            this.UpdateButton.Text = "Update Match";
             this.UpdateButton.UseVisualStyleBackColor = true;
             this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
@@ -215,11 +215,11 @@
             // 
             // reload
             // 
-            this.reload.Location = new System.Drawing.Point(51, 726);
+            this.reload.Location = new System.Drawing.Point(457, 726);
             this.reload.Name = "reload";
-            this.reload.Size = new System.Drawing.Size(312, 23);
+            this.reload.Size = new System.Drawing.Size(571, 42);
             this.reload.TabIndex = 6;
-            this.reload.Text = "Load data";
+            this.reload.Text = "Reload Asset";
             this.reload.UseVisualStyleBackColor = true;
             this.reload.Click += new System.EventHandler(this.reload_Click);
             // 
