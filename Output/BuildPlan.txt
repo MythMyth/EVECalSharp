@@ -1,10 +1,15 @@
 Run plan:
 
 Helium Fuel Block                           ||    200
-Titanium Carbide                            ||    100
+Oxygen Fuel Block                           ||    200
+Titanium Chromide                           ||    100
+Titanium Carbide                            ||    300
+Caracal                                     ||    10
+Gravimetric Sensor Cluster                  ||    12000
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-Titanium Diborite Armor Plate               ||    80000
+Sylramic Fibers                             ||    100
+Titanium Diborite Armor Plate               ||    140000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
 Graviton Reactor Unit                       ||    2000
@@ -19,58 +24,61 @@ Crystalline Carbonide Armor Plate           ||    60000
 Fusion Reactor Unit                         ||    2000
 Ishtar 1 5 10                               ||    10
 Drone Damage Amplifier II 11 4 14           ||    110
-Tungsten Carbide                            ||    100
-Linear Shield Emitter                       ||    4000
-EM Shield Hardener II 10 5 10               ||    100
 Large Shield Extender II 10 5 10            ||    100
 Fernite Carbide                             ||    100
 Deflection Shield Emitter                   ||    4000
+Linear Shield Emitter                       ||    4000
 Multispectrum Shield Hardener II 10 5 10    ||    100
+EM Shield Hardener II 10 5 10               ||    100
 
 
 Buy plan:
 
+Enriched Uranium	677
+Mechanical Parts	677
+Coolant	1523
+Oxygen	3723
 Helium Isotopes	76149
+Oxygen Isotopes	76181
 
 
 Haul plan:
 
-JZ-UQC - EC Medium Ships
-->
-JZ-UQC - EC T2 Medium Ships
-    Vexor      ||    10
-    Caracal    ||    1
-
-====================
-
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
+    Tungsten Carbide         ||    74488
     Crystalline Carbonide    ||    2000000
     Fermionic Condensates    ||    6772
-    Sylramic Fibers          ||    875267
+    Sylramic Fibers          ||    1200000
     Phenolic Composites      ||    264096
     Titanium Carbide         ||    3000000
 
 ====================
 
+JZ-UQC - EC Medium Ships
+->
+JZ-UQC - EC T2 Medium Ships
+    Vexor    ||    10
+
+====================
+
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Titanium Diborite Armor Plate    ||    60000
-    R.A.M.- Starship Tech            ||    578
-    Gravimetric Sensor Cluster       ||    8544
-    Scalar Capacitor Unit            ||    9672
+    R.A.M.- Starship Tech    ||    578
+    Scalar Capacitor Unit    ||    9672
 
 ====================
 
 MJ-5F9 - B E A N S T A R
 ->
 MJ-5F9 - EC Structures, Fuel, Components
-    Liquid Ozone            ||    58479
-    Oxygen                  ||    3688
-    Strontium Clathrates    ||    1771
-    Robotics                ||    53
+    Liquid Ozone            ||    117731
+    Heavy Water             ||    26328
+    Oxygen                  ||    3690
+    Strontium Clathrates    ||    5157
+    Robotics                ||    253
 
 ====================
 

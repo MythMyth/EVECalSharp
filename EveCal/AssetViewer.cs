@@ -164,6 +164,8 @@ namespace EveCal
 
         void reloadAsset()
         {
+            bool will_update_running = true;
+            bool will_update_asset = true;
             List<Dictionary<string, string>> all_jobs = new List<Dictionary<string, string>>();
             Dictionary<string, int> map = new Dictionary<string, int>();
             List<string> ids = new List<string>();
@@ -197,9 +199,11 @@ namespace EveCal
                 } else if(response.StatusCode == System.Net.HttpStatusCode.NotModified)
                 {
                     Invoke(AppendCover, "no modify, ");
+                    will_update_running = false;
                 } else
                 {
                     Invoke(AppendCover, "failed, ");
+                    will_update_running = false;
                 }
                 if (response.Headers.Contains("ETag"))
                 {
@@ -210,7 +214,7 @@ namespace EveCal
                 int success = 0;
                 int not_modified = 0;
                 int failed = 0;
-                for (int currPage = 1; currPage <= assetPage+1; currPage++)
+                for (int currPage = 1; currPage <= assetPage; currPage++)
                 {
                     while (chars[cid].AssetEtag.Count < currPage)
                     {
@@ -253,9 +257,11 @@ namespace EveCal
                     } else if(response.StatusCode == System.Net.HttpStatusCode.NotModified)
                     {
                         not_modified++;
+                        will_update_asset = false;
                     } else
                     {
                         failed++;
+                        will_update_asset = false;
                     }
                     if (response.Headers.Contains("ETag"))
                     {
@@ -266,10 +272,17 @@ namespace EveCal
             }
             Invoke(AppendCover, "\n Update ids");
             Cache.AddIds(ids);
-            Invoke(AppendCover, "\n Update running jobs");
-            Storage.SetRunningJob(all_jobs);
-            Invoke(AppendCover, "\n Update assets");
-            Storage.UpdateAsset(assets);
+            if(will_update_running)
+            {
+                Invoke(AppendCover, "\n Update running jobs");
+                Storage.SetRunningJob(all_jobs);
+            }
+            if(will_update_asset)
+            {
+                Invoke(AppendCover, "\n Update assets");
+                Storage.UpdateAsset(assets);
+            }
+            
             Invoke(delegate
             {
                 coverLabel.Visible = false;
