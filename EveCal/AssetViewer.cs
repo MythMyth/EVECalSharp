@@ -98,7 +98,8 @@ namespace EveCal
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
             Dictionary<string, int> map = Storage.GetFacilityAsset((FacilityType)currBtn.Tag);
-            foreach(string key in map.Keys)
+            AssetList.Items.Clear();
+            foreach (string key in map.Keys)
             {
                 ListViewItem item = new ListViewItem(key);
                 item.SubItems.Add("" + map[key]);
@@ -145,6 +146,7 @@ namespace EveCal
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
             Dictionary<string, int> map = Storage.GetRunningJob();
+            AssetList.Items.Clear();
             foreach (string key in map.Keys)
             {
                 ListViewItem item = new ListViewItem(key);
