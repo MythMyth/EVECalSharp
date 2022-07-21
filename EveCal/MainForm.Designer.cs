@@ -87,7 +87,7 @@
             this.RunList.Location = new System.Drawing.Point(715, 41);
             this.RunList.MultiSelect = false;
             this.RunList.Name = "RunList";
-            this.RunList.Size = new System.Drawing.Size(292, 678);
+            this.RunList.Size = new System.Drawing.Size(313, 678);
             this.RunList.TabIndex = 4;
             this.RunList.UseCompatibleStateImageBehavior = false;
             this.RunList.View = System.Windows.Forms.View.Details;
@@ -95,7 +95,7 @@
             // columnHeader0
             // 
             this.columnHeader0.Text = "Item";
-            this.columnHeader0.Width = 110;
+            this.columnHeader0.Width = 200;
             // 
             // columnHeader1
             // 
@@ -117,10 +117,10 @@
             this.columnHeader4,
             this.columnHeader5});
             this.BuyList.GridLines = true;
-            this.BuyList.Location = new System.Drawing.Point(1025, 41);
+            this.BuyList.Location = new System.Drawing.Point(1049, 41);
             this.BuyList.MultiSelect = false;
             this.BuyList.Name = "BuyList";
-            this.BuyList.Size = new System.Drawing.Size(292, 678);
+            this.BuyList.Size = new System.Drawing.Size(305, 678);
             this.BuyList.TabIndex = 5;
             this.BuyList.UseCompatibleStateImageBehavior = false;
             this.BuyList.View = System.Windows.Forms.View.Details;
@@ -128,7 +128,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Item";
-            this.columnHeader3.Width = 110;
+            this.columnHeader3.Width = 200;
             // 
             // columnHeader4
             // 
@@ -150,10 +150,10 @@
             this.columnHeader7,
             this.columnHeader8});
             this.HaulList.GridLines = true;
-            this.HaulList.Location = new System.Drawing.Point(1334, 41);
+            this.HaulList.Location = new System.Drawing.Point(1371, 41);
             this.HaulList.MultiSelect = false;
             this.HaulList.Name = "HaulList";
-            this.HaulList.Size = new System.Drawing.Size(463, 678);
+            this.HaulList.Size = new System.Drawing.Size(426, 678);
             this.HaulList.TabIndex = 6;
             this.HaulList.UseCompatibleStateImageBehavior = false;
             this.HaulList.View = System.Windows.Forms.View.Details;
@@ -161,7 +161,7 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "Item";
-            this.columnHeader6.Width = 120;
+            this.columnHeader6.Width = 300;
             // 
             // columnHeader7
             // 
@@ -179,7 +179,7 @@
             this.CopyRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CopyRunPlan.Location = new System.Drawing.Point(715, 725);
             this.CopyRunPlan.Name = "CopyRunPlan";
-            this.CopyRunPlan.Size = new System.Drawing.Size(292, 23);
+            this.CopyRunPlan.Size = new System.Drawing.Size(313, 23);
             this.CopyRunPlan.TabIndex = 7;
             this.CopyRunPlan.Text = "Copy";
             this.CopyRunPlan.UseVisualStyleBackColor = true;
@@ -188,9 +188,9 @@
             // CopyBuyPlan
             // 
             this.CopyBuyPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CopyBuyPlan.Location = new System.Drawing.Point(1025, 725);
+            this.CopyBuyPlan.Location = new System.Drawing.Point(1049, 725);
             this.CopyBuyPlan.Name = "CopyBuyPlan";
-            this.CopyBuyPlan.Size = new System.Drawing.Size(292, 23);
+            this.CopyBuyPlan.Size = new System.Drawing.Size(305, 23);
             this.CopyBuyPlan.TabIndex = 7;
             this.CopyBuyPlan.Text = "Copy";
             this.CopyBuyPlan.UseVisualStyleBackColor = true;
@@ -199,9 +199,9 @@
             // CopyHaulPlan
             // 
             this.CopyHaulPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CopyHaulPlan.Location = new System.Drawing.Point(1334, 725);
+            this.CopyHaulPlan.Location = new System.Drawing.Point(1371, 725);
             this.CopyHaulPlan.Name = "CopyHaulPlan";
-            this.CopyHaulPlan.Size = new System.Drawing.Size(463, 23);
+            this.CopyHaulPlan.Size = new System.Drawing.Size(426, 23);
             this.CopyHaulPlan.TabIndex = 7;
             this.CopyHaulPlan.Text = "Copy";
             this.CopyHaulPlan.UseVisualStyleBackColor = true;
@@ -219,7 +219,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1025, 18);
+            this.label2.Location = new System.Drawing.Point(1049, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 15);
             this.label2.TabIndex = 9;
@@ -228,7 +228,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1334, 20);
+            this.label3.Location = new System.Drawing.Point(1371, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 10;

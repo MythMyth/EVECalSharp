@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AssetTextBox = new System.Windows.Forms.TextBox();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -47,18 +46,10 @@
             this.FacilityList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.coverLabel = new System.Windows.Forms.Label();
+            this.AssetList = new System.Windows.Forms.ListView();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
-            // 
-            // AssetTextBox
-            // 
-            this.AssetTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AssetTextBox.Location = new System.Drawing.Point(457, 41);
-            this.AssetTextBox.Multiline = true;
-            this.AssetTextBox.Name = "AssetTextBox";
-            this.AssetTextBox.Size = new System.Drawing.Size(571, 679);
-            this.AssetTextBox.TabIndex = 1;
             // 
             // UpdateButton
             // 
@@ -253,12 +244,38 @@
             this.coverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.coverLabel.Visible = false;
             // 
+            // AssetList
+            // 
+            this.AssetList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AssetList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3});
+            this.AssetList.GridLines = true;
+            this.AssetList.Location = new System.Drawing.Point(457, 41);
+            this.AssetList.Name = "AssetList";
+            this.AssetList.Size = new System.Drawing.Size(571, 679);
+            this.AssetList.TabIndex = 9;
+            this.AssetList.UseCompatibleStateImageBehavior = false;
+            this.AssetList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 450;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Amount";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader3.Width = 100;
+            // 
             // AssetViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
             this.Controls.Add(this.coverLabel);
+            this.Controls.Add(this.AssetList);
             this.Controls.Add(this.FacilityList);
             this.Controls.Add(this.reload);
             this.Controls.Add(this.facilityName);
@@ -275,7 +292,6 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.UpdateButton);
-            this.Controls.Add(this.AssetTextBox);
             this.Name = "AssetViewer";
             this.Text = "AssetViewer";
             this.ResumeLayout(false);
@@ -284,8 +300,6 @@
         }
 
         #endregion
-
-        private TextBox AssetTextBox;
         private Button UpdateButton;
         private Button button1;
         private Button button2;
@@ -304,5 +318,8 @@
         private ListView FacilityList;
         private ColumnHeader columnHeader1;
         private Label coverLabel;
+        private ListView AssetList;
+        private ColumnHeader columnHeader2;
+        public ColumnHeader columnHeader3;
     }
 }

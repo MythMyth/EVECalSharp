@@ -98,12 +98,12 @@ namespace EveCal
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
             Dictionary<string, int> map = Storage.GetFacilityAsset((FacilityType)currBtn.Tag);
-            string text = "";
             foreach(string key in map.Keys)
             {
-                text += key + "\t" + map[key] + "\r\n";
+                ListViewItem item = new ListViewItem(key);
+                item.SubItems.Add("" + map[key]);
+                AssetList.Items.Add(item);
             }
-            AssetTextBox.Text = text;
             facilityName.Text = Storage.GetName((FacilityType)currBtn.Tag);
 
             FacilityType type = (FacilityType)currBtn.Tag;
@@ -145,12 +145,12 @@ namespace EveCal
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
             Dictionary<string, int> map = Storage.GetRunningJob();
-            string text = "";
             foreach (string key in map.Keys)
             {
-                text += "\t" + map[key] + "\t\t" + key + "\r\n";
+                ListViewItem item = new ListViewItem(key);
+                item.SubItems.Add("" + map[key]);
+                AssetList.Items.Add(item);
             }
-            AssetTextBox.Text = text;
             facilityName.Text = "";
         }
 
@@ -267,8 +267,8 @@ namespace EveCal
                     {
                         chars[cid].AssetEtag[currPage - 1] = response.Headers.GetValues("ETag").First();
                     }
-                    Invoke(AppendCover, "success: " + success + ", not modified: " + not_modified + ", faield:" + failed);
                 }
+                Invoke(AppendCover, "success: " + success + ", not modified: " + not_modified + ", faield:" + failed);
             }
             Invoke(AppendCover, "\n Update ids");
             Cache.AddIds(ids);
