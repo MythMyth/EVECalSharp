@@ -1,61 +1,101 @@
-XU7-CH - T2 Reaction
-Caesarium Cadmide Reaction Formula	3
-Carbon Fiber Reaction Formula	3
-Carbon Polymers Reaction Formula	3
-Ceramic Powder Reaction Formula	3
-Crystalline Carbonide Reaction Formula	3
-Crystallite Alloy Reaction Formula	3
-Dysporite Reaction Formula	2
-Fermionic Condensates Reaction Formula	3
-Fernite Alloy Reaction Formula	3
-Fernite Carbide Reaction Formula	3
-Ferrofluid Reaction Formula	2
-Ferrogel Reaction Formula	3
-Fluxed Condensates Reaction Formula	2
-Fulleride Reaction Formula	3
-Hexite Reaction Formula	2
-Hyperflurite Reaction Formula	3
-Hypersynaptic Fibers Reaction Formula	3
-Nanotransistors Reaction Formula	3
-Neo Mercurite Reaction Formula	2
-Nonlinear Metamaterials Reaction Formula	3
-Phenolic Composites Reaction Formula	3
-Photonic Metamaterials Reaction Formula	3
-Plasmonic Metamaterials Reaction Formula	3
-Platinum Technite Reaction Formula	2
-Promethium Mercurite Reaction Formula	3
-Prometium Reaction Formula	3
-Rolled Tungsten Alloy Reaction Formula	3
-Silicon Diborite Reaction Formula	3
-Solerium Reaction Formula	3
-Sulfuric Acid Reaction Formula	2
-Sylramic Fibers Reaction Formula	3
-Terahertz Metamaterials Reaction Formula	3
-Thulium Hafnite Reaction Formula	2
-Titanium Carbide Reaction Formula	3
-Titanium Chromide Reaction Formula	1
-Tungsten Carbide Reaction Formula	3
-Vanadium Hafnite Reaction Formula	3
-Helium Fuel Block	7026
-Hydrogen Fuel Block	6539
-Nitrogen Fuel Block	5565
-Oxygen Fuel Block	14539
+XU7-CH - T2 Reaction
 Atmospheric Gases	150858
-Cadmium	162422
-Chromium	140229
-Cobalt	103364
+Cadmium	104006
+Caesarium Cadmide	20528
+Caesarium Cadmide Reaction Formula	1
+Caesarium Cadmide Reaction Formula	1
+Caesium	80540
+Carbon Fiber Reaction Formula	3
+Carbon Polymers	30264
+Carbon Polymers Reaction Formula	1
+Carbon Polymers Reaction Formula	1
+Ceramic Powder	21056
+Ceramic Powder Reaction Formula	1
+Ceramic Powder Reaction Formula	1
+Ceramic Powder Reaction Formula	1
+Chromium	91549
+Cobalt	83892
+Crystalline Carbonide Reaction Formula	3
+Crystallite Alloy	528
+Crystallite Alloy Reaction Formula	1
+Crystallite Alloy Reaction Formula	1
+Dysporite	10264
+Dysporite Reaction Formula	2
+Dysporite Reaction Formula	1
 Dysprosium	78981
-Evaporite Deposits	28913
-Hafnium	11958
-Hydrocarbons	99914
-Mercury	45256
+Evaporite Deposits	9674
+Fermionic Condensates Reaction Formula	3
+Fernite Alloy Reaction Formula	2
+Fernite Carbide Reaction Formula	3
+Ferrofluid	10792
+Ferrofluid Reaction Formula	2
+Ferrofluid Reaction Formula	1
+Ferrogel Reaction Formula	3
+Fluxed Condensates	20000
+Fluxed Condensates Reaction Formula	2
+Fluxed Condensates Reaction Formula	1
+Fulleride Reaction Formula	2
+Fulleride Reaction Formula	1
+Hafnium	49228
+Helium Fuel Block	2156
+Hexite	21056
+Hexite Reaction Formula	2
+Hexite Reaction Formula	1
+Hydrocarbons	70706
+Hydrogen Fuel Block	3617
+Hyperflurite	20000
+Hyperflurite Reaction Formula	2
+Hyperflurite Reaction Formula	1
+Hypersynaptic Fibers Reaction Formula	2
+Mercury	35520
+Nanotransistors Reaction Formula	2
+Nanotransistors Reaction Formula	1
+Neo Mercurite	10264
+Neo Mercurite Reaction Formula	2
+Neo Mercurite Reaction Formula	1
 Neodymium	20038
-Platinum	185348
-Promethium	50000
-Scandium	169838
-Silicates	107619
-Technetium	39765
-Thulium	17801
-Titanium	91432
-Tungsten	13424
-Vanadium	280230
+Nitrogen Fuel Block	1669
+Nonlinear Metamaterials Reaction Formula	1
+Nonlinear Metamaterials Reaction Formula	1
+Nonlinear Metamaterials Reaction Formula	1
+Oxygen Fuel Block	2846
+Phenolic Composites Reaction Formula	2
+Photonic Metamaterials Reaction Formula	1
+Plasmonic Metamaterials Reaction Formula	3
+Platinum	165876
+Platinum Technite	528
+Platinum Technite Reaction Formula	2
+Promethium	20792
+Promethium Mercurite	20000
+Promethium Mercurite Reaction Formula	2
+Promethium Mercurite Reaction Formula	1
+Prometium Reaction Formula	2
+Rolled Tungsten Alloy Reaction Formula	2
+Scandium	160102
+Silicates	425
+Silicon Diborite	31848
+Silicon Diborite Reaction Formula	1
+Silicon Diborite Reaction Formula	1
+Silicon Diborite Reaction Formula	1
+Solerium	10264
+Solerium Reaction Formula	2
+Sulfuric Acid	10264
+Sulfuric Acid Reaction Formula	2
+Sulfuric Acid Reaction Formula	1
+Technetium	30029
+Terahertz Metamaterials Reaction Formula	3
+Thulium	29480
+Thulium Hafnite	528
+Thulium Hafnite Reaction Formula	2
+Thulium Hafnite Reaction Formula	1
+Titanium	62224
+Titanium Chromide	2112
+Titanium Chromide Reaction Formula	1
+Titanium Chromide Reaction Formula	1
+Tungsten	3688
+Tungsten Carbide Reaction Formula	3
+Vanadium	241286
+Vanadium Hafnite	10792
+Vanadium Hafnite Reaction Formula	1
+Vanadium Hafnite Reaction Formula	1
+Vanadium Hafnite Reaction Formula	1
