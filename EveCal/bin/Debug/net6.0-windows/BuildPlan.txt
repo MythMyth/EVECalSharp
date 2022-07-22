@@ -1,14 +1,15 @@
 Run plan:
 
+Titanium Carbide                            ||    100
 Caracal                                     ||    10
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-Titanium Diborite Armor Plate               ||    80000
+Titanium Diborite Armor Plate               ||    20000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
 Graviton Reactor Unit                       ||    2000
 Cerberus 1 5 10                             ||    24
-Crystalline Carbonide                       ||    100
+Crystalline Carbonide                       ||    200
 Oscillator Capacitor Unit                   ||    8000
 Pulse Shield Emitter                        ||    8000
 Magnetometric Sensor Cluster                ||    4000
@@ -18,20 +19,50 @@ Crystalline Carbonide Armor Plate           ||    60000
 Fusion Reactor Unit                         ||    2000
 Ishtar 1 5 10                               ||    10
 Drone Damage Amplifier II 11 4 14           ||    110
-Tungsten Carbide                            ||    100
 Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
 Large Shield Extender II 10 5 10            ||    100
 Fernite Carbide                             ||    100
 Deflection Shield Emitter                   ||    4000
 Multispectrum Shield Hardener II 10 5 10    ||    100
+Hound 2 4 14                                ||    20
+Muninn 1 5 10                               ||    10
+Sabre 1 5 10                                ||    10
+Fernite Carbide Composite Armor Plate       ||    20000
+Plasma Pulse Generator                      ||    4000
+R.A.M.- Armor/Hull Tech                     ||    200
+Assault Damage Control I                    ||    200
+Assault Damage Control II 11 4 14           ||    110
+Ballistic Control System I                  ||    200
+Ballistic Control System II 11 4 14         ||    110
+Damage Control II 11 4 14                   ||    110
+Heavy Missile Launcher I                    ||    200
+R.A.M.- Weapon Tech                         ||    200
+Heavy Missile Launcher II 11 4 14           ||    110
+Magnetic Field Stabilizer I                 ||    200
+Magnetic Field Stabilizer II 11 4 14        ||    110
 
 
 Buy plan:
 
+Mechanical Parts	2010
+Morphite	1770
+Nocxium	12172
+Construction Blocks	700
+Miniature Electronics	800
 
 
 Haul plan:
+
+XU7-CH - T2 Reactions
+->
+XU7-CH - EC T2 Components
+    Tungsten Carbide         ||    74488
+    Crystalline Carbonide    ||    2000000
+    Fermionic Condensates    ||    6772
+    Titanium Carbide         ||    1000000
+
+====================
 
 JZ-UQC - EC Medium Ships
 ->
@@ -40,31 +71,36 @@ JZ-UQC - EC T2 Medium Ships
 
 ====================
 
-XU7-CH - T2 Reactions
-->
-XU7-CH - EC T2 Components
-    Crystalline Carbonide    ||    2000000
-    Fermionic Condensates    ||    6772
-    Sylramic Fibers          ||    875267
-    Phenolic Composites      ||    264096
-    Titanium Carbide         ||    3453890
-
-====================
-
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Titanium Diborite Armor Plate    ||    60000
+    Titanium Diborite Armor Plate    ||    120000
     R.A.M.- Starship Tech            ||    578
     Gravimetric Sensor Cluster       ||    8544
     Scalar Capacitor Unit            ||    9672
 
 ====================
 
-MJ-5F9 - EC Structures, Fuel, Components
+MJ-5F9 - B E A N S T A R
 ->
-XU7-CH - T2 Reactions
-    Helium Fuel Block    ||    279
+XU7-CH - EC Modules
+    Megacyte     ||    677
+    Zydrine      ||    2407
+    Isogen       ||    639
+    Mexallon     ||    147375
+    Pyerite      ||    653781
+    Tritanium    ||    2628322
+    Robotics     ||    600
+
+====================
+
+MJ-5F9 - B E A N S T A R
+->
+XU7-CH - EC T2 Components
+    Isogen       ||    27728
+    Mexallon     ||    75070
+    Pyerite      ||    150144
+    Tritanium    ||    188012
 
 ====================
 
