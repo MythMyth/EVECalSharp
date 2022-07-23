@@ -41,3 +41,10 @@ C:\Users\ADMIN\source\repos\EveCal\EveCal\bin\Debug\net6.0-windows\Newtonsoft.Js
 C:\Users\ADMIN\source\repos\EveCal\EveCal\obj\Debug\net6.0-windows\EveCal.csproj.CopyComplete
 C:\Users\ADMIN\source\repos\EveCal\EveCal\obj\Debug\net6.0-windows\EveCal.SSO.resources
 C:\Users\ADMIN\source\repos\EveCal\EveCal\obj\Debug\net6.0-windows\EveCal.Properties.Resources.resources
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Debug\net6.0-windows\System.Web.Http.dll
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\obj\Debug\net6.0-windows\EveCal.Properties.Resources.resources
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\obj\Debug\net6.0-windows\EveCal.SSO.resources
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\obj\Debug\net6.0-windows\EveCal.csproj.CopyComplete

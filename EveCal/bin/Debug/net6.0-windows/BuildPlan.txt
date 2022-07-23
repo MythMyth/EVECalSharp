@@ -1,9 +1,16 @@
 Run plan:
 
+Nitrogen Fuel Block                         ||    200
+Sulfuric Acid                               ||    100
+Nanotransistors                             ||    100
+Oxygen Fuel Block                           ||    200
+Hydrogen Fuel Block                         ||    200
 Titanium Carbide                            ||    100
 Caracal                                     ||    10
-Ferrogel                                    ||    100
+Ferrogel                                    ||    200
 Magpulse Thruster                           ||    4000
+Ceramic Powder                              ||    100
+Sylramic Fibers                             ||    100
 Titanium Diborite Armor Plate               ||    20000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
@@ -22,13 +29,23 @@ Drone Damage Amplifier II 11 4 14           ||    110
 Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
 Large Shield Extender II 10 5 10            ||    100
-Fernite Carbide                             ||    100
-Deflection Shield Emitter                   ||    4000
+Fernite Alloy                               ||    100
+Fernite Carbide                             ||    300
+Deflection Shield Emitter                   ||    8000
 Multispectrum Shield Hardener II 10 5 10    ||    100
+Breacher                                    ||    30
+Plasma Thruster                             ||    4000
+Fernite Carbide Composite Armor Plate       ||    80000
+Ladar Sensor Cluster                        ||    4000
+Plasmonic Metamaterials                     ||    200
+Nanomechanical Microprocessor               ||    24000
+Electrolytic Capacitor Unit                 ||    8000
+Nuclear Reactor Unit                        ||    2000
 Hound 2 4 14                                ||    20
+Rupture                                     ||    10
 Muninn 1 5 10                               ||    10
+Thrasher                                    ||    20
 Sabre 1 5 10                                ||    10
-Fernite Carbide Composite Armor Plate       ||    20000
 Plasma Pulse Generator                      ||    4000
 R.A.M.- Armor/Hull Tech                     ||    200
 Assault Damage Control I                    ||    200
@@ -45,10 +62,16 @@ Magnetic Field Stabilizer II 11 4 14        ||    110
 
 Buy plan:
 
-Mechanical Parts	2010
-Morphite	1770
+Enriched Uranium	1355
+Mechanical Parts	3365
+Coolant	3047
+Oxygen	7448
+Evaporite Deposits	9806
+Hydrogen Isotopes	76181
+Silicates	9315
+Morphite	2600
 Nocxium	12172
-Construction Blocks	700
+Construction Blocks	1820
 Miniature Electronics	800
 
 
@@ -57,9 +80,10 @@ Haul plan:
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
+    Fernite Carbide          ||    1000000
     Tungsten Carbide         ||    74488
     Crystalline Carbonide    ||    2000000
-    Fermionic Condensates    ||    6772
+    Fermionic Condensates    ||    10158
     Titanium Carbide         ||    1000000
 
 ====================
@@ -75,9 +99,16 @@ XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
     Titanium Diborite Armor Plate    ||    120000
-    R.A.M.- Starship Tech            ||    578
+    R.A.M.- Starship Tech            ||    748
     Gravimetric Sensor Cluster       ||    8544
     Scalar Capacitor Unit            ||    9672
+
+====================
+
+XU7-CH - EC T2 Components
+->
+
+    R.A.M.- Starship Tech    ||    150
 
 ====================
 
@@ -101,6 +132,29 @@ XU7-CH - EC T2 Components
     Mexallon     ||    75070
     Pyerite      ||    150144
     Tritanium    ||    188012
+
+====================
+
+MJ-5F9 - B E A N S T A R
+->
+
+    Isogen       ||    29626
+    Mexallon     ||    148129
+    Pyerite      ||    406296
+    Tritanium    ||    2166912
+
+====================
+
+MJ-5F9 - B E A N S T A R
+->
+MJ-5F9 - EC Structures, Fuel, Components
+    Oxygen Isotopes         ||    76181
+    Nitrogen Isotopes       ||    76181
+    Liquid Ozone            ||    176983
+    Heavy Water             ||    55108
+    Oxygen                  ||    3690
+    Strontium Clathrates    ||    8543
+    Robotics                ||    453
 
 ====================
 

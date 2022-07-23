@@ -564,7 +564,7 @@ namespace EveCal
         public string _GetName(FacilityType type)
         {
             if (FacilityMatch.ContainsKey(type)) return LocationName[FacilityMatch[type]];
-            return "";
+            return type.ToString();
         }
 
         public Dictionary<string, string> _GetFacilityNames()
