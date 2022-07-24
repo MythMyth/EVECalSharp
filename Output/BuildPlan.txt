@@ -1,21 +1,15 @@
 Run plan:
 
-Sulfuric Acid                               ||    100
 Nanotransistors                             ||    100
-Oxygen Fuel Block                           ||    200
-Hydrogen Fuel Block                         ||    200
-Caracal                                     ||    10
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
 Ceramic Powder                              ||    200
-Titanium Diborite Armor Plate               ||    20000
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
 Cerberus 1 5 10                             ||    24
 Pulse Shield Emitter                        ||    8000
 Ion Thruster                                ||    4000
-Crystalline Carbonide Armor Plate           ||    60000
-Fusion Reactor Unit                         ||    2000
+Crystalline Carbonide Armor Plate           ||    20000
 Ishtar 1 5 10                               ||    10
 Drone Damage Amplifier II 11 4 14           ||    110
 Linear Shield Emitter                       ||    4000
@@ -53,14 +47,6 @@ Magnetic Field Stabilizer II 11 4 14        ||    110
 
 Buy plan:
 
-Enriched Uranium	1354
-Coolant	3046
-Oxygen	7446
-Evaporite Deposits	19546
-Hydrogen Isotopes	76181
-Silicates	19055
-Morphite	2600
-Nocxium	12172
 
 
 Haul plan:
@@ -70,26 +56,24 @@ XU7-CH - T2 Reactions
 XU7-CH - EC T2 Components
     Fernite Carbide          ||    1000000
     Tungsten Carbide         ||    74488
-    Crystalline Carbonide    ||    1004698
-    Sylramic Fibers          ||    450382
+    Crystalline Carbonide    ||    1004065
+    Sylramic Fibers          ||    450148
     Ferrogel                 ||    40000
-    Titanium Carbide         ||    1452944
+    Titanium Carbide         ||    452631
 
 ====================
 
-MJ-5F9 - B E A N S T A R
+XU7-CH - EC T2 Components
 ->
-XU7-CH - EC Modules
-    Miniature Electronics    ||    800
-    Construction Blocks      ||    700
-    Megacyte                 ||    677
-    Zydrine                  ||    2407
-    Isogen                   ||    639
-    Mexallon                 ||    147375
-    Pyerite                  ||    653781
-    Tritanium                ||    2628322
-    Mechanical Parts         ||    2010
-    Robotics                 ||    600
+JZ-UQC - EC T2 Medium Ships
+    Fusion Reactor Unit                  ||    340
+    Crystalline Carbonide Armor Plate    ||    40000
+    Photon Microprocessor                ||    12070
+    Magnetometric Sensor Cluster         ||    3560
+    Oscillator Capacitor Unit            ||    4030
+    Graviton Reactor Unit                ||    816
+    Titanium Diborite Armor Plate        ||    624
+    Scalar Capacitor Unit                ||    1672
 
 ====================
 
@@ -101,72 +85,10 @@ XU7-CH - EC Modules
 
 ====================
 
-XU7-CH - EC T2 Components
-->
-JZ-UQC - EC T2 Medium Ships
-    Photon Microprocessor            ||    12070
-    Magnetometric Sensor Cluster     ||    3560
-    Oscillator Capacitor Unit        ||    4030
-    Graviton Reactor Unit            ||    816
-    Titanium Diborite Armor Plate    ||    120000
-    R.A.M.- Starship Tech            ||    748
-    Gravimetric Sensor Cluster       ||    8544
-    Scalar Capacitor Unit            ||    9672
-
-====================
-
-JZ-UQC - EC Medium Ships
-->
-JZ-UQC - EC T2 Medium Ships
-    Vexor    ||    10
-
-====================
-
-XU7-CH - EC T2 Components
-->
-
-    R.A.M.- Starship Tech    ||    150
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-
-    Construction Blocks    ||    760
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-JZ-UQC - EC T2 Medium Ships
-    Construction Blocks    ||    360
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-XU7-CH - EC T2 Components
-    Isogen       ||    27728
-    Mexallon     ||    75070
-    Pyerite      ||    150144
-    Tritanium    ||    188012
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-
-    Isogen       ||    29626
-    Mexallon     ||    148129
-    Pyerite      ||    406296
-    Tritanium    ||    2166912
-
-====================
-
 MJ-5F9 - EC Structures, Fuel, Components
 ->
 XU7-CH - T2 Reactions
-    Nitrogen Fuel Block    ||    767
+    Hydrogen Fuel Block    ||    3688
 
 ====================
 
