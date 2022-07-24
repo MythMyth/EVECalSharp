@@ -3,7 +3,7 @@ Run plan:
 Nanotransistors                             ||    100
 Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-Ceramic Powder                              ||    200
+Ceramic Powder                              ||    100
 Quantum Microprocessor                      ||    32000
 Sustained Shield Emitter                    ||    12000
 Cerberus 1 5 10                             ||    24
@@ -82,13 +82,6 @@ XU7-CH - EC T2 Components
 XU7-CH - EC Modules
     Photon Microprocessor        ||    900
     Oscillator Capacitor Unit    ||    220
-
-====================
-
-MJ-5F9 - EC Structures, Fuel, Components
-->
-XU7-CH - T2 Reactions
-    Hydrogen Fuel Block    ||    3688
 
 ====================
 

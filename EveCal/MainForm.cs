@@ -72,34 +72,10 @@ namespace EveCal
                     item.SubItems.Add("" + work.amount);
                     BuyList.Items.Add(item);
                 }
-
             }
-            foreach (ItemWorkDetail work in currPlan.Item1)
-            {
-                if (work.jobRun != 0)
-                {
-                    ListViewItem item = new ListViewItem(work.name);
-                    item.SubItems.Add("x");
-                    item.SubItems.Add("" + work.jobRun);
-                    RunList.Items.Add(item);
-                }
-            }
-
-            foreach (var key in currPlan.Item2.Keys)
-            {
-                FacilityType haulFrom = key.Item1, haulTo = key.Item2;
-                ListViewGroup gr = new ListViewGroup("" + Storage.GetName(haulFrom) + " \n-> \n" + Storage.GetName(haulTo));
-                HaulList.Groups.Add(gr);
-                foreach (string item in currPlan.Item2[key].Keys)
-                {
-                    ListViewItem listItem = new ListViewItem(item);
-                    listItem.SubItems.Add(" x ");
-                    listItem.SubItems.Add("" + currPlan.Item2[key][item]);
-                    listItem.Group = gr;
-                    HaulList.Items.Add(listItem);
-                }
-            }
-
+            ShowRunPlan();
+            ShowHaulPlan();
+            
             FileStream fs;
             if (File.Exists("BuildPlan.txt"))
             {
@@ -117,6 +93,53 @@ namespace EveCal
             writer.Write(GenerateHaulPlan());
             writer.Close();
             fs.Close();
+        }
+
+        private void ShowHaulPlan()
+        {
+            List<ListViewGroup> list = new List<ListViewGroup>();
+            foreach (var key in currPlan.Item2.Keys)
+            {
+                FacilityType haulFrom = key.Item1, haulTo = key.Item2;
+                ListViewGroup gr = new ListViewGroup("" + Storage.GetName(haulFrom) + " \n-> \n" + Storage.GetName(haulTo));
+                list.Add(gr);
+                foreach (string item in currPlan.Item2[key].Keys)
+                {
+                    ListViewItem listItem = new ListViewItem(item);
+                    listItem.SubItems.Add(" x ");
+                    listItem.SubItems.Add("" + currPlan.Item2[key][item]);
+                    listItem.Group = gr;
+                    HaulList.Items.Add(listItem);
+                }
+            }
+            list = list.OrderBy(o => o.Header).ToList();
+            foreach(ListViewGroup gr in list)
+            {
+                HaulList.Groups.Add(gr);
+            }
+        }
+
+        private void ShowRunPlan()
+        {
+            Dictionary<FacilityType, ListViewGroup> gr_map = new Dictionary<FacilityType, ListViewGroup>();
+            foreach (ItemWorkDetail work in currPlan.Item1)
+            {
+                if (work.jobRun != 0)
+                {
+                    ListViewItem item = new ListViewItem(work.name);
+                    item.SubItems.Add("x");
+                    item.SubItems.Add("" + work.jobRun);
+                    BP bp = Loader.Get(work.name);
+                    if (!gr_map.ContainsKey(bp.MakeAt()))
+                    {
+                        ListViewGroup group = new ListViewGroup(bp.MakeAt().ToString());
+                        gr_map.Add(bp.MakeAt(), group);
+                        RunList.Groups.Add(group);
+                    }
+                    item.Group = gr_map[bp.MakeAt()];
+                    RunList.Items.Add(item);
+                }
+            }
         }
 
         private void CopyRunPlan_Click(object sender, EventArgs e)

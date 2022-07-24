@@ -1,39 +1,23 @@
 Run plan:
 
-Nitrogen Fuel Block                         ||    200
-Sulfuric Acid                               ||    100
 Nanotransistors                             ||    100
-Oxygen Fuel Block                           ||    200
-Hydrogen Fuel Block                         ||    200
-Titanium Carbide                            ||    100
-Caracal                                     ||    10
-Ferrogel                                    ||    200
+Ferrogel                                    ||    100
 Magpulse Thruster                           ||    4000
-Ceramic Powder                              ||    100
-Sylramic Fibers                             ||    100
-Titanium Diborite Armor Plate               ||    20000
-Quantum Microprocessor                      ||    32000
+R.A.M.- Starship Tech                       ||    200
+Quantum Microprocessor                      ||    16000
 Sustained Shield Emitter                    ||    12000
-Graviton Reactor Unit                       ||    2000
 Cerberus 1 5 10                             ||    24
-Crystalline Carbonide                       ||    200
-Oscillator Capacitor Unit                   ||    8000
 Pulse Shield Emitter                        ||    8000
-Magnetometric Sensor Cluster                ||    4000
-Photon Microprocessor                       ||    16000
 Ion Thruster                                ||    4000
-Crystalline Carbonide Armor Plate           ||    60000
-Fusion Reactor Unit                         ||    2000
+Crystalline Carbonide Armor Plate           ||    20000
 Ishtar 1 5 10                               ||    10
-Drone Damage Amplifier II 11 4 14           ||    110
+Drone Damage Amplifier II 11 4 14           ||    99
 Linear Shield Emitter                       ||    4000
 EM Shield Hardener II 10 5 10               ||    100
 Large Shield Extender II 10 5 10            ||    100
-Fernite Alloy                               ||    100
 Fernite Carbide                             ||    300
 Deflection Shield Emitter                   ||    8000
 Multispectrum Shield Hardener II 10 5 10    ||    100
-Breacher                                    ||    30
 Plasma Thruster                             ||    4000
 Fernite Carbide Composite Armor Plate       ||    80000
 Ladar Sensor Cluster                        ||    4000
@@ -44,117 +28,82 @@ Nuclear Reactor Unit                        ||    2000
 Hound 2 4 14                                ||    20
 Rupture                                     ||    10
 Muninn 1 5 10                               ||    10
-Thrasher                                    ||    20
 Sabre 1 5 10                                ||    10
 Plasma Pulse Generator                      ||    4000
 R.A.M.- Armor/Hull Tech                     ||    200
-Assault Damage Control I                    ||    200
 Assault Damage Control II 11 4 14           ||    110
-Ballistic Control System I                  ||    200
 Ballistic Control System II 11 4 14         ||    110
 Damage Control II 11 4 14                   ||    110
 Heavy Missile Launcher I                    ||    200
 R.A.M.- Weapon Tech                         ||    200
 Heavy Missile Launcher II 11 4 14           ||    110
-Magnetic Field Stabilizer I                 ||    200
 Magnetic Field Stabilizer II 11 4 14        ||    110
 
 
 Buy plan:
 
-Enriched Uranium	1355
-Mechanical Parts	3365
-Coolant	3047
-Oxygen	7448
-Evaporite Deposits	9806
-Hydrogen Isotopes	76181
-Silicates	9315
-Morphite	2600
-Nocxium	12172
-Construction Blocks	1820
-Miniature Electronics	800
+Pyerite	65309
 
 
 Haul plan:
+
+SMALL_SHIP
+->
+ADV_SMALL_SHIP
+    Thrasher    ||    10
+    Breacher    ||    20
+
+====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
     Fernite Carbide          ||    1000000
     Tungsten Carbide         ||    74488
-    Crystalline Carbonide    ||    2000000
-    Fermionic Condensates    ||    10158
-    Titanium Carbide         ||    1000000
-
-====================
-
-JZ-UQC - EC Medium Ships
-->
-JZ-UQC - EC T2 Medium Ships
-    Vexor    ||    10
+    Crystalline Carbonide    ||    1004065
+    Sylramic Fibers          ||    450148
+    Ferrogel                 ||    40000
+    Titanium Carbide         ||    452533
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Titanium Diborite Armor Plate    ||    120000
-    R.A.M.- Starship Tech            ||    748
-    Gravimetric Sensor Cluster       ||    8544
-    Scalar Capacitor Unit            ||    9672
+    Fusion Reactor Unit                  ||    340
+    Crystalline Carbonide Armor Plate    ||    40000
+    Photon Microprocessor                ||    12070
+    Magnetometric Sensor Cluster         ||    3560
+    Oscillator Capacitor Unit            ||    4030
+    Graviton Reactor Unit                ||    816
+    Quantum Microprocessor               ||    13780
+    Titanium Diborite Armor Plate        ||    624
+    Scalar Capacitor Unit                ||    1672
 
 ====================
 
 XU7-CH - EC T2 Components
-->
-
-    R.A.M.- Starship Tech    ||    150
-
-====================
-
-MJ-5F9 - B E A N S T A R
 ->
 XU7-CH - EC Modules
-    Megacyte     ||    677
-    Zydrine      ||    2407
-    Isogen       ||    639
-    Mexallon     ||    147375
-    Pyerite      ||    653781
-    Tritanium    ||    2628322
-    Robotics     ||    600
+    Quantum Microprocessor    ||    2220
+
+====================
+
+MJ-5F9 - B E A N S T A R
+->
+ADV_SMALL_SHIP
+    Construction Blocks    ||    760
+    Morphite               ||    830
 
 ====================
 
 MJ-5F9 - B E A N S T A R
 ->
 XU7-CH - EC T2 Components
-    Isogen       ||    27728
-    Mexallon     ||    75070
-    Pyerite      ||    150144
-    Tritanium    ||    188012
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-
-    Isogen       ||    29626
-    Mexallon     ||    148129
-    Pyerite      ||    406296
-    Tritanium    ||    2166912
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-MJ-5F9 - EC Structures, Fuel, Components
-    Oxygen Isotopes         ||    76181
-    Nitrogen Isotopes       ||    76181
-    Liquid Ozone            ||    176983
-    Heavy Water             ||    55108
-    Oxygen                  ||    3690
-    Strontium Clathrates    ||    8543
-    Robotics                ||    453
+    Nocxium      ||    5267
+    Isogen       ||    13610
+    Mexallon     ||    32653
+    Tritanium    ||    82138
 
 ====================
 

@@ -283,7 +283,7 @@ namespace EveCal
             {
                 Invoke(AppendCover, "\n Update assets");
                 Storage.UpdateAsset(assets);
-                LoadFacilityList();
+                Invoke(LoadFacilityList, null);
             }
             
             Invoke(delegate
