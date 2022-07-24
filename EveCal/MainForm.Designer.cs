@@ -91,6 +91,7 @@
             this.RunList.TabIndex = 4;
             this.RunList.UseCompatibleStateImageBehavior = false;
             this.RunList.View = System.Windows.Forms.View.Details;
+            this.RunList.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RunList_ItemSelectionChanged);
             // 
             // columnHeader0
             // 
@@ -157,6 +158,7 @@
             this.HaulList.TabIndex = 6;
             this.HaulList.UseCompatibleStateImageBehavior = false;
             this.HaulList.View = System.Windows.Forms.View.Details;
+            this.HaulList.SelectedIndexChanged += new System.EventHandler(this.HaulList_SelectedIndexChanged);
             // 
             // columnHeader6
             // 

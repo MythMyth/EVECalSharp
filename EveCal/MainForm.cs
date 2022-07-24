@@ -259,7 +259,22 @@ namespace EveCal
             sso.Show();
         }
 
-        
+        private void HaulList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(HaulList.SelectedItems.Count > 0)
+            {
+                string name = HaulList.SelectedItems[0].SubItems[0].Text;
+                Clipboard.SetText(name.Trim());
+            }
+        }
 
+        private void RunList_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if(RunList.SelectedItems.Count > 0)
+            {
+                string name = RunList.SelectedItems[0].SubItems[0].Text;
+                Clipboard.SetText(name.Trim());
+            }
+        }
     }
 }
