@@ -92,10 +92,10 @@ namespace EveCal
             {
                 GetAllNode(key.Trim(), allNode);
             }
-
+            demand.Add(FacilityType.SOURCE, new Dictionary<string, int>());
             foreach (var pair in outputItems)
             {
-                allNode[pair.Key.Trim()] = pair.Value;
+                demand[FacilityType.SOURCE].Add(pair.Key.Trim(), pair.Value);
             }
 
             List<string> reverseBuildOrder = TopologicalSort(allNode);
@@ -103,7 +103,7 @@ namespace EveCal
             {
                 ItemWorkDetail workDetail = new ItemWorkDetail();
                 workDetail.name = item.Trim();
-                workDetail.amount = allNode[item] + FindInDemand(workDetail.name, haulable, haulPlan);
+                workDetail.amount = FindInDemand(workDetail.name, haulable, haulPlan);
                 BP bp = Loader.Get(item.Trim());
                 if(bp != null)
                 {
