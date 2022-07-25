@@ -1,41 +1,41 @@
 Run plan:
 
-Nanotransistors                             ||    100
-Ferrogel                                    ||    100
-Magpulse Thruster                           ||    4000
-Quantum Microprocessor                      ||    16000
-Sustained Shield Emitter                    ||    12000
-Cerberus 1 5 10                             ||    24
-Pulse Shield Emitter                        ||    8000
-Ion Thruster                                ||    4000
-Crystalline Carbonide Armor Plate           ||    20000
-Ishtar 1 5 10                               ||    10
-Linear Shield Emitter                       ||    4000
-EM Shield Hardener II 10 5 10               ||    100
-Large Shield Extender II 10 5 10            ||    100
-Fernite Carbide                             ||    300
-Deflection Shield Emitter                   ||    8000
-Multispectrum Shield Hardener II 10 5 10    ||    100
-Plasma Thruster                             ||    4000
-Fernite Carbide Composite Armor Plate       ||    80000
-Ladar Sensor Cluster                        ||    4000
-Plasmonic Metamaterials                     ||    200
-Nanomechanical Microprocessor               ||    24000
-Electrolytic Capacitor Unit                 ||    8000
-Nuclear Reactor Unit                        ||    2000
-Hound 2 4 14                                ||    20
-Rupture                                     ||    10
-Muninn 1 5 10                               ||    10
-Sabre 1 5 10                                ||    10
-Plasma Pulse Generator                      ||    4000
-R.A.M.- Armor/Hull Tech                     ||    200
-Assault Damage Control II 11 4 14           ||    110
-Ballistic Control System II 11 4 14         ||    110
-Damage Control II 11 4 14                   ||    110
-Heavy Missile Launcher I                    ||    200
-R.A.M.- Weapon Tech                         ||    200
-Heavy Missile Launcher II 11 4 14           ||    110
-Magnetic Field Stabilizer II 11 4 14        ||    110
+Nanotransistors                          ||    100
+Ferrogel                                 ||    100
+Magpulse Thruster                        ||    4000
+Quantum Microprocessor                   ||    16000
+Sustained Shield Emitter                 ||    12000
+Cerberus                                 ||    24
+Pulse Shield Emitter                     ||    8000
+Ion Thruster                             ||    4000
+Crystalline Carbonide Armor Plate        ||    20000
+Ishtar                                   ||    10
+Linear Shield Emitter                    ||    4000
+EM Shield Hardener II                    ||    100
+Large Shield Extender II                 ||    100
+Fernite Carbide                          ||    300
+Deflection Shield Emitter                ||    8000
+Multispectrum Shield Hardener II         ||    100
+Plasma Thruster                          ||    4000
+Fernite Carbide Composite Armor Plate    ||    80000
+Ladar Sensor Cluster                     ||    4000
+Plasmonic Metamaterials                  ||    200
+Nanomechanical Microprocessor            ||    24000
+Electrolytic Capacitor Unit              ||    8000
+Nuclear Reactor Unit                     ||    2000
+Hound                                    ||    20
+Rupture                                  ||    10
+Muninn                                   ||    10
+Sabre                                    ||    10
+Plasma Pulse Generator                   ||    4000
+R.A.M.- Armor/Hull Tech                  ||    200
+Assault Damage Control II                ||    110
+Ballistic Control System II              ||    110
+Damage Control II                        ||    110
+Heavy Missile Launcher I                 ||    200
+R.A.M.- Weapon Tech                      ||    200
+Heavy Missile Launcher II                ||    110
+Magnetic Field Stabilizer II             ||    110
 
 
 Buy plan:
@@ -43,6 +43,13 @@ Buy plan:
 
 
 Haul plan:
+
+XU7-CH - EC Modules
+->
+MJ-5F9 - B E A N S T A R
+    Drone Damage Amplifier II    ||    154
+
+====================
 
 MJ-5F9 - B E A N S T A R
 ->
