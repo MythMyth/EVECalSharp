@@ -1,41 +1,43 @@
 Run plan:
 
-Nanotransistors                             ||    100
-Ferrogel                                    ||    100
-Magpulse Thruster                           ||    4000
-Quantum Microprocessor                      ||    16000
-Sustained Shield Emitter                    ||    12000
-Cerberus 1 5 10                             ||    24
-Pulse Shield Emitter                        ||    8000
-Ion Thruster                                ||    4000
-Crystalline Carbonide Armor Plate           ||    20000
-Ishtar 1 5 10                               ||    10
-Linear Shield Emitter                       ||    4000
-EM Shield Hardener II 10 5 10               ||    100
-Large Shield Extender II 10 5 10            ||    100
-Fernite Carbide                             ||    300
-Deflection Shield Emitter                   ||    8000
-Multispectrum Shield Hardener II 10 5 10    ||    100
-Plasma Thruster                             ||    4000
-Fernite Carbide Composite Armor Plate       ||    80000
-Ladar Sensor Cluster                        ||    4000
-Plasmonic Metamaterials                     ||    200
-Nanomechanical Microprocessor               ||    24000
-Electrolytic Capacitor Unit                 ||    8000
-Nuclear Reactor Unit                        ||    2000
-Hound 2 4 14                                ||    20
-Rupture                                     ||    10
-Muninn 1 5 10                               ||    10
-Sabre 1 5 10                                ||    10
-Plasma Pulse Generator                      ||    4000
-R.A.M.- Armor/Hull Tech                     ||    200
-Assault Damage Control II 11 4 14           ||    110
-Ballistic Control System II 11 4 14         ||    110
-Damage Control II 11 4 14                   ||    110
-Heavy Missile Launcher I                    ||    200
-R.A.M.- Weapon Tech                         ||    200
-Heavy Missile Launcher II 11 4 14           ||    110
-Magnetic Field Stabilizer II 11 4 14        ||    110
+Sulfuric Acid                            ||    100
+Neo Mercurite                            ||    100
+Sylramic Fibers                          ||    200
+Photon Microprocessor                    ||    8000
+Crystalline Carbonide Armor Plate        ||    20000
+Fernite Carbide                          ||    100
+Fernite Carbide Composite Armor Plate    ||    80000
+Plasmonic Metamaterials                  ||    300
+Nanomechanical Microprocessor            ||    32000
+Electrolytic Capacitor Unit              ||    12000
+Hound                                    ||    20
+Muninn                                   ||    10
+Sabre                                    ||    10
+Tungsten Carbide                         ||    100
+Terahertz Metamaterials                  ||    100
+Nanoelectrical Microprocessor            ||    16000
+Tungsten Carbide Armor Plate             ||    60000
+Crusader                                 ||    10
+Malediction                              ||    10
+Bifrost                                  ||    10
+Gyrostabilizer II                        ||    110
+Heat Sink II                             ||    110
+Titanium Carbide                         ||    100
+Rapid Light Missile Launcher II          ||    110
+Celestis                                 ||    10
+Arazu                                    ||    5
+Scalar Capacitor Unit                    ||    12000
+Titanium Diborite Armor Plate            ||    20000
+Sustained Shield Emitter                 ||    4000
+Basilisk                                 ||    10
+Curse                                    ||    5
+Blackbird                                ||    10
+Falcon                                   ||    5
+Huginn                                   ||    5
+Lachesis                                 ||    5
+Pilgrim                                  ||    5
+Rapier                                   ||    5
+Scimitar                                 ||    10
 
 
 Buy plan:
@@ -44,52 +46,54 @@ Buy plan:
 
 Haul plan:
 
-MJ-5F9 - B E A N S T A R
+JZ-UQC - EC Medium Ships
 ->
-XU7-CH - EC Modules
-    Miniature Electronics    ||    100
-    Morphite                 ||    320
-
-====================
-
-JZ-UQC - EC Small Ships
-->
-JZ-UQC - EC T2 Small Ships
-    Thrasher    ||    10
-    Breacher    ||    20
+JZ-UQC - EC T2 Medium Ships
+    Scythe        ||    10
+    Bellicose     ||    10
+    Arbitrator    ||    10
+    Osprey        ||    10
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Fernite Carbide          ||    1000000
-    Crystalline Carbonide    ||    1004065
-    Sylramic Fibers          ||    450148
-    Ferrogel                 ||    40000
-    Titanium Carbide         ||    452533
+    Nonlinear Metamaterials    ||    15389
+    Tungsten Carbide           ||    2000000
+    Fernite Carbide            ||    2000000
+    Phenolic Composites        ||    267453
+    Crystalline Carbonide      ||    797723
+    Photonic Metamaterials     ||    7696
+    Nanotransistors            ||    95109
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Fusion Reactor Unit                  ||    340
-    Crystalline Carbonide Armor Plate    ||    40000
-    Photon Microprocessor                ||    12070
-    Magnetometric Sensor Cluster         ||    3560
-    Oscillator Capacitor Unit            ||    4030
-    Graviton Reactor Unit                ||    816
-    Quantum Microprocessor               ||    13780
-    Titanium Diborite Armor Plate        ||    624
-    Scalar Capacitor Unit                ||    1672
+    Linear Shield Emitter          ||    1560
+    Tesseract Capacitor Unit       ||    3360
+    Fusion Thruster                ||    525
+    Electrolytic Capacitor Unit    ||    8000
+    Ladar Sensor Cluster           ||    6060
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
-XU7-CH - EC Modules
-    Quantum Microprocessor    ||    2220
+JZ-UQC - EC T2 Small Ships
+    Linear Shield Emitter       ||    420
+    Tesseract Capacitor Unit    ||    1360
+    Fusion Thruster             ||    820
+    Ladar Sensor Cluster        ||    650
+
+====================
+
+JZ-UQC - EC T2 Medium Ships
+->
+MJ-5F9 - B E A N S T A R
+    Ishtar    ||    10
 
 ====================
 
