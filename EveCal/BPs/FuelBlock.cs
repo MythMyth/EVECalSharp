@@ -42,5 +42,10 @@ namespace EveCal.BPs
             FacilityReduce = ConfigLoader.GetReduction("FUEL_COMP_FAC");
             _MakeAt = FacilityType.FUEL_COMP;
         }
+
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
     }
 }

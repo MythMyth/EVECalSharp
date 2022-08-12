@@ -61,8 +61,10 @@ namespace EveCal
             plan.MakePlan(true);
             currPlan = plan.MakePlan(true);
             RunList.Items.Clear();
+            RunList.Groups.Clear();
             BuyList.Items.Clear();
             HaulList.Items.Clear();
+            HaulList.Groups.Clear();
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
                 if (work.jobRun == 0 && work.amount != 0)
@@ -137,6 +139,27 @@ namespace EveCal
                         RunList.Groups.Add(group);
                     }
                     item.Group = gr_map[bp.MakeAt()];
+                    RunList.Items.Add(item);
+                }
+            }
+
+            ListViewGroup cgroup = new ListViewGroup("Copy");
+            RunList.Groups.Add(cgroup);
+
+            foreach (ItemWorkDetail work in currPlan.Item1)
+            {
+                if (work.jobRun != 0)
+                {
+                    BP bp = Loader.Get(work.name);
+                    if (bp == null) continue;
+                    int bpc_need = bp.BPCNeed(work.jobRun);
+                    if (bpc_need < 0) continue;
+                    string bpc_name = work.name + " Blueprint";
+                    if (bpc_need <= Storage.GetBPCCount(bpc_name)) continue;
+                    ListViewItem item = new ListViewItem(bpc_name);
+                    item.SubItems.Add("x");
+                    item.SubItems.Add("" + (Storage.GetBPCCount(bpc_name) - bpc_need));
+                    item.Group = cgroup;
                     RunList.Items.Add(item);
                 }
             }

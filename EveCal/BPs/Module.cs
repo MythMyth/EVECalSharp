@@ -38,5 +38,10 @@ namespace EveCal.BPs
             RigReduce = ConfigLoader.GetReduction("MODULE_RIG");
             _MakeAt = FacilityType.MODULE;
         }
+
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
     }
 }

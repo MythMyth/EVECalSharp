@@ -48,6 +48,10 @@ namespace EveCal.BPs
             return ret;
         }
 
+        public virtual int BPCNeed(int run)
+        {
+            return -1;
+        }
         public int GetOutput() { return output; }
 
         public FacilityType MakeAt()

@@ -172,15 +172,16 @@ namespace EveCal
             Dictionary<string, int> map = new Dictionary<string, int>();
             List<string> ids = new List<string>();
             Dictionary<string, Dictionary<string, int>> assets = new Dictionary<string, Dictionary<string, int>>();
+            Dictionary<string, int> BPC = new Dictionary<string, int>();
             foreach (string cid in chars.Keys)
             {
                 Invoke(AppendCover, "\n" + cid + " - " + chars[cid].Name + ": Indy jobs ");
                 CharacterManager.GetRefreshToken(chars[cid].code, chars[cid].refresh);
                 HttpClient client = new HttpClient();
-                if (chars[cid].IndyEtag.Trim() != "")
+                /*if (chars[cid].IndyEtag.Trim() != "")
                 {
                     client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].IndyEtag);
-                }
+                }*/
                 
                 var response = client.GetAsync(indy_path.Replace("{character_id}", cid) + "?datasource=tranquility&include_completed=false&token=" + chars[cid].token)
                     .GetAwaiter().GetResult();
@@ -222,8 +223,10 @@ namespace EveCal
                     {
                         chars[cid].AssetEtag.Add("");
                     }
+                    /*
                     if (client.DefaultRequestHeaders.Contains("If-None-Match")) client.DefaultRequestHeaders.Remove("If-None-Match");
                     if (chars[cid].AssetEtag[currPage - 1].Trim() != "") client.DefaultRequestHeaders.Add("If-None-Match", chars[cid].AssetEtag[currPage - 1]);
+                    */
                     response = client.GetAsync(asset_path.Replace("{character_id}", cid) + "?page=" + currPage + "&token=" + chars[cid].token).GetAwaiter().GetResult();
                     res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -240,15 +243,27 @@ namespace EveCal
                                 ids.Add(itemType);
                             }
                             int quantity = int.Parse(item["quantity"]);
-                            if (!assets.ContainsKey(location))
+                            if(item.ContainsKey("is_blueprint_copy"))
                             {
-                                assets.Add(location, new Dictionary<string, int>());
-                            }
-                            if (!assets[location].ContainsKey(itemType))
+                                if (item["is_blueprint_copy"] == "true")
+                                {
+                                    if(!BPC.ContainsKey(itemType)) BPC.Add(itemType, quantity);
+                                    else BPC[itemType] += quantity;
+                                }
+                            } 
+                            else
                             {
-                                assets[location].Add(itemType, 0);
+                                if (!assets.ContainsKey(location))
+                                {
+                                    assets.Add(location, new Dictionary<string, int>());
+                                }
+                                if (!assets[location].ContainsKey(itemType))
+                                {
+                                    assets[location].Add(itemType, 0);
+                                }
+                                assets[location][itemType] += quantity;
                             }
-                            assets[location][itemType] += quantity;
+                            
                         }
                         if (response.Headers.Contains("x-pages"))
                         {
@@ -274,18 +289,20 @@ namespace EveCal
             }
             Invoke(AppendCover, "\n Update ids");
             Cache.AddIds(ids);
-            if(will_update_running)
-            {
-                Invoke(AppendCover, "\n Update running jobs");
-                Storage.SetRunningJob(all_jobs);
-            }
+
             if(will_update_asset)
             {
                 Invoke(AppendCover, "\n Update assets");
                 Storage.UpdateAsset(assets);
+                Storage.UpdateBPC(BPC);
                 Invoke(LoadFacilityList, null);
             }
-            
+            if (will_update_running)
+            {
+                Invoke(AppendCover, "\n Update running jobs");
+                Storage.SetRunningJob(all_jobs);
+            }
+
             Invoke(delegate
             {
                 coverLabel.Visible = false;

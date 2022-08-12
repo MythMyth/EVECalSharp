@@ -47,9 +47,11 @@ namespace EveCal
         Dictionary<FacilityType, Dictionary<string, int>> SortedAssets;
         Dictionary<string, Dictionary<string, int>> AllAsset;
         Dictionary<string, string> LocationName;
+        Dictionary<string, int> BPC;
         Dictionary<FacilityType, string> FacilityMatch;
         Dictionary<FacilityType, string> FacilityName;
         Dictionary<string, int> Running;
+        Dictionary<string, int> Copying;
         Mutex file_mutex;
         public static Storage GetInstance()
         {
@@ -70,9 +72,18 @@ namespace EveCal
             GetInstance()._UpdateAsset(content, type, name);
         }
 
+        public static void UpdateBPC(Dictionary<string, int> bpc)
+        {
+            GetInstance()._UpdateBPC(bpc);
+        }
         public static int Get(FacilityType type, string iname)
         {
             return GetInstance()._Get(type, iname);
+        }
+
+        public static int GetBPCCount(string name)
+        {
+            return GetInstance()._GetBPCCount(name);
         }
 
         public static Dictionary<string, int> GetHaulable()
@@ -128,6 +139,8 @@ namespace EveCal
             AllAsset = new Dictionary<string, Dictionary<string, int>>();
             LocationName = new Dictionary<string, string>();
             FacilityMatch = new Dictionary<FacilityType, string>();
+            BPC = new Dictionary<string, int>();
+            Copying = new Dictionary<string, int>();
             file_mutex = new Mutex();
             if (!Directory.Exists(storagePath))
             {
@@ -315,6 +328,20 @@ namespace EveCal
                     AllAsset[facId][name] += qty;
                 }
             }
+
+            BPC.Clear();
+            if(File.Exists(storagePath + "\\AllAsset\\BPC"))
+            {
+                string[] lines = File.ReadAllLines(storagePath + "\\AllAsset\\BPC");
+                foreach(string line in lines)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    if (!BPC.ContainsKey(p[0].Trim())) BPC.Add(p[0].Trim(), 0);
+                    BPC[p[0].Trim()] += int.Parse(p[1]);
+                }
+            }
+
             Running.Clear();
             if (File.Exists(storagePath + "\\Running"))
             {
@@ -325,6 +352,19 @@ namespace EveCal
                     if (p.Length < 2) continue;
                     if(!Running.ContainsKey(p[0].Trim())) Running.Add(p[0].Trim(), 0);
                     Running[p[0].Trim()] += int.Parse(p[1]);
+                }
+            }
+
+            Copying.Clear();
+            if (File.Exists(storagePath + "\\Copying"))
+            {
+                string[] lines = File.ReadAllLines(storagePath + "\\Copying");
+                foreach (string line in lines)
+                {
+                    string[] p = line.Split("\t");
+                    if (p.Length < 2) continue;
+                    if (!Copying.ContainsKey(p[0].Trim())) Copying.Add(p[0].Trim(), 0);
+                    Copying[p[0].Trim()] += int.Parse(p[1]);
                 }
             }
         }
@@ -349,6 +389,26 @@ namespace EveCal
                 writer.Close();
                 fs.Close();
             }
+        }
+
+        void SaveBPC()
+        {
+            FileStream fs;
+            if (File.Exists(storagePath + "\\AllAsset\\BPC"))
+            {
+                fs = File.Open(storagePath + "\\AllAsset\\BPC", FileMode.Truncate);
+            }
+            else
+            {
+                fs = File.Open(storagePath + "\\AllAsset\\BPC", FileMode.OpenOrCreate);
+            }
+            StreamWriter writer = new StreamWriter(fs);
+            foreach(string id in BPC.Keys)
+            {
+                writer.WriteLine(id + "\t" + BPC[id]);
+            }
+            writer.Close();
+            fs.Close();
         }
         string[] LoadFile(string fname)
         {
@@ -386,6 +446,21 @@ namespace EveCal
             }
             SaveAllAsset();
             SaveLocationName();
+        }
+
+        public void _UpdateBPC(Dictionary<string, int> bpc)
+        {
+            BPC.Clear();
+            foreach(string bpc_id in bpc.Keys)
+            {
+                string name = Cache.GetName(bpc_id);
+                if(!BPC.ContainsKey(name))
+                {
+                    BPC.Add(name, 0);
+                }
+                BPC[name] += bpc[bpc_id];
+            }
+            SaveBPC();
         }
         public void _UpdateAsset(string content, FacilityType type, string name)
         {
@@ -532,6 +607,7 @@ namespace EveCal
             FileStream f = File.Open(storagePath + "\\Running", FileMode.Truncate);
             StreamWriter writer = new StreamWriter(f);
             Running.Clear();
+            Copying.Clear();
             foreach (Dictionary<string, string> job in jobs)
             {
                 if (int.Parse(job["activity_id"]) == (int)ActivityType.Reaction)
@@ -546,6 +622,12 @@ namespace EveCal
                     int jobRun = int.Parse(job["runs"]);
                     if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
                     Running[bpName] += jobRun;
+                } else if (int.Parse(job["activity_id"]) == (int)ActivityType.Copying)
+                {
+                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Blueprint", "");
+                    int jobRun = int.Parse(job["runs"]);
+                    if (!Copying.ContainsKey(bpName)) Copying.Add(bpName, 0);
+                    Copying[bpName] += jobRun;
                 }
             }
             foreach (string key in Running.Keys)
@@ -554,11 +636,36 @@ namespace EveCal
             }
             writer.Close();
             f.Close();
+
+
+            if (!File.Exists(storagePath + "\\Copying"))
+            {
+                f = File.Open(storagePath + "\\Copying", FileMode.Create);
+            }
+            else
+            {
+                f = File.Open(storagePath + "\\Copying", FileMode.Truncate);
+            }
+            writer = new StreamWriter(f);
+            foreach (string key in Copying.Keys)
+            {
+                writer.WriteLine(key + "\t" + Copying[key]);
+            }
+            writer.Close();
+            f.Close();
         }
 
         public Dictionary<string, int> _GetRunningJob()
         {
             return Running;
+        }
+
+        public int _GetBPCCount(string name)
+        {
+            int ret = 0;
+            if (Copying.ContainsKey(name)) ret += Copying[name];
+            if (BPC.ContainsKey(name)) ret += Copying[name];
+            return ret;
         }
 
         public string _GetName(FacilityType type)

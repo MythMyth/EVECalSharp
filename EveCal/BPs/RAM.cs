@@ -25,5 +25,10 @@ namespace EveCal.BPs
             material.Add("Isogen", 82);
             material.Add("Nocxium", 36);
         }
+
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
     }
 }

@@ -25,5 +25,10 @@ namespace EveCal.BPs
             RigReduce = ConfigLoader.GetReduction("SMALL_RIG");
             FacilityReduce = ConfigLoader.GetReduction("SMALL_FAC");
         }
+
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
     }
 }

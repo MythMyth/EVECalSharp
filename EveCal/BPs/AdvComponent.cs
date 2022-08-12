@@ -30,5 +30,10 @@ namespace EveCal.BPs
             FacilityReduce = ConfigLoader.GetReduction("ADV_COMP_FAC");
             _MakeAt = FacilityType.ADV_COMPONENT;
         }
+
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
     }
 }

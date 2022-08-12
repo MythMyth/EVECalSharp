@@ -31,5 +31,10 @@ namespace EveCal.BPs
             _MakeAt = FacilityType.ADV_MED_SHIP;
         }
 
+        public override int BPCNeed(int run)
+        {
+            return run / maxRun;
+        }
+
     }
 }
