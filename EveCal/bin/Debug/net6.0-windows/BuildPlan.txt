@@ -1,102 +1,105 @@
 Run plan:
 
-Nanotransistors                          ||    100
-Ferrogel                                 ||    100
-Magpulse Thruster                        ||    4000
-Quantum Microprocessor                   ||    16000
-Sustained Shield Emitter                 ||    12000
-Cerberus                                 ||    24
-Pulse Shield Emitter                     ||    8000
-Ion Thruster                             ||    4000
-Crystalline Carbonide Armor Plate        ||    20000
+Photonic Metamaterials                   ||    100
+Crystalline Carbonide                    ||    200
+Oscillator Capacitor Unit                ||    4000
+Sylramic Fibers                          ||    100
+Pulse Shield Emitter                     ||    4000
+Vanadium Hafnite                         ||    100
+Hypersynaptic Fibers                     ||    100
+Magnetometric Sensor Cluster             ||    4000
+Vexor                                    ||    10
+Photon Microprocessor                    ||    16000
+Crystalline Carbonide Armor Plate        ||    40000
 Ishtar                                   ||    10
-Linear Shield Emitter                    ||    4000
-EM Shield Hardener II                    ||    100
-Large Shield Extender II                 ||    100
-Fernite Carbide                          ||    300
-Deflection Shield Emitter                ||    8000
-Multispectrum Shield Hardener II         ||    100
-Plasma Thruster                          ||    4000
+Fernite Carbide                          ||    100
 Fernite Carbide Composite Armor Plate    ||    80000
-Ladar Sensor Cluster                     ||    4000
 Plasmonic Metamaterials                  ||    200
-Nanomechanical Microprocessor            ||    24000
-Electrolytic Capacitor Unit              ||    8000
-Nuclear Reactor Unit                     ||    2000
+Nanomechanical Microprocessor            ||    32000
+Electrolytic Capacitor Unit              ||    12000
 Hound                                    ||    20
-Rupture                                  ||    10
 Muninn                                   ||    10
 Sabre                                    ||    10
-Plasma Pulse Generator                   ||    4000
-R.A.M.- Armor/Hull Tech                  ||    200
-Assault Damage Control II                ||    110
-Ballistic Control System II              ||    110
-Damage Control II                        ||    110
-Heavy Missile Launcher I                 ||    200
-R.A.M.- Weapon Tech                      ||    200
-Heavy Missile Launcher II                ||    110
-Magnetic Field Stabilizer II             ||    110
+Tungsten Carbide                         ||    100
+Terahertz Metamaterials                  ||    100
+Nanoelectrical Microprocessor            ||    16000
+Tungsten Carbide Armor Plate             ||    60000
+Crusader                                 ||    10
+Malediction                              ||    10
+Bifrost                                  ||    10
+Gyrostabilizer II                        ||    110
+Heat Sink II                             ||    110
+Rapid Light Missile Launcher II          ||    110
+Celestis                                 ||    10
+Arazu                                    ||    5
+Scalar Capacitor Unit                    ||    12000
+Titanium Diborite Armor Plate            ||    20000
+Sustained Shield Emitter                 ||    4000
+Basilisk                                 ||    10
+Curse                                    ||    5
+Blackbird                                ||    10
+Falcon                                   ||    5
+Huginn                                   ||    5
+Lachesis                                 ||    5
+Pilgrim                                  ||    5
+Rapier                                   ||    5
+Scimitar                                 ||    10
 
 
 Buy plan:
 
+Morphite	191
 
 
 Haul plan:
 
-XU7-CH - EC Modules
+JZ-UQC - EC Medium Ships
 ->
-MJ-5F9 - B E A N S T A R
-    Drone Damage Amplifier II    ||    154
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-XU7-CH - EC Modules
-    Miniature Electronics    ||    100
-    Morphite                 ||    320
-
-====================
-
-JZ-UQC - EC Small Ships
-->
-JZ-UQC - EC T2 Small Ships
-    Thrasher    ||    10
-    Breacher    ||    20
+JZ-UQC - EC T2 Medium Ships
+    Scythe        ||    10
+    Bellicose     ||    10
+    Arbitrator    ||    10
+    Osprey        ||    10
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Fernite Carbide          ||    1000000
-    Crystalline Carbonide    ||    1004065
-    Sylramic Fibers          ||    450148
-    Ferrogel                 ||    40000
-    Titanium Carbide         ||    452533
+    Titanium Carbide           ||    965602
+    Tungsten Carbide           ||    2000000
+    Plasmonic Metamaterials    ||    30000
+    Fernite Carbide            ||    2000000
+    Sylramic Fibers            ||    1200000
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
+    Electrolytic Capacitor Unit          ||    4000
     Fusion Reactor Unit                  ||    340
-    Crystalline Carbonide Armor Plate    ||    40000
-    Photon Microprocessor                ||    12070
-    Magnetometric Sensor Cluster         ||    3560
-    Oscillator Capacitor Unit            ||    4030
-    Graviton Reactor Unit                ||    816
-    Quantum Microprocessor               ||    13780
-    Titanium Diborite Armor Plate        ||    624
-    Scalar Capacitor Unit                ||    1672
+    Crystalline Carbonide Armor Plate    ||    20000
+    Ion Thruster                         ||    670
+    Photon Microprocessor                ||    8000
+    Pulse Shield Emitter                 ||    560
+    Oscillator Capacitor Unit            ||    390
 
 ====================
 
-XU7-CH - EC T2 Components
+MJ-5F9 - B E A N S T A R
 ->
-XU7-CH - EC Modules
-    Quantum Microprocessor    ||    2220
+JZ-UQC - EC T2 Medium Ships
+    Construction Blocks    ||    1340
+    Morphite               ||    1149
+
+====================
+
+MJ-5F9 - B E A N S T A R
+->
+JZ-UQC - EC Medium Ships
+    Isogen       ||    84532
+    Tritanium    ||    4564577
 
 ====================
 

@@ -1,13 +1,8 @@
 Run plan:
 
-Sulfuric Acid                            ||    100
-Neo Mercurite                            ||    100
-Sylramic Fibers                          ||    200
-Photon Microprocessor                    ||    8000
-Crystalline Carbonide Armor Plate        ||    20000
 Fernite Carbide                          ||    100
 Fernite Carbide Composite Armor Plate    ||    80000
-Plasmonic Metamaterials                  ||    300
+Plasmonic Metamaterials                  ||    200
 Nanomechanical Microprocessor            ||    32000
 Electrolytic Capacitor Unit              ||    12000
 Hound                                    ||    20
@@ -22,7 +17,6 @@ Malediction                              ||    10
 Bifrost                                  ||    10
 Gyrostabilizer II                        ||    110
 Heat Sink II                             ||    110
-Titanium Carbide                         ||    100
 Rapid Light Missile Launcher II          ||    110
 Celestis                                 ||    10
 Arazu                                    ||    5
@@ -59,34 +53,20 @@ JZ-UQC - EC T2 Medium Ships
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Nonlinear Metamaterials    ||    15389
+    Titanium Carbide           ||    965602
     Tungsten Carbide           ||    2000000
+    Plasmonic Metamaterials    ||    30000
     Fernite Carbide            ||    2000000
-    Phenolic Composites        ||    267453
-    Crystalline Carbonide      ||    797723
-    Photonic Metamaterials     ||    7696
-    Nanotransistors            ||    95109
+    Sylramic Fibers            ||    1047400
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Linear Shield Emitter          ||    1560
-    Tesseract Capacitor Unit       ||    3360
-    Fusion Thruster                ||    525
-    Electrolytic Capacitor Unit    ||    8000
-    Ladar Sensor Cluster           ||    6060
-
-====================
-
-XU7-CH - EC T2 Components
-->
-JZ-UQC - EC T2 Small Ships
-    Linear Shield Emitter       ||    420
-    Tesseract Capacitor Unit    ||    1360
-    Fusion Thruster             ||    820
-    Ladar Sensor Cluster        ||    650
+    Electrolytic Capacitor Unit          ||    4000
+    Crystalline Carbonide Armor Plate    ||    3750
+    Photon Microprocessor                ||    6050
 
 ====================
 

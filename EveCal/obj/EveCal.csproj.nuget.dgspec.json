@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Myth\\source\\repos\\EVECalSharp\\EveCal\\EveCal.csproj": {}
+    "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Myth\\source\\repos\\EVECalSharp\\EveCal\\EveCal.csproj": {
+    "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Myth\\source\\repos\\EVECalSharp\\EveCal\\EveCal.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj",
         "projectName": "EveCal",
-        "projectPath": "C:\\Users\\Myth\\source\\repos\\EVECalSharp\\EveCal\\EveCal.csproj",
-        "packagesPath": "C:\\Users\\Myth\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Myth\\source\\repos\\EVECalSharp\\EveCal\\obj\\",
+        "projectPath": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\EveCal.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADMIN\\source\\repos\\EveCal\\EveCal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Myth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

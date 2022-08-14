@@ -664,7 +664,7 @@ namespace EveCal
         {
             int ret = 0;
             if (Copying.ContainsKey(name)) ret += Copying[name];
-            if (BPC.ContainsKey(name)) ret += Copying[name];
+            if (BPC.ContainsKey(name)) ret += BPC[name];
             return ret;
         }
 

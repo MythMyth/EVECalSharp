@@ -158,7 +158,7 @@ namespace EveCal
                     if (bpc_need <= Storage.GetBPCCount(bpc_name)) continue;
                     ListViewItem item = new ListViewItem(bpc_name);
                     item.SubItems.Add("x");
-                    item.SubItems.Add("" + (Storage.GetBPCCount(bpc_name) - bpc_need));
+                    item.SubItems.Add("" +  (bpc_need - Storage.GetBPCCount(bpc_name)));
                     item.Group = cgroup;
                     RunList.Items.Add(item);
                 }
