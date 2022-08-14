@@ -36,7 +36,6 @@ namespace EveCal
         Reaction = 9
     }
 
-    
     internal class Storage
     {
         
@@ -67,23 +66,19 @@ namespace EveCal
         {
             GetInstance()._UpdateAsset(assets);
         }
-        public static void UpdateAsset(string content, FacilityType type, string name)
-        {
-            GetInstance()._UpdateAsset(content, type, name);
-        }
 
         public static void UpdateBPC(Dictionary<string, int> bpc)
         {
             GetInstance()._UpdateBPC(bpc);
         }
-        public static int Get(FacilityType type, string iname)
+        public static int GetAssetCountAt(FacilityType type, string iname)
         {
-            return GetInstance()._Get(type, iname);
+            return GetInstance()._GetAssetCountAt(type, iname);
         }
 
-        public static int GetBPCCount(string name)
+        public static int GetAvailableBPC(string name)
         {
-            return GetInstance()._GetBPCCount(name);
+            return GetInstance()._GetAvailableBPC(name);
         }
 
         public static Dictionary<string, int> GetHaulable()
@@ -96,14 +91,9 @@ namespace EveCal
             return GetInstance()._GetFacilityAsset(type);
         }
 
-        public static void SetRunningJob(string s)
+        public static void UpdateRunningJob(List<Dictionary<string, string>> jobs)
         {
-            GetInstance()._SetRunningJob(s);
-        }
-
-        public static void SetRunningJob(List<Dictionary<string, string>> jobs)
-        {
-            GetInstance()._SetRunningJob(jobs);
+            GetInstance()._UpdateRunningJob(jobs);
         }
 
         public static Dictionary<string, int> GetRunningJob()
@@ -111,19 +101,24 @@ namespace EveCal
             return GetInstance()._GetRunningJob();
         }
 
-        public static string GetName(FacilityType type)
+        public static string GetFacilityName(FacilityType type)
         {
-            return GetInstance()._GetName(type);
+            return GetInstance()._GetFacilityName(type);
         }
 
-        public static Dictionary<string, string> GetFacilityNames()
+        public static Dictionary<string, string> GetFacilityList()
         {
-            return GetInstance()._GetFacilityNames();
+            return GetInstance()._GetFacilityList();
         }
 
-        public static Dictionary<FacilityType, string> GetFacilityMatch()
+        public static Dictionary<FacilityType, string> GetFacilityMapping()
         {
-            return GetInstance()._GetFacilityMatch();
+            return GetInstance()._GetFacilityMapping();
+        }
+
+        public static void UpdateFacilityMapping(Dictionary<FacilityType, string> mapping)
+        {
+            GetInstance()._UpdateFacilityMapping(mapping);
         }
 
         public static void SaveFacilityMatch()
@@ -462,47 +457,8 @@ namespace EveCal
             }
             SaveBPC();
         }
-        public void _UpdateAsset(string content, FacilityType type, string name)
-        {
-            if (!SortedAssets.ContainsKey(type)) return; 
-            Dictionary<string, int> map = SortedAssets[type];
-            if(!File.Exists(storagePath + "\\" + type))
-            {
-                File.Create(storagePath + "\\" + type).Close();
-            }
-            FileStream f = File.Open(storagePath + "\\" + type, FileMode.Truncate);
-            StreamWriter writer = new StreamWriter(f);
-            map.Clear();
-            string[] assets = content.Split("\n");
-            writer.WriteLine(name);
-            FacilityName[type] = name;
-            foreach(string asset in assets)
-            {
-                string[] info = asset.Split("\t");
-                if(info.Length >= 2)
-                {
-                    string assetName = info[0].Trim();
-                    int number = 0;
-                    if (info[1].Trim() != "")
-                    {
-                        number = int.Parse(info[1].Replace(",", "").Trim());
-                    } else
-                    {
-                        number = 1;
-                    }
-                    if(!map.ContainsKey(assetName))
-                    {
-                        map.Add(assetName, 0);
-                    }
-                    map[assetName] += number;
-                    writer.WriteLine(assetName + "\t" + number);
-                }
-            }
-            writer.Close();
-            f.Close();
-        }
-
-        public int _Get(FacilityType type, string iname)
+        
+        public int _GetAssetCountAt(FacilityType type, string iname)
         {
             if (!FacilityMatch.ContainsKey(type)) return 0;
             Dictionary<string, int> map = AllAsset[FacilityMatch[type]];
@@ -557,48 +513,7 @@ namespace EveCal
             return map;
         }
 
-        public void _SetRunningJob(string s)
-        {
-            if (!File.Exists(storagePath + "\\Running"))
-            {
-                File.Create(storagePath + "\\Running").Close();
-            }
-            FileStream f = File.Open(storagePath + "\\Running", FileMode.Truncate);
-            StreamWriter writer = new StreamWriter(f);
-            string[] jobs = s.Split("\n");
-            Running.Clear();
-            foreach(string job in jobs)
-            {
-                string[] col = job.Split("\t");
-                if(col.Length < 4) continue;
-                int jobRun =  int.Parse(col[1]);
-                if (col[2].Trim() == "Reaction")
-                {
-                    string bpName = col[3].Trim().Replace(" Reaction Formula", "");
-                    if(!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
-                    Running[bpName] += jobRun;
-                } else if(col[2].Trim() == "Manufacturing")
-                {
-                    string bpName = col[3].Trim().Replace(" Blueprint", "");
-                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
-                    Running[bpName] += jobRun;
-                } else if(col[2].Trim() == "")
-                {
-                    string bpName = col[3].Trim();
-                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
-                    Running[bpName] += jobRun;
-                }
-            }
-
-            foreach(string key in Running.Keys)
-            {
-                writer.WriteLine(key + "\t" + Running[key]);
-            }
-            writer.Close();
-            f.Close();
-        }
-
-        public void _SetRunningJob(List<Dictionary<string, string>> jobs)
+        public void _UpdateRunningJob(List<Dictionary<string, string>> jobs)
         {
             if (!File.Exists(storagePath + "\\Running"))
             {
@@ -660,7 +575,7 @@ namespace EveCal
             return Running;
         }
 
-        public int _GetBPCCount(string name)
+        public int _GetAvailableBPC(string name)
         {
             int ret = 0;
             if (Copying.ContainsKey(name)) ret += Copying[name];
@@ -668,20 +583,25 @@ namespace EveCal
             return ret;
         }
 
-        public string _GetName(FacilityType type)
+        public string _GetFacilityName(FacilityType type)
         {
             if (FacilityMatch.ContainsKey(type)) return LocationName[FacilityMatch[type]];
             return type.ToString();
         }
 
-        public Dictionary<string, string> _GetFacilityNames()
+        public Dictionary<string, string> _GetFacilityList()
         {
             return LocationName;
         }
 
-        public Dictionary<FacilityType, string> _GetFacilityMatch()
+        public Dictionary<FacilityType, string> _GetFacilityMapping()
         {
             return FacilityMatch;
+        }
+
+        public void _UpdateFacilityMapping(Dictionary<FacilityType, string> mapping)
+        {
+
         }
 
     }

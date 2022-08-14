@@ -48,7 +48,7 @@ namespace EveCal
             {
                 if(demand[facility].ContainsKey(item))
                 {
-                    int demandInThisFacility = demand[facility][item] - Storage.Get(facility, item);
+                    int demandInThisFacility = demand[facility][item] - Storage.GetAssetCountAt(facility, item);
                     if(haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0) {
                         int haul = Math.Min(demandInThisFacility, haulable[item]);
                         demandInThisFacility -= haul;

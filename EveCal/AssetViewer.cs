@@ -80,8 +80,8 @@ namespace EveCal
 
         void LoadFacilityList()
         {
-            LocationName = Storage.GetFacilityNames();
-            FacilityMatch = Storage.GetFacilityMatch();
+            LocationName = Storage.GetFacilityList();
+            FacilityMatch = Storage.GetFacilityMapping();
             syncFacilityListId.Clear();
             FacilityList.Items.Clear();
             foreach(string id in LocationName.Keys)
@@ -105,7 +105,7 @@ namespace EveCal
                 item.SubItems.Add("" + map[key]);
                 AssetList.Items.Add(item);
             }
-            facilityName.Text = Storage.GetName((FacilityType)currBtn.Tag);
+            facilityName.Text = Storage.GetFacilityName((FacilityType)currBtn.Tag);
 
             FacilityType type = (FacilityType)currBtn.Tag;
             if(FacilityMatch.ContainsKey(type))
@@ -131,7 +131,7 @@ namespace EveCal
         {
             /*if (currBtn == RunningJob)
             {
-                Storage.SetRunningJob(AssetTextBox.Text);
+                Storage.UpdateRunningJob(AssetTextBox.Text);
             }
             else if (currBtn != null)
             {
@@ -300,7 +300,7 @@ namespace EveCal
             if (will_update_running)
             {
                 Invoke(AppendCover, "\n Update running jobs");
-                Storage.SetRunningJob(all_jobs);
+                Storage.UpdateRunningJob(all_jobs);
             }
 
             Invoke(delegate

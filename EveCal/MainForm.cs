@@ -103,7 +103,7 @@ namespace EveCal
             foreach (var key in currPlan.Item2.Keys)
             {
                 FacilityType haulFrom = key.Item1, haulTo = key.Item2;
-                ListViewGroup gr = new ListViewGroup("" + Storage.GetName(haulFrom) + " \n-> \n" + Storage.GetName(haulTo));
+                ListViewGroup gr = new ListViewGroup("" + Storage.GetFacilityName(haulFrom) + " \n-> \n" + Storage.GetFacilityName(haulTo));
                 list.Add(gr);
                 foreach (string item in currPlan.Item2[key].Keys)
                 {
@@ -155,10 +155,10 @@ namespace EveCal
                     int bpc_need = bp.BPCNeed(work.jobRun);
                     if (bpc_need < 0) continue;
                     string bpc_name = work.name + " Blueprint";
-                    if (bpc_need <= Storage.GetBPCCount(bpc_name)) continue;
+                    if (bpc_need <= Storage.GetAvailableBPC(bpc_name)) continue;
                     ListViewItem item = new ListViewItem(bpc_name);
                     item.SubItems.Add("x");
-                    item.SubItems.Add("" +  (bpc_need - Storage.GetBPCCount(bpc_name)));
+                    item.SubItems.Add("" +  (bpc_need - Storage.GetAvailableBPC(bpc_name)));
                     item.Group = cgroup;
                     RunList.Items.Add(item);
                 }
@@ -232,7 +232,7 @@ namespace EveCal
             string text = "";
             foreach (var haulroad in currPlan.Item2.Keys)
             {
-                string road = "" + Storage.GetName(haulroad.Item1) + "\n->\n" + Storage.GetName(haulroad.Item2) + "\n";
+                string road = "" + Storage.GetFacilityName(haulroad.Item1) + "\n->\n" + Storage.GetFacilityName(haulroad.Item2) + "\n";
                 text += road;
 
                 int maxLen = 0;
