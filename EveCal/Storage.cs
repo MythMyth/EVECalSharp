@@ -52,6 +52,9 @@ namespace EveCal
         Dictionary<string, int> Running;
         Dictionary<string, int> Copying;
         Mutex file_mutex;
+
+        //Refactor to SQLITE
+
         public static Storage GetInstance()
         {
             mutex.WaitOne();

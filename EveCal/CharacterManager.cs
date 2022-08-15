@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EveCal
 {
@@ -152,13 +148,7 @@ namespace EveCal
 
         public CharacterManager()
         {
-            characters = new Dictionary<string, CharInfo>();
-            if (!Directory.Exists("Character"))
-            {
-                Directory.CreateDirectory("Character");
-            }
-            LoadCharacters();
-
+            characters = SQLiteDB.GetInstance().QueryCharacter("SELECT * FROM Character;");
             try
             {
                 string[] keys = File.ReadAllLines("key.cfg");
@@ -171,22 +161,6 @@ namespace EveCal
                 autho_code = "";
             }
         }
-        void LoadCharacters()
-        {
-            DirectoryInfo d = new DirectoryInfo("Character");
-            foreach (FileInfo inf in d.GetFiles())
-            {
-                string name = inf.Name;
-                int idx = name.LastIndexOf('\\');
-                name = name.Substring(idx + 1);
-                string[] lines = File.ReadAllLines("Character\\" + name);
-                if (lines.Length >= 5)
-                {
-                    CharInfo c = new CharInfo(lines[0].Trim(), lines[1].Trim(), lines[2].Trim(), lines[3].Trim(), lines[4].Trim());
-                    characters.Add(c.Id, c);
-                }
-            }
-        }
 
 
         public void _AddCharacter(CharInfo info)
@@ -196,29 +170,11 @@ namespace EveCal
                 characters[info.Id].token = info.token;
                 characters[info.Id].refresh = info.refresh;
                 characters[info.Id].code = info.code;
-                FileStream fs = new FileStream("Character\\" + info.Id, FileMode.Truncate);
-                StreamWriter writer = new StreamWriter(fs);
-                writer.WriteLine(info.Name);
-                writer.WriteLine(info.Id);
-                writer.WriteLine(info.token);
-                writer.WriteLine(info.refresh);
-                writer.WriteLine(info.code);
-                writer.Flush();
-                writer.Close();
-                fs.Close();
+                int res = SQLiteDB.GetInstance().Exe($"UPDATE Character SET code = '{info.code}', token = '{info.token}', refresh = '{info.refresh}'WHERE Id = '{info.Id}';");
             } else
             {
                 characters.Add(info.Id, info);
-                FileStream fs = new FileStream("Character\\" + info.Id, FileMode.Create);
-                StreamWriter writer = new StreamWriter(fs);
-                writer.WriteLine(info.Name);
-                writer.WriteLine(info.Id);
-                writer.WriteLine(info.token);
-                writer.WriteLine(info.refresh);
-                writer.WriteLine(info.code);
-                writer.Flush();
-                writer.Close();
-                fs.Close();
+                int res = SQLiteDB.GetInstance().Exe($"INSERT INTO Character (Id, Name, code, token, refresh) VALUES ('{info.Id}', '{info.Name}', '{info.code}', '{info.token}', '{info.refresh}'); ");
             }
         }
 
@@ -230,7 +186,7 @@ namespace EveCal
         public void _RemoveCharacter(string id)
         {
             characters.Remove(id);
-            File.Delete("Character\\" + id);
+            SQLiteDB.GetInstance().Exe($"DELETE FROM Character WHERE Id = '{id}';");
         }
 
         public Dictionary<string, CharInfo> _GetCharList()

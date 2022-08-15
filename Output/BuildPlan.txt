@@ -1,19 +1,6 @@
 Run plan:
 
-Photonic Metamaterials                   ||    100
-Crystalline Carbonide                    ||    200
-Oscillator Capacitor Unit                ||    4000
-Sylramic Fibers                          ||    100
-Pulse Shield Emitter                     ||    4000
-Vanadium Hafnite                         ||    100
-Hypersynaptic Fibers                     ||    100
-Magnetometric Sensor Cluster             ||    4000
-Vexor                                    ||    10
-Photon Microprocessor                    ||    16000
-Crystalline Carbonide Armor Plate        ||    40000
-Ishtar                                   ||    10
-Fernite Carbide                          ||    100
-Fernite Carbide Composite Armor Plate    ||    80000
+Fernite Carbide Composite Armor Plate    ||    40000
 Plasmonic Metamaterials                  ||    200
 Nanomechanical Microprocessor            ||    32000
 Electrolytic Capacitor Unit              ||    12000
@@ -32,7 +19,7 @@ Heat Sink II                             ||    110
 Rapid Light Missile Launcher II          ||    110
 Celestis                                 ||    10
 Arazu                                    ||    5
-Scalar Capacitor Unit                    ||    12000
+Scalar Capacitor Unit                    ||    8000
 Titanium Diborite Armor Plate            ||    20000
 Sustained Shield Emitter                 ||    4000
 Basilisk                                 ||    10
@@ -48,7 +35,6 @@ Scimitar                                 ||    10
 
 Buy plan:
 
-Morphite	191
 
 
 Haul plan:
@@ -63,43 +49,25 @@ JZ-UQC - EC T2 Medium Ships
 
 ====================
 
+XU7-CH - EC T2 Components
+->
+JZ-UQC - EC T2 Medium Ships
+    Scalar Capacitor Unit                    ||    4000
+    Crystalline Carbonide Armor Plate        ||    3750
+    Photon Microprocessor                    ||    6050
+    Electrolytic Capacitor Unit              ||    4000
+    Fernite Carbide Composite Armor Plate    ||    40000
+
+====================
+
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Titanium Carbide           ||    965602
+    Titanium Carbide           ||    965564
     Tungsten Carbide           ||    2000000
     Plasmonic Metamaterials    ||    30000
-    Fernite Carbide            ||    2000000
-    Sylramic Fibers            ||    1200000
-
-====================
-
-XU7-CH - EC T2 Components
-->
-JZ-UQC - EC T2 Medium Ships
-    Electrolytic Capacitor Unit          ||    4000
-    Fusion Reactor Unit                  ||    340
-    Crystalline Carbonide Armor Plate    ||    20000
-    Ion Thruster                         ||    670
-    Photon Microprocessor                ||    8000
-    Pulse Shield Emitter                 ||    560
-    Oscillator Capacitor Unit            ||    390
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-JZ-UQC - EC T2 Medium Ships
-    Construction Blocks    ||    1340
-    Morphite               ||    1149
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-JZ-UQC - EC Medium Ships
-    Isogen       ||    84532
-    Tritanium    ||    4564577
+    Sylramic Fibers            ||    1077704
+    Fernite Carbide            ||    981224
 
 ====================
 
