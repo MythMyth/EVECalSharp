@@ -28,12 +28,15 @@ namespace EveCal
         private SQLiteDB()
         {
             db = new SqliteConnection("Data Source=data.db");
-            string createCharacterTable = @"CREATE TABLE IF NOT EXISTS Character ( Id INTEGER PRIMARY KEY,Name TEXT, code TEXT, token TEXT, refresh TEXT); ";
+            string createCharacterTable = "CREATE TABLE IF NOT EXISTS Character ( Id INTEGER PRIMARY KEY,Name TEXT, code TEXT, token TEXT, refresh TEXT); ";
+            string createFacilityListTable = @"CREATE TABLE IF NOT EXISTS Facility (Id TEXT PRIMARY KEY, Name TEXT);";
             try
             {
                 db.Open();
                 SqliteCommand comm = db.CreateCommand();
                 comm.CommandText = createCharacterTable;
+                comm.ExecuteNonQuery();
+                comm.CommandText = createFacilityListTable;
                 comm.ExecuteNonQuery();
             } 
             catch(Exception e)
@@ -72,6 +75,23 @@ namespace EveCal
                 string refresh = reader.GetString(4).ToString();
                 list.Add(Id, new CharInfo(Name, Id, token, refresh, code));
             }
+            return list;
+        }
+
+        public Dictionary<string, string> QueryLocationName(string query)
+        {
+            Dictionary<string , string> list = new Dictionary<string , string>();
+
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = query;
+            SqliteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string Id = reader.GetString(0).ToString();
+                string Name = reader.GetString(1).ToString();
+                list.Add(Id, Name);
+            }
+
             return list;
         }
     }

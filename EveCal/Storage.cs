@@ -45,7 +45,6 @@ namespace EveCal
         string struct_path = "https://esi.evetech.net/latest/universe/structures/{structure_id}";
         Dictionary<FacilityType, Dictionary<string, int>> SortedAssets;
         Dictionary<string, Dictionary<string, int>> AllAsset;
-        Dictionary<string, string> LocationName;
         Dictionary<string, int> BPC;
         Dictionary<FacilityType, string> FacilityMatch;
         Dictionary<FacilityType, string> FacilityName;
@@ -135,7 +134,6 @@ namespace EveCal
             Running = new Dictionary<string, int>();
             FacilityName = new Dictionary<FacilityType, string>();
             AllAsset = new Dictionary<string, Dictionary<string, int>>();
-            LocationName = new Dictionary<string, string>();
             FacilityMatch = new Dictionary<FacilityType, string>();
             BPC = new Dictionary<string, int>();
             Copying = new Dictionary<string, int>();
@@ -199,7 +197,6 @@ namespace EveCal
                 }
             }
             LoadFacilityMatch();
-            LoadLocationName();
             LoadAllAsset();
         }
 
@@ -253,49 +250,18 @@ namespace EveCal
             file_mutex.ReleaseMutex();
         }
 
-        void LoadLocationName()
+        Dictionary<string, string> LoadLocationName()
         {
-            if (File.Exists(storagePath + "\\FacilityName"))
-            {
-                string[] lines = File.ReadAllLines(storagePath + "\\FacilityName");
-                foreach(string line in lines)
-                {
-                    string[] p = line.Split("\t");
-                    if (p.Length < 2) continue;
-                    string id = p[0].Trim();
-                    string name = p[1];
-                    if(!LocationName.ContainsKey(id))
-                    {
-                        LocationName.Add(id, name);
-                    } else
-                    {
-                        LocationName[id] = name;
-                    }
-                }
-            }
-            else
-            {
-                File.Create(storagePath + "\\FacilityName");
-            }
+            return SQLiteDB.GetInstance().QueryLocationName("SELECT * FROM Facility;");
         }
 
-        void SaveLocationName()
+        void SaveLocationName(Dictionary<string, string> LocationName)
         {
-            FileStream fs;
-            if (File.Exists(storagePath + "\\FacilityName"))
+            SQLiteDB.GetInstance().Exe("DELETE FROM Facility WHERE 1 = 1;");
+            foreach (string id in LocationName.Keys)
             {
-                fs = File.Open(storagePath + "\\FacilityName", FileMode.Truncate);
-            } else
-            {
-                fs = File.Open(storagePath + "\\FacilityName", FileMode.OpenOrCreate);
+                SQLiteDB.GetInstance().Exe($"INSERT INTO Facility (Id, Name) VALUES ('{id}', '{LocationName[id]}');");
             }
-            StreamWriter writer = new StreamWriter(fs);
-            foreach(string id in LocationName.Keys)
-            {
-                writer.WriteLine(id + "\t" + LocationName[id]);
-            }
-            writer.Close();
-            fs.Close();
         }
 
         void LoadAllAsset()
@@ -416,7 +382,8 @@ namespace EveCal
         public void _UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
         {
             AllAsset.Clear();
-            foreach(string locid in assets.Keys)
+            Dictionary<string, string> LocationName = new Dictionary<string, string>();
+            foreach (string locid in assets.Keys)
             {
                 AllAsset.Add(locid, new Dictionary<string, int>());
                 foreach(string id in assets[locid].Keys)
@@ -430,7 +397,7 @@ namespace EveCal
                 HttpClient client = new HttpClient();
                 var response = client.GetAsync(struct_path.Replace("{structure_id}", locid) + "?token=" + CharacterManager.GetRandomToken()).GetAwaiter().GetResult();
                 string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     Dictionary<string, object> res = JsonConvert.DeserializeObject<Dictionary<string, object>>(res_str);
                     if(LocationName.ContainsKey(locid))
@@ -443,7 +410,7 @@ namespace EveCal
                 }
             }
             SaveAllAsset();
-            SaveLocationName();
+            SaveLocationName(LocationName);
         }
 
         public void _UpdateBPC(Dictionary<string, int> bpc)
@@ -588,13 +555,20 @@ namespace EveCal
 
         public string _GetFacilityName(FacilityType type)
         {
-            if (FacilityMatch.ContainsKey(type)) return LocationName[FacilityMatch[type]];
+            if (FacilityMatch.ContainsKey(type))
+            {
+                Dictionary<string, string> LocationName = SQLiteDB.GetInstance().QueryLocationName($"SELECT * FROM Facility WHERE Id = '{FacilityMatch[type]}';");
+                if (LocationName.Count > 0)
+                    return LocationName[FacilityMatch[type]];
+                else
+                    return type.ToString();
+            }
             return type.ToString();
         }
 
         public Dictionary<string, string> _GetFacilityList()
         {
-            return LocationName;
+            return LoadLocationName();
         }
 
         public Dictionary<FacilityType, string> _GetFacilityMapping()
