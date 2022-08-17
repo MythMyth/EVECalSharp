@@ -31,6 +31,7 @@ namespace EveCal
             string createCharacterTable = "CREATE TABLE IF NOT EXISTS Character ( Id INTEGER PRIMARY KEY,Name TEXT, code TEXT, token TEXT, refresh TEXT); ";
             string createFacilityListTable = @"CREATE TABLE IF NOT EXISTS Facility (Id TEXT PRIMARY KEY, Name TEXT);";
             string createFacilityMatchTable = @"CREATE TABLE IF NOT EXISTS FacilityMatch (Type INTEGER PRIMARY KEY, FacilityId);";
+            string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER);";
             try
             {
                 db.Open();
@@ -40,6 +41,8 @@ namespace EveCal
                 comm.CommandText = createFacilityListTable;
                 comm.ExecuteNonQuery();
                 comm.CommandText = createFacilityMatchTable;
+                comm.ExecuteNonQuery();
+                comm.CommandText = createJobRunningTable;
                 comm.ExecuteNonQuery();
             } 
             catch(Exception e)
@@ -128,6 +131,49 @@ namespace EveCal
                 FacilityType Type = (FacilityType)reader.GetInt64(0);
                 string Id = reader.GetString(1).ToString();
                 list.Add(Type, Id);
+            }
+
+            return list;
+        }
+
+        public void AddRunningJob(ActivityType type, string BPTypeId, int run)
+        {
+            Exe($"INSERT INTO JobRunning (ActivityType, BPTypeId, Run) VALUES ('{(int)type}', '{BPTypeId}', '{run}');");
+        }
+
+        public void ClearRunningJob()
+        {
+            Exe("DELETE FROM JobRunning WHERE 1 = 1;");
+        }
+
+        public Dictionary<string, int> GetRunningJobType(ActivityType type)
+        {
+            Dictionary<string, int> list = new Dictionary<string, int>();
+
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT * FROM JobRunning WHERE ActivityType = '{(int)type}';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string BPType = reader.GetString(2);
+                BPType = Cache.GetName(BPType);
+                if (type == ActivityType.Reaction)
+                {
+                    BPType = BPType.Trim().Replace(" Reaction Formula", "");
+                    if (BPType == "Fulleride") BPType = "Fullerides";
+                }
+                if(type == ActivityType.Manufacturing || type == ActivityType.Copying)
+                {
+                    BPType = BPType.Trim().Replace(" Blueprint", "");
+                }
+                int run = reader.GetInt32(3);
+                if(!list.ContainsKey(BPType))
+                {
+                    list.Add(BPType, run);
+                } else
+                {
+                    list[BPType] += run;
+                }
             }
 
             return list;

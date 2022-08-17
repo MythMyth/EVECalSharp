@@ -130,11 +130,25 @@ namespace EveCal
             if (currBtn != null) currBtn.BackColor = Color.White;
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
-            Dictionary<string, int> map = Storage.GetRunningJob();
             AssetList.Items.Clear();
+            Dictionary<string, int> map = Storage.GetRunningJob(ActivityType.Manufacturing);
             foreach (string key in map.Keys)
             {
                 ListViewItem item = new ListViewItem(key);
+                item.SubItems.Add("" + map[key]);
+                AssetList.Items.Add(item);
+            }
+            map = Storage.GetRunningJob(ActivityType.Reaction);
+            foreach (string key in map.Keys)
+            {
+                ListViewItem item = new ListViewItem(key);
+                item.SubItems.Add("" + map[key]);
+                AssetList.Items.Add(item);
+            }
+            map = Storage.GetRunningJob(ActivityType.Copying);
+            foreach (string key in map.Keys)
+            {
+                ListViewItem item = new ListViewItem("Copying " + key);
                 item.SubItems.Add("" + map[key]);
                 AssetList.Items.Add(item);
             }

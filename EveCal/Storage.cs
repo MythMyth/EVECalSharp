@@ -49,8 +49,6 @@ namespace EveCal
         Dictionary<string, Dictionary<string, int>> AllAsset;
         Dictionary<string, int> BPC;
         Dictionary<FacilityType, string> FacilityName;
-        Dictionary<string, int> Running;
-        Dictionary<string, int> Copying;
         Mutex file_mutex;
 
         //Refactor to SQLITE
@@ -99,9 +97,9 @@ namespace EveCal
             GetInstance()._UpdateRunningJob(jobs);
         }
 
-        public static Dictionary<string, int> GetRunningJob()
+        public static Dictionary<string, int> GetRunningJob(ActivityType type)
         {
-            return GetInstance()._GetRunningJob();
+            return GetInstance()._GetRunningJob(type);
         }
 
         public static string GetFacilityName(FacilityType type)
@@ -127,11 +125,9 @@ namespace EveCal
         public Storage()
         {
             SortedAssets = new Dictionary<FacilityType, Dictionary<string, int>>();
-            Running = new Dictionary<string, int>();
             FacilityName = new Dictionary<FacilityType, string>();
             AllAsset = new Dictionary<string, Dictionary<string, int>>();
             BPC = new Dictionary<string, int>();
-            Copying = new Dictionary<string, int>();
             file_mutex = new Mutex();
             if (!Directory.Exists(storagePath))
             {
@@ -172,22 +168,6 @@ namespace EveCal
                             }
                             SortedAssets[ftype][name] += number;
                         }
-                    }
-                }
-            }
-
-            if(File.Exists(storagePath + "\\Running"))
-            {
-                string[] lines = LoadFile(storagePath + "\\Running");
-                foreach(string line in lines)
-                {
-                    string[] parts = line.Split("\t");
-                    if(parts.Length > 1)
-                    {
-                        string name = parts[0].Trim();
-                        int number = int.Parse(parts[1]);
-                        if (!Running.ContainsKey(name)) Running.Add(name, 0);
-                        Running[name] += number;
                     }
                 }
             }
@@ -247,32 +227,6 @@ namespace EveCal
                     if (p.Length < 2) continue;
                     if (!BPC.ContainsKey(p[0].Trim())) BPC.Add(p[0].Trim(), 0);
                     BPC[p[0].Trim()] += int.Parse(p[1]);
-                }
-            }
-
-            Running.Clear();
-            if (File.Exists(storagePath + "\\Running"))
-            {
-                string[] lines = File.ReadAllLines(storagePath + "\\Running");
-                foreach(string line in lines)
-                {
-                    string[] p = line.Split("\t");
-                    if (p.Length < 2) continue;
-                    if(!Running.ContainsKey(p[0].Trim())) Running.Add(p[0].Trim(), 0);
-                    Running[p[0].Trim()] += int.Parse(p[1]);
-                }
-            }
-
-            Copying.Clear();
-            if (File.Exists(storagePath + "\\Copying"))
-            {
-                string[] lines = File.ReadAllLines(storagePath + "\\Copying");
-                foreach (string line in lines)
-                {
-                    string[] p = line.Split("\t");
-                    if (p.Length < 2) continue;
-                    if (!Copying.ContainsKey(p[0].Trim())) Copying.Add(p[0].Trim(), 0);
-                    Copying[p[0].Trim()] += int.Parse(p[1]);
                 }
             }
         }
@@ -417,13 +371,23 @@ namespace EveCal
                     }
                 }
             }
-
-            foreach(string key in Running.Keys)
+            //Get all manufacturing
+            Dictionary<string, int> running = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Manufacturing);
+            foreach(string key in running.Keys)
             {
                 BP bp = Loader.Get(key.Trim());
                 if (bp == null) continue;
                 if (!map.ContainsKey(key.Trim())) map.Add(key.Trim(), 0);
-                map[key.Trim()] += (bp.GetOutput() * Running[key]);
+                map[key.Trim()] += (bp.GetOutput() * running[key]);
+            }
+            //Get all reaction
+            running = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Reaction);
+            foreach (string key in running.Keys)
+            {
+                BP bp = Loader.Get(key.Trim());
+                if (bp == null) continue;
+                if (!map.ContainsKey(key.Trim())) map.Add(key.Trim(), 0);
+                map[key.Trim()] += (bp.GetOutput() * running[key]);
             }
 
             return map;
@@ -431,69 +395,22 @@ namespace EveCal
 
         public void _UpdateRunningJob(List<Dictionary<string, string>> jobs)
         {
-            if (!File.Exists(storagePath + "\\Running"))
-            {
-                File.Create(storagePath + "\\Running").Close();
-            }
-            FileStream f = File.Open(storagePath + "\\Running", FileMode.Truncate);
-            StreamWriter writer = new StreamWriter(f);
-            Running.Clear();
-            Copying.Clear();
+            SQLiteDB.GetInstance().ClearRunningJob();
             foreach (Dictionary<string, string> job in jobs)
             {
-                if (int.Parse(job["activity_id"]) == (int)ActivityType.Reaction)
-                {
-                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Reaction Formula", "");
-                    int jobRun = int.Parse(job["runs"]);
-                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
-                    Running[bpName] += jobRun;
-                } else if (int.Parse(job["activity_id"]) == (int)ActivityType.Manufacturing)
-                {
-                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Blueprint", "");
-                    int jobRun = int.Parse(job["runs"]);
-                    if (!Running.ContainsKey(bpName)) Running.Add(bpName, 0);
-                    Running[bpName] += jobRun;
-                } else if (int.Parse(job["activity_id"]) == (int)ActivityType.Copying)
-                {
-                    string bpName = Cache.GetName(job["blueprint_type_id"]).Trim().Replace(" Blueprint", "");
-                    int jobRun = int.Parse(job["runs"]);
-                    if (!Copying.ContainsKey(bpName)) Copying.Add(bpName, 0);
-                    Copying[bpName] += jobRun;
-                }
+                SQLiteDB.GetInstance().AddRunningJob((ActivityType)int.Parse(job["activity_id"]), job["blueprint_type_id"], int.Parse(job["runs"]));
             }
-            foreach (string key in Running.Keys)
-            {
-                writer.WriteLine(key + "\t" + Running[key]);
-            }
-            writer.Close();
-            f.Close();
-
-
-            if (!File.Exists(storagePath + "\\Copying"))
-            {
-                f = File.Open(storagePath + "\\Copying", FileMode.Create);
-            }
-            else
-            {
-                f = File.Open(storagePath + "\\Copying", FileMode.Truncate);
-            }
-            writer = new StreamWriter(f);
-            foreach (string key in Copying.Keys)
-            {
-                writer.WriteLine(key + "\t" + Copying[key]);
-            }
-            writer.Close();
-            f.Close();
         }
 
-        public Dictionary<string, int> _GetRunningJob()
+        public Dictionary<string, int> _GetRunningJob(ActivityType type)
         {
-            return Running;
+            return SQLiteDB.GetInstance().GetRunningJobType(type);
         }
 
         public int _GetAvailableBPC(string name)
         {
             int ret = 0;
+            Dictionary<string, int> Copying = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Copying);
             if (Copying.ContainsKey(name)) ret += Copying[name];
             if (BPC.ContainsKey(name)) ret += BPC[name];
             return ret;
