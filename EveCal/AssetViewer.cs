@@ -15,7 +15,6 @@ namespace EveCal
     {
         Dictionary<FacilityType, Button> ButtonMap = new Dictionary<FacilityType, Button>();
         Dictionary<string, string> LocationName;
-        Dictionary<FacilityType, string> FacilityMatch;
         List<string> syncFacilityListId;
         Dictionary<string, CharInfo> chars;
 
@@ -81,7 +80,6 @@ namespace EveCal
         void LoadFacilityList()
         {
             LocationName = Storage.GetFacilityList();
-            FacilityMatch = Storage.GetFacilityMapping();
             syncFacilityListId.Clear();
             FacilityList.Items.Clear();
             foreach(string id in LocationName.Keys)
@@ -108,10 +106,10 @@ namespace EveCal
             facilityName.Text = Storage.GetFacilityName((FacilityType)currBtn.Tag);
 
             FacilityType type = (FacilityType)currBtn.Tag;
-            if(FacilityMatch.ContainsKey(type))
+            string FacilityId = Storage.GetFacilityIdByType(type);
+            if(FacilityId != "")
             {
-                string id = FacilityMatch[type];
-                int index = syncFacilityListId.IndexOf(id);
+                int index = syncFacilityListId.IndexOf(FacilityId);
                 if(index > -1)
                 {
                     FacilityList.Focus();
@@ -125,19 +123,6 @@ namespace EveCal
             {
                 FacilityList.SelectedItems.Clear();
             }
-        }
-
-        private void UpdateButton_Click(object sender, EventArgs e)
-        {
-            /*if (currBtn == RunningJob)
-            {
-                Storage.UpdateRunningJob(AssetTextBox.Text);
-            }
-            else if (currBtn != null)
-            {
-                Storage.UpdateAsset(AssetTextBox.Text, (FacilityType)currBtn.Tag, facilityName.Text);
-            }*/
-            Storage.SaveFacilityMatch();
         }
 
         private void RunningJob_Click(object sender, EventArgs e)
@@ -325,14 +310,7 @@ namespace EveCal
                 FacilityType type = (FacilityType)currBtn.Tag;
                 int selectedIndex = FacilityList.Items.IndexOf(FacilityList.SelectedItems[0]);
                 string id = syncFacilityListId[selectedIndex];
-                if (FacilityMatch.ContainsKey(type))
-                {
-                    FacilityMatch[type] = id;
-                }
-                else
-                {
-                    FacilityMatch.Add(type, id);
-                }
+                Storage.UpdateFacilityMapping(type, id);
             }
         }
     }

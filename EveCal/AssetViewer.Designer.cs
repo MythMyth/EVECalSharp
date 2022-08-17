@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.UpdateButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -50,18 +49,6 @@
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
-            // 
-            // UpdateButton
-            // 
-            this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdateButton.Location = new System.Drawing.Point(1038, 726);
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(450, 42);
-            this.UpdateButton.TabIndex = 2;
-            this.UpdateButton.Text = "Update Match";
-            this.UpdateButton.UseVisualStyleBackColor = true;
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
             // button1
             // 
@@ -291,7 +278,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.UpdateButton);
             this.Name = "AssetViewer";
             this.Text = "AssetViewer";
             this.ResumeLayout(false);
@@ -300,7 +286,6 @@
         }
 
         #endregion
-        private Button UpdateButton;
         private Button button1;
         private Button button2;
         private Button button3;

@@ -20,7 +20,9 @@ namespace EveCal
         MEDIUM_SHIP,
         SMALL_SHIP,
         REACTION, 
-        MODULE
+        MODULE, 
+        COPY_RESEARCH,
+        INVENTION
     };
 
     public enum ActivityType
@@ -46,7 +48,6 @@ namespace EveCal
         Dictionary<FacilityType, Dictionary<string, int>> SortedAssets;
         Dictionary<string, Dictionary<string, int>> AllAsset;
         Dictionary<string, int> BPC;
-        Dictionary<FacilityType, string> FacilityMatch;
         Dictionary<FacilityType, string> FacilityName;
         Dictionary<string, int> Running;
         Dictionary<string, int> Copying;
@@ -113,19 +114,14 @@ namespace EveCal
             return GetInstance()._GetFacilityList();
         }
 
-        public static Dictionary<FacilityType, string> GetFacilityMapping()
+        public static string GetFacilityIdByType(FacilityType type)
         {
-            return GetInstance()._GetFacilityMapping();
+            return GetInstance()._GetFacilityIdByType(type);
         }
 
-        public static void UpdateFacilityMapping(Dictionary<FacilityType, string> mapping)
+        public static void UpdateFacilityMapping(FacilityType type, string Id)
         {
-            GetInstance()._UpdateFacilityMapping(mapping);
-        }
-
-        public static void SaveFacilityMatch()
-        {
-            GetInstance()._SaveFacilityMatch();
+            GetInstance()._UpdateFacilityMapping(type, Id);
         }
 
         public Storage()
@@ -134,7 +130,6 @@ namespace EveCal
             Running = new Dictionary<string, int>();
             FacilityName = new Dictionary<FacilityType, string>();
             AllAsset = new Dictionary<string, Dictionary<string, int>>();
-            FacilityMatch = new Dictionary<FacilityType, string>();
             BPC = new Dictionary<string, int>();
             Copying = new Dictionary<string, int>();
             file_mutex = new Mutex();
@@ -196,58 +191,7 @@ namespace EveCal
                     }
                 }
             }
-            LoadFacilityMatch();
             LoadAllAsset();
-        }
-
-        void LoadFacilityMatch()
-        {
-            file_mutex.WaitOne();
-            if (File.Exists(storagePath + "\\FacilityMatch"))
-            {
-                string[] all_match = File.ReadAllLines(storagePath + "\\FacilityMatch");
-                foreach (string line in all_match)
-                {
-                    string[] p = line.Split("\t");
-                    if (p.Length < 2) continue;
-                    FacilityType type = (FacilityType)int.Parse(p[0]);
-                    string id = p[1].Trim();
-                    if (FacilityMatch.ContainsKey(type))
-                    {
-                        FacilityMatch[type] = id;
-                    }
-                    else
-                    {
-                        FacilityMatch.Add(type, id);
-                    }
-                }
-            }
-            else
-            {
-                File.Create(storagePath + "\\FacilityMatch");
-            }
-            file_mutex.ReleaseMutex();
-        }
-
-        void _SaveFacilityMatch()
-        {
-            file_mutex.WaitOne();
-            FileStream fs;
-            if(File.Exists(storagePath + "\\FacilityMatch"))
-            {
-                fs = File.Open(storagePath + "\\FacilityMatch", FileMode.Truncate);
-            } else
-            {
-                fs = File.Open(storagePath + "\\FacilityMatch", FileMode.OpenOrCreate);
-            }
-            StreamWriter writer = new StreamWriter(fs);
-            foreach(FacilityType type in FacilityMatch.Keys)
-            {
-                writer.WriteLine("" + (int)type + "\t" + FacilityMatch[type]);
-            }
-            writer.Close();
-            fs.Close();
-            file_mutex.ReleaseMutex();
         }
 
         Dictionary<string, string> LoadLocationName()
@@ -430,8 +374,9 @@ namespace EveCal
         
         public int _GetAssetCountAt(FacilityType type, string iname)
         {
-            if (!FacilityMatch.ContainsKey(type)) return 0;
-            Dictionary<string, int> map = AllAsset[FacilityMatch[type]];
+            string FacilityId = SQLiteDB.GetInstance().GetFacilityIdForType(type);
+            if (FacilityId == "") return 0;
+            Dictionary<string, int> map = AllAsset[FacilityId];
             if(map.ContainsKey(iname))
             {
                 return map[iname];
@@ -441,9 +386,10 @@ namespace EveCal
 
         public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
         {
-            if(FacilityMatch.ContainsKey(type) && AllAsset.ContainsKey(FacilityMatch[type]))
+            string FacilityId = SQLiteDB.GetInstance().GetFacilityIdForType(type);
+            if (FacilityId != "" && AllAsset.ContainsKey(FacilityId))
             {
-                return AllAsset[FacilityMatch[type]];
+                return AllAsset[FacilityId];
             }
             return new Dictionary<string, int>();
         }
@@ -451,7 +397,7 @@ namespace EveCal
         public Dictionary<string, int> _GetHaulable()
         {
             Dictionary<string, int> map = new Dictionary<string, int>();
-
+            Dictionary<FacilityType, string> FacilityMatch = SQLiteDB.GetInstance().GetFacilityMatch();
             foreach(FacilityType facility in FacilityMatch.Keys)
             {
                 if (!AllAsset.ContainsKey(FacilityMatch[facility])) continue;
@@ -555,11 +501,12 @@ namespace EveCal
 
         public string _GetFacilityName(FacilityType type)
         {
-            if (FacilityMatch.ContainsKey(type))
+            string FacilityId = SQLiteDB.GetInstance().GetFacilityIdForType(type);
+            if (FacilityId != "")
             {
-                Dictionary<string, string> LocationName = SQLiteDB.GetInstance().QueryLocationName($"SELECT * FROM Facility WHERE Id = '{FacilityMatch[type]}';");
+                Dictionary<string, string> LocationName = SQLiteDB.GetInstance().QueryLocationName($"SELECT * FROM Facility WHERE Id = '{FacilityId}';");
                 if (LocationName.Count > 0)
-                    return LocationName[FacilityMatch[type]];
+                    return LocationName[FacilityId];
                 else
                     return type.ToString();
             }
@@ -571,14 +518,14 @@ namespace EveCal
             return LoadLocationName();
         }
 
-        public Dictionary<FacilityType, string> _GetFacilityMapping()
+        public string _GetFacilityIdByType(FacilityType type)
         {
-            return FacilityMatch;
+            return SQLiteDB.GetInstance().GetFacilityIdForType(type);
         }
 
-        public void _UpdateFacilityMapping(Dictionary<FacilityType, string> mapping)
+        public void _UpdateFacilityMapping(FacilityType type, string Id)
         {
-
+            SQLiteDB.GetInstance().SaveFacilityMatch(type, Id);
         }
 
     }
