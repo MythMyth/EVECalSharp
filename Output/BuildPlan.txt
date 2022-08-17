@@ -1,28 +1,23 @@
 Run plan:
 
 Sylramic Fibers                          ||    200
-Fernite Carbide Composite Armor Plate    ||    40000
+Fernite Carbide Composite Armor Plate    ||    20000
 Hypersynaptic Fibers                     ||    100
-Neo Mercurite                            ||    100
-Nanotransistors                          ||    100
-Plasmonic Metamaterials                  ||    200
-Nanomechanical Microprocessor            ||    32000
-Carbon Polymers                          ||    100
-Electrolytic Capacitor Unit              ||    12000
+Plasmonic Metamaterials                  ||    100
+Nanomechanical Microprocessor            ||    16000
+Electrolytic Capacitor Unit              ||    8000
 Hound                                    ||    20
 Muninn                                   ||    10
 Sabre                                    ||    10
-Tungsten Carbide                         ||    100
 Nanoelectrical Microprocessor            ||    16000
-Tungsten Carbide Armor Plate             ||    60000
+Tungsten Carbide Armor Plate             ||    20000
 Crusader                                 ||    10
 Malediction                              ||    10
 Bifrost                                  ||    10
 Gyrostabilizer II                        ||    110
 Heat Sink II                             ||    110
 Rapid Light Missile Launcher II          ||    110
-Crystallite Alloy                        ||    300
-Thulium Hafnite                          ||    100
+Crystallite Alloy                        ||    200
 Photonic Metamaterials                   ||    100
 Crystalline Carbonide                    ||    400
 Oscillator Capacitor Unit                ||    8000
@@ -30,11 +25,8 @@ Pulse Shield Emitter                     ||    4000
 Magnetometric Sensor Cluster             ||    4000
 Photon Microprocessor                    ||    24000
 Crystalline Carbonide Armor Plate        ||    100000
-Celestis                                 ||    10
 Arazu                                    ||    5
-Scalar Capacitor Unit                    ||    8000
-Titanium Diborite Armor Plate            ||    20000
-Sustained Shield Emitter                 ||    4000
+Scalar Capacitor Unit                    ||    4000
 Basilisk                                 ||    10
 Curse                                    ||    5
 Falcon                                   ||    5
@@ -62,21 +54,26 @@ JZ-UQC - EC T2 Medium Ships
     Blackbird     ||    5
     Arbitrator    ||    10
     Osprey        ||    10
+    Celestis      ||    10
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Scalar Capacitor Unit                    ||    4000
+    Sustained Shield Emitter                 ||    2143
+    Titanium Diborite Armor Plate            ||    17441
+    Scalar Capacitor Unit                    ||    8000
     Fusion Reactor Unit                      ||    825
     Ion Thruster                             ||    1360
     Crystalline Carbonide Armor Plate        ||    20000
     Photon Microprocessor                    ||    8000
     Pulse Shield Emitter                     ||    4560
     Oscillator Capacitor Unit                ||    4390
-    Electrolytic Capacitor Unit              ||    4000
-    Fernite Carbide Composite Armor Plate    ||    40000
+    Tungsten Carbide Armor Plate             ||    33510
+    Electrolytic Capacitor Unit              ||    8000
+    Nanomechanical Microprocessor            ||    16000
+    Fernite Carbide Composite Armor Plate    ||    60000
 
 ====================
 
@@ -85,11 +82,18 @@ XU7-CH - T2 Reactions
 XU7-CH - EC T2 Components
     Crystalline Carbonide      ||    1000000
     Photonic Metamaterials     ||    30000
-    Titanium Carbide           ||    965564
     Terahertz Metamaterials    ||    24164
+    Tungsten Carbide           ||    237574
     Plasmonic Metamaterials    ||    30000
-    Sylramic Fibers            ||    1200000
-    Fernite Carbide            ||    981224
+    Nanotransistors            ||    1723
+    Fernite Carbide            ||    980775
+
+====================
+
+XU7-CH - EC T2 Components
+->
+JZ-UQC - EC T2 Small Ships
+    Tungsten Carbide Armor Plate    ||    6490
 
 ====================
 
@@ -104,8 +108,8 @@ JZ-UQC - EC T2 Medium Ships
 MJ-5F9 - B E A N S T A R
 ->
 JZ-UQC - EC Medium Ships
-    Isogen       ||    169151
-    Tritanium    ||    9133964
+    Isogen       ||    169125
+    Tritanium    ||    9132521
 
 ====================
 

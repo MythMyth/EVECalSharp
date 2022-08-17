@@ -49,8 +49,19 @@ namespace EveCal
                 if(demand[facility].ContainsKey(item))
                 {
                     int demandInThisFacility = demand[facility][item] - Storage.GetAssetCountAt(facility, item);
-                    if(haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0) {
-                        int haul = Math.Min(demandInThisFacility, haulable[item]);
+                    //If item used right in where it make, remove which use in haulable
+                    if (Loader.Have(item) && Loader.Get(item).MakeAt() == facility && haulable.ContainsKey(item)) 
+                    {
+                        if(demandInThisFacility >= 0) // Not enough
+                        {
+                            haulable.Remove(item);
+                        } else //Subtract used number
+                        {
+                            haulable[item] -= demand[facility][item];
+                        }
+                    }
+                    if (haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0) {
+                        int haul = Math.Min(demandInThisFacility, haulable[item]); // Calculate issue here
                         demandInThisFacility -= haul;
                         haulable[item] -= haul;
                         if(haul > 0 && ((!Loader.Have(item)) || (Loader.Get(item).MakeAt() != facility))) { 
