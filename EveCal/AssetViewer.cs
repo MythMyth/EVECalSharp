@@ -172,6 +172,9 @@ namespace EveCal
             List<string> ids = new List<string>();
             Dictionary<string, Dictionary<string, int>> assets = new Dictionary<string, Dictionary<string, int>>();
             Dictionary<string, int> BPC = new Dictionary<string, int>();
+
+            List<Dictionary<string, string>> AllLoadedAsset = new List<Dictionary<string, string>>();
+
             foreach (string cid in chars.Keys)
             {
                 Invoke(AppendCover, "\n" + cid + " - " + chars[cid].Name + ": Indy jobs ");
@@ -188,6 +191,7 @@ namespace EveCal
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     List<Dictionary<string, string>> jobs = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
+
                     foreach (Dictionary<string, string> job in jobs)
                     {
                         all_jobs.Add(job);
@@ -216,6 +220,10 @@ namespace EveCal
                 int success = 0;
                 int not_modified = 0;
                 int failed = 0;
+
+                //============ UPDATE ASSET===============
+
+
                 for (int currPage = 1; currPage <= assetPage; currPage++)
                 {
                     while (chars[cid].AssetEtag.Count < currPage)
@@ -231,6 +239,7 @@ namespace EveCal
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         List<Dictionary<string, string>> items = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(res_str);
+                        AllLoadedAsset.AddRange(items);
                         foreach (Dictionary<string, string> item in items)
                         {
                             if (item["location_flag"] != "Hangar") continue;
@@ -294,6 +303,9 @@ namespace EveCal
                 Invoke(AppendCover, "\n Update assets");
                 Storage.UpdateAsset(assets);
                 Storage.UpdateBPC(BPC);
+
+                Storage.UpadateAsset(AllLoadedAsset);
+
                 Invoke(LoadFacilityList, null);
             }
             if (will_update_running)

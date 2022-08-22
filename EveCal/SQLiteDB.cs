@@ -33,6 +33,7 @@ namespace EveCal
             string createFacilityMatchTable = @"CREATE TABLE IF NOT EXISTS FacilityMatch (Type INTEGER PRIMARY KEY, FacilityId);";
             string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER);";
             string createCacheTable = @"CREATE TABLE IF NOT EXISTS Cache (Id INTEGER PRIMARY KEY, Name TEXT);";
+            string createAssetTable = @"CREATE TABLE IF NOT EXISTS Asset (Id INTEGER PRIMARY KEY AUTOINCREMENT, TypeId TEXT, LocId TEXT, Quantity INTEGER, IsBPC INTEGER);";
             try
             {
                 db.Open();
@@ -46,6 +47,8 @@ namespace EveCal
                 comm.CommandText = createJobRunningTable;
                 comm.ExecuteNonQuery();
                 comm.CommandText = createCacheTable;
+                comm.ExecuteNonQuery();
+                comm.CommandText = createAssetTable;
                 comm.ExecuteNonQuery();
             } 
             catch(Exception e)
@@ -206,6 +209,16 @@ namespace EveCal
                 ret = reader.GetString(1);
             }
             return ret;
+        }
+
+        public void UpdateAsset(List<Dictionary<string, string>> AllLoadedAsset)
+        {
+            Exe("DELETE FROM Asset WHERE 1 = 1;");
+            foreach(Dictionary<string, string> asset in AllLoadedAsset)
+            {
+                if (asset["location_flag"] != "Hangar") continue;
+                Exe($"INSERT INTO Asset (TypeId , LocId, Quantity, IsBPC) VALUES ('{asset["type_id"]}','{asset["location_id"]}','{asset["quantity"]}','{((!asset.ContainsKey("is_blueprint_copy") || asset["is_blueprint_copy"] == "false") ? "false":"true")}');");
+            }
         }
     }
 }

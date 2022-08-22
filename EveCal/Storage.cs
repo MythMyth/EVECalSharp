@@ -63,6 +63,11 @@ namespace EveCal
             mutex.ReleaseMutex();
             return instance;
         }
+
+        public static void UpadateAsset(List<Dictionary<string, string>> AllLoadedAsset)
+        {
+            GetInstance()._UpadateAsset(AllLoadedAsset);
+        }
         public static void UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
         {
             GetInstance()._UpdateAsset(assets);
@@ -276,6 +281,11 @@ namespace EveCal
         {
             string text = File.ReadAllText(fname);
             return text.Split("\n");
+        }
+
+        public void _UpadateAsset(List<Dictionary<string, string>> AllLoadedAsset)
+        {
+            SQLiteDB.GetInstance().UpdateAsset(AllLoadedAsset);
         }
         public void _UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
         {
