@@ -32,6 +32,7 @@ namespace EveCal
             string createFacilityListTable = @"CREATE TABLE IF NOT EXISTS Facility (Id TEXT PRIMARY KEY, Name TEXT);";
             string createFacilityMatchTable = @"CREATE TABLE IF NOT EXISTS FacilityMatch (Type INTEGER PRIMARY KEY, FacilityId);";
             string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER);";
+            string createCacheTable = @"CREATE TABLE IF NOT EXISTS Cache (Id INTEGER PRIMARY KEY, Name TEXT);";
             try
             {
                 db.Open();
@@ -43,6 +44,8 @@ namespace EveCal
                 comm.CommandText = createFacilityMatchTable;
                 comm.ExecuteNonQuery();
                 comm.CommandText = createJobRunningTable;
+                comm.ExecuteNonQuery();
+                comm.CommandText = createCacheTable;
                 comm.ExecuteNonQuery();
             } 
             catch(Exception e)
@@ -177,6 +180,32 @@ namespace EveCal
             }
 
             return list;
+        }
+
+        public bool IsCacheIdAvailable(string id)
+        {
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT * FROM Cache WHERE Id = '{id}';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            return reader.Read();
+        }
+
+        public void AddCacheId(string id, string name)
+        {
+            Exe($"INSERT INTO Cache (Id, Name) VALUES ('{id}', '{name}');");
+        }
+
+        public string GetCacheIdName(string id)
+        {
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT * FROM Cache WHERE Id = '{id}';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            string ret = ""; 
+            if(reader.Read())
+            {
+                ret = reader.GetString(1);
+            }
+            return ret;
         }
     }
 }

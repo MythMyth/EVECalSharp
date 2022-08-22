@@ -286,7 +286,7 @@ namespace EveCal
                 AllAsset.Add(locid, new Dictionary<string, int>());
                 foreach(string id in assets[locid].Keys)
                 {
-                    if (!AllAsset[locid].ContainsKey(id))
+                    if (!AllAsset[locid].ContainsKey(Cache.GetName(id)))
                     {
                         AllAsset[locid].Add(Cache.GetName(id), 0);
                     }

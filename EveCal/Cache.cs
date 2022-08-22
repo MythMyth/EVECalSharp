@@ -12,8 +12,6 @@ namespace EveCal
         static Cache instance;
         static Mutex mutex = new Mutex();
 
-        Dictionary<string, string> names = new Dictionary<string, string>();
-
         public static Cache GetInstance()
         {
             if(instance == null)
@@ -42,7 +40,7 @@ namespace EveCal
             string request_ids = "";
             foreach(string id in ids)
             {
-                if(!names.ContainsKey(id))
+                if(!SQLiteDB.GetInstance().IsCacheIdAvailable(id))
                 {
                     request_ids += "," + id;
                 }
@@ -65,7 +63,7 @@ namespace EveCal
                 {
                     if(item.ContainsKey("category") && item["category"] == "inventory_type")
                     {
-                        names.Add(item["id"], item["name"]);
+                        SQLiteDB.GetInstance().AddCacheId(item["id"], item["name"]);
                     }
                 }
             }
@@ -73,8 +71,7 @@ namespace EveCal
 
         public string _GetName(string id)
         {
-            if (names.ContainsKey(id)) return names[id];
-            return "";
+            return SQLiteDB.GetInstance().GetCacheIdName(id);
         }
     }
 }
