@@ -25,10 +25,14 @@ namespace EveCal
     {
         Dictionary<string, int> outputItems;
         Dictionary<FacilityType, Dictionary<string, int>> demand;
+        Dictionary<FacilityType, Dictionary<string, int>> available;
+        Dictionary<FacilityType, Dictionary<string, int>> running;
         public BuildPlan()
         {
             outputItems = new Dictionary<string, int>();
-            demand = new Dictionary<FacilityType, Dictionary<string, int>>();  
+            demand = new Dictionary<FacilityType, Dictionary<string, int>>();
+            available = Storage.GetAllAsset();
+            running = Storage.GetOuptutRunningJobInFacility();
         }
 
         public bool Add(string item, int amount)
@@ -41,52 +45,68 @@ namespace EveCal
             return false;
         }
 
-        int FindInDemand(string item, Dictionary<string, int> haulable, HaulDetail haulPlan)
+        void pushToPlan(HaulDetail haulPlan, Tuple<FacilityType, FacilityType> road, string item, int amount)
+        {
+            if (!haulPlan.ContainsKey(road)) haulPlan.Add(road, new Dictionary<string, int>());
+            if (!haulPlan[road].ContainsKey(item)) haulPlan[road].Add(item, amount);
+            else haulPlan[road][item] += amount;
+        }
+
+        int FindInDemand(string item, HaulDetail haulPlan)
         {
             int result = 0;
             foreach(FacilityType facility in demand.Keys)
             {
                 if(demand[facility].ContainsKey(item))
                 {
-                    int demandInThisFacility = demand[facility][item] - Storage.GetAssetCountAt(facility, item);
-                    //If item used right in where it make, remove which use in haulable
-                    if (Loader.Have(item) && Loader.Get(item).MakeAt() == facility && haulable.ContainsKey(item)) 
+                    int demandInThisFacility = demand[facility][item];
+                    //Available
+                    if(available[facility].ContainsKey(item) && demandInThisFacility >= available[facility][item])
                     {
-                        if(demandInThisFacility >= 0) // Not enough
+                        demandInThisFacility -= available[facility][item];
+                        available[facility].Remove(item);
+                    } else if(available[facility].ContainsKey(item))
+                    {
+                        available[facility][item] -= demandInThisFacility;
+                        demandInThisFacility = 0;
+                    }
+                    if (demandInThisFacility > 0 && Loader.Have(item))
+                    {
+                        FacilityType makeAt = Loader.Get(item).MakeAt();
+                        Tuple<FacilityType, FacilityType> road = new Tuple<FacilityType, FacilityType>(makeAt, facility);
+                        //Can move
+                        if (available[makeAt].ContainsKey(item) && demandInThisFacility >= available[makeAt][item])
                         {
-                            haulable.Remove(item);
-                        } else //Subtract used number
+                            demandInThisFacility -= available[makeAt][item];
+                            pushToPlan(haulPlan, road, item, available[makeAt][item]);
+                            available[makeAt].Remove(item);
+                        }
+                        else if (available[makeAt].ContainsKey(item))
                         {
-                            haulable[item] -= demand[facility][item];
+                            available[makeAt][item] -= demandInThisFacility;
+                            pushToPlan(haulPlan, road, item, demandInThisFacility);
+                            demandInThisFacility = 0;
                         }
                     }
-                    if (haulable.ContainsKey(item) && demandInThisFacility > 0 && haulable[item] > 0) {
-                        int haul = Math.Min(demandInThisFacility, haulable[item]); // Calculate issue here
-                        demandInThisFacility -= haul;
-                        haulable[item] -= haul;
-                        if(haul > 0 && ((!Loader.Have(item)) || (Loader.Get(item).MakeAt() != facility))) { 
-                            BP bp = Loader.Get(item);
-                            Tuple < FacilityType, FacilityType > road;
-                            if (bp == null)
-                            {
-                                //If null mean it a raw material
-                                road = new Tuple<FacilityType, FacilityType>(FacilityType.SOURCE, facility);
-                            } else
-                            {
-                                road = new Tuple<FacilityType, FacilityType>(bp.MakeAt(), facility);
-                            }
-                            if(!haulPlan.ContainsKey(road))
-                            {
-                                haulPlan.Add(road, new Dictionary<string, int>());
-                            }
-                            if (!haulPlan[road].ContainsKey(item))
-                            {
-                                haulPlan[road].Add(item, 0);
-                            }
-                            haulPlan[road][item] += haul;
+                    //Making
+                    if (demandInThisFacility > 0 && Loader.Have(item))
+                    {
+                        FacilityType makeAt = Loader.Get(item).MakeAt();
+                        Tuple<FacilityType, FacilityType> road = new Tuple<FacilityType, FacilityType>(makeAt, facility);
+                        if (running[makeAt].ContainsKey(item) && demandInThisFacility >= running[makeAt][item])
+                        {
+                            demandInThisFacility -= running[makeAt][item];
+                            pushToPlan(haulPlan, road, item, running[makeAt][item]);
+                            running[makeAt].Remove(item);
+                        } else if(running[makeAt].ContainsKey(item))
+                        {
+                            running[makeAt][item] -= demandInThisFacility;
+                            pushToPlan(haulPlan, road, item, demandInThisFacility);
+                            demandInThisFacility = 0;
                         }
                     }
-                    result += ((demandInThisFacility < 0) ? 0 : demandInThisFacility);
+
+                    result += demandInThisFacility;
                 }
             }
             return result;
@@ -114,7 +134,7 @@ namespace EveCal
             {
                 ItemWorkDetail workDetail = new ItemWorkDetail();
                 workDetail.name = item.Trim();
-                workDetail.amount = FindInDemand(workDetail.name, haulable, haulPlan);
+                workDetail.amount = FindInDemand(workDetail.name, haulPlan);
                 BP bp = Loader.Get(item.Trim());
                 if(bp != null)
                 {

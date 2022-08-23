@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using EveCal.BPs;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace EveCal
             string createCharacterTable = "CREATE TABLE IF NOT EXISTS Character ( Id INTEGER PRIMARY KEY,Name TEXT, code TEXT, token TEXT, refresh TEXT); ";
             string createFacilityListTable = @"CREATE TABLE IF NOT EXISTS Facility (Id TEXT PRIMARY KEY, Name TEXT);";
             string createFacilityMatchTable = @"CREATE TABLE IF NOT EXISTS FacilityMatch (Type INTEGER PRIMARY KEY, FacilityId);";
-            string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER);";
+            string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER, LocId TEXT);";
             string createCacheTable = @"CREATE TABLE IF NOT EXISTS Cache (Id INTEGER PRIMARY KEY, Name TEXT);";
             string createAssetTable = @"CREATE TABLE IF NOT EXISTS Asset (Id INTEGER PRIMARY KEY AUTOINCREMENT, TypeId TEXT, LocId TEXT, Quantity INTEGER, IsBPC INTEGER);";
             try
@@ -142,9 +143,9 @@ namespace EveCal
             return list;
         }
 
-        public void AddRunningJob(ActivityType type, string BPTypeId, int run)
+        public void AddRunningJob(ActivityType type, string BPTypeId, int run, string LocId)
         {
-            Exe($"INSERT INTO JobRunning (ActivityType, BPTypeId, Run) VALUES ('{(int)type}', '{BPTypeId}', '{run}');");
+            Exe($"INSERT INTO JobRunning (ActivityType, BPTypeId, Run, Locid) VALUES ('{(int)type}', '{BPTypeId}', '{run}', '{LocId}');");
         }
 
         public void ClearRunningJob()
@@ -185,6 +186,33 @@ namespace EveCal
             return list;
         }
 
+        public Dictionary<FacilityType, Dictionary<string, int>> GetOuptutRunningJobInFacility()
+        {
+            Dictionary<FacilityType, Dictionary<string, int>> running = new Dictionary<FacilityType, Dictionary<string, int>>();
+
+            foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
+            {
+                string facid = GetFacilityIdForType(facilityType);
+                running.Add(facilityType, GetAssetAt(facid));
+                if (facid == "") continue;
+                SqliteCommand comm = db.CreateCommand();
+                comm.CommandText = $"SELECT Name, Run FROM JobRunning LEFT JOIN Cache ON BPTypeId = Cache.Id WHERE LocId = '{facid}';";
+                SqliteDataReader reader = comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.IsDBNull(0) || reader.IsDBNull(1)) continue;
+                    string BPType = reader.GetString(0).Trim().Replace(" Reaction Formula", "").Replace(" Blueprint", "");
+                    if (BPType == "Fulleride") BPType = "Fullerides";
+                    int run = reader.GetInt32(1);
+                    BP bp = Loader.Get(BPType);
+                    if (bp == null) continue;
+                    if (!running[facilityType].ContainsKey(BPType)) running[facilityType].Add(BPType, 0);
+                    running[facilityType][BPType] += run * bp.GetOutput();
+                }
+            }
+            return running;
+        }
+
         public bool IsCacheIdAvailable(string id)
         {
             SqliteCommand comm = db.CreateCommand();
@@ -219,6 +247,56 @@ namespace EveCal
                 if (asset["location_flag"] != "Hangar") continue;
                 Exe($"INSERT INTO Asset (TypeId , LocId, Quantity, IsBPC) VALUES ('{asset["type_id"]}','{asset["location_id"]}','{asset["quantity"]}','{((!asset.ContainsKey("is_blueprint_copy") || asset["is_blueprint_copy"] == "false") ? "false":"true")}');");
             }
+        }
+
+        public List<string> GetAllFacilityId()
+        {
+            List<string> ids = new List<string>();
+
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT DISTINCT LocId Asset;";
+            SqliteDataReader reader = comm.ExecuteReader();
+            if (reader.Read())
+            {
+                ids.Add(reader.GetString(0));
+            }
+
+            return ids;
+        }
+
+        public Dictionary<string, int> GetAssetAt(string facid)
+        {
+            Dictionary<string, int> asset = new Dictionary<string, int>();
+
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT Name, Quantity FROM Asset LEFT JOIN Cache ON TypeId = Cache.Id WHERE LocId = '{facid}' AND IsBPC = 'false';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                if(reader.IsDBNull(0) || reader.IsDBNull(1)) continue;
+                string name = reader.GetString(0);
+                int quantity = reader.GetInt32(1);
+
+                if (!asset.ContainsKey(name)) asset.Add(name, 0);
+                asset[name] += quantity;
+
+            }
+
+            return asset;
+        }
+
+        public Dictionary<FacilityType, Dictionary<string, int>> GetAllAsset()
+        {
+            Dictionary<FacilityType, Dictionary<string, int>> assets = new Dictionary<FacilityType, Dictionary<string, int>>();
+
+            foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
+            {
+                string facid = GetFacilityIdForType(facilityType);
+                assets.Add(facilityType, GetAssetAt(facid));
+                if (facid == "") continue;
+            }
+
+            return assets;
         }
     }
 }

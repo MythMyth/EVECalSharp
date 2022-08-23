@@ -127,6 +127,16 @@ namespace EveCal
             GetInstance()._UpdateFacilityMapping(type, Id);
         }
 
+        public static Dictionary<FacilityType, Dictionary<string, int>> GetAllAsset()
+        {
+            return GetInstance()._GetAllAsset();
+        }
+
+        public static Dictionary<FacilityType, Dictionary<string, int>> GetOuptutRunningJobInFacility()
+        {
+            return GetInstance()._GetOuptutRunningJobInFacility();
+        }
+
         public Storage()
         {
             SortedAssets = new Dictionary<FacilityType, Dictionary<string, int>>();
@@ -408,7 +418,7 @@ namespace EveCal
             SQLiteDB.GetInstance().ClearRunningJob();
             foreach (Dictionary<string, string> job in jobs)
             {
-                SQLiteDB.GetInstance().AddRunningJob((ActivityType)int.Parse(job["activity_id"]), job["blueprint_type_id"], int.Parse(job["runs"]));
+                SQLiteDB.GetInstance().AddRunningJob((ActivityType)int.Parse(job["activity_id"]), job["blueprint_type_id"], int.Parse(job["runs"]), job["station_id"]);
             }
         }
 
@@ -453,6 +463,16 @@ namespace EveCal
         public void _UpdateFacilityMapping(FacilityType type, string Id)
         {
             SQLiteDB.GetInstance().SaveFacilityMatch(type, Id);
+        }
+
+        public Dictionary<FacilityType, Dictionary<string, int>> _GetAllAsset()
+        {
+            return SQLiteDB.GetInstance().GetAllAsset();
+        }
+
+        public Dictionary<FacilityType, Dictionary<string, int>> _GetOuptutRunningJobInFacility()
+        {
+            return SQLiteDB.GetInstance().GetOuptutRunningJobInFacility();
         }
 
     }

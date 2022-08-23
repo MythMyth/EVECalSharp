@@ -58,7 +58,6 @@ namespace EveCal
                 }
             }
 
-            plan.MakePlan(true);
             currPlan = plan.MakePlan(true);
             RunList.Items.Clear();
             RunList.Groups.Clear();
