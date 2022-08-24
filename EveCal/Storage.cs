@@ -45,11 +45,7 @@ namespace EveCal
         static Mutex mutex = new Mutex();
         const string storagePath = "storage";
         string struct_path = "https://esi.evetech.net/latest/universe/structures/{structure_id}";
-        Dictionary<FacilityType, Dictionary<string, int>> SortedAssets;
-        Dictionary<string, Dictionary<string, int>> AllAsset;
         Dictionary<string, int> BPC;
-        Dictionary<FacilityType, string> FacilityName;
-        Mutex file_mutex;
 
         //Refactor to SQLITE
 
@@ -67,34 +63,6 @@ namespace EveCal
         public static void UpadateAsset(List<Dictionary<string, string>> AllLoadedAsset)
         {
             GetInstance()._UpadateAsset(AllLoadedAsset);
-        }
-        public static void UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
-        {
-            GetInstance()._UpdateAsset(assets);
-        }
-
-        public static void UpdateBPC(Dictionary<string, int> bpc)
-        {
-            GetInstance()._UpdateBPC(bpc);
-        }
-        public static int GetAssetCountAt(FacilityType type, string iname)
-        {
-            return GetInstance()._GetAssetCountAt(type, iname);
-        }
-
-        public static int GetAvailableBPC(string name)
-        {
-            return GetInstance()._GetAvailableBPC(name);
-        }
-
-        public static Dictionary<string, int> GetHaulable()
-        {
-            return GetInstance()._GetHaulable();
-        }
-
-        public static Dictionary<string, int> GetFacilityAsset(FacilityType type)
-        {
-            return GetInstance()._GetFacilityAsset(type);
         }
 
         public static void UpdateRunningJob(List<Dictionary<string, string>> jobs)
@@ -132,6 +100,23 @@ namespace EveCal
             return GetInstance()._GetAllAsset();
         }
 
+        public static Dictionary<string, int> GetAssetAt(string facid)
+        {
+            return GetInstance()._GetAssetAt(facid);
+        }
+
+        public static Dictionary<string, int> GetAssetAt(FacilityType type)
+        {
+            string facid = GetFacilityIdByType(type);
+            if (facid == "") return new Dictionary<string, int>();
+            return GetAssetAt(facid);
+        }
+
+        public static Dictionary<FacilityType, Dictionary<string, int>> GetAllBPC()
+        {
+            return GetInstance()._GetAllBPC();
+        }
+
         public static Dictionary<FacilityType, Dictionary<string, int>> GetOuptutRunningJobInFacility()
         {
             return GetInstance()._GetOuptutRunningJobInFacility();
@@ -139,52 +124,10 @@ namespace EveCal
 
         public Storage()
         {
-            SortedAssets = new Dictionary<FacilityType, Dictionary<string, int>>();
-            FacilityName = new Dictionary<FacilityType, string>();
-            AllAsset = new Dictionary<string, Dictionary<string, int>>();
             BPC = new Dictionary<string, int>();
-            file_mutex = new Mutex();
             if (!Directory.Exists(storagePath))
             {
                 Directory.CreateDirectory(storagePath);
-            }
-            foreach(FacilityType ftype in (Enum.GetValues(typeof(FacilityType)))) {
-                SortedAssets.Add(ftype, new Dictionary<string, int>());
-                string filename = storagePath + "\\" + ftype;
-                if (File.Exists(filename))
-                {
-                    string[] lines = LoadFile(filename);
-                    int len = lines.Length;
-                    int start = 0;
-                    if(len > 0)
-                    {
-                        if (lines[0].Split("\t").Length == 1)
-                        {
-                            start = 1;
-                            FacilityName.Add(ftype, lines[0]);
-                        }
-                        else
-                        {
-                            FacilityName.Add(ftype, ftype.ToString());
-                        } 
-                            
-                    }
-                    for (int i = start; i < len; i++)
-                    {
-                        string[] parts = lines[i].Split('\t');
-                        if(parts.Length > 1)
-                        {
-                            string name = parts[0].Trim();
-                            int number = int.Parse(parts[1].Trim());
-                            if (parts[1].Trim() == "") number = 1;
-                            if (!SortedAssets[ftype].ContainsKey(name))
-                            {
-                                SortedAssets[ftype].Add(name, 0);
-                            }
-                            SortedAssets[ftype][name] += number;
-                        }
-                    }
-                }
             }
             LoadAllAsset();
         }
@@ -194,42 +137,11 @@ namespace EveCal
             return SQLiteDB.GetInstance().QueryLocationName("SELECT * FROM Facility;");
         }
 
-        void SaveLocationName(Dictionary<string, string> LocationName)
-        {
-            SQLiteDB.GetInstance().Exe("DELETE FROM Facility WHERE 1 = 1;");
-            foreach (string id in LocationName.Keys)
-            {
-                SQLiteDB.GetInstance().Exe($"INSERT INTO Facility (Id, Name) VALUES ('{id}', '{LocationName[id]}');");
-            }
-        }
-
         void LoadAllAsset()
         {
             if (!Directory.Exists(storagePath + "\\AllAsset"))
             {
                 Directory.CreateDirectory(storagePath + "\\AllAsset");
-            }
-            AllAsset.Clear();
-            string[] allAssetFiles = Directory.GetFiles(storagePath + "\\AllAsset");
-            foreach (string file in allAssetFiles)
-            {
-                string[] lines = File.ReadAllLines(file);
-                string facId = file.Split('\\').Last();
-                if(!AllAsset.ContainsKey(facId)) {
-                    AllAsset.Add(facId, new Dictionary<string, int>());
-                }
-                foreach (string line in lines)
-                {
-                    string[] p = line.Split("\t");
-                    if (p.Length < 2) continue;
-                    string name = p[0].Trim();
-                    int qty = int.Parse(p[1].Trim());
-                    if (!AllAsset[facId].ContainsKey(name))
-                    {
-                        AllAsset[facId].Add(name, 0);
-                    }
-                    AllAsset[facId][name] += qty;
-                }
             }
 
             BPC.Clear();
@@ -243,28 +155,6 @@ namespace EveCal
                     if (!BPC.ContainsKey(p[0].Trim())) BPC.Add(p[0].Trim(), 0);
                     BPC[p[0].Trim()] += int.Parse(p[1]);
                 }
-            }
-        }
-
-        void SaveAllAsset()
-        {
-            foreach(string facId in AllAsset.Keys)
-            {
-                FileStream fs;
-                if(File.Exists(storagePath + "\\AllAsset\\" + facId))
-                {
-                    fs = File.Open(storagePath + "\\AllAsset\\" + facId, FileMode.Truncate);
-                } else
-                {
-                    fs = File.Open(storagePath + "\\AllAsset\\" + facId, FileMode.OpenOrCreate);
-                }
-                StreamWriter writer = new StreamWriter(fs);
-                foreach(string id in AllAsset[facId].Keys)
-                {
-                    writer.WriteLine(id + "\t" + AllAsset[facId][id]);
-                }
-                writer.Close();
-                fs.Close();
             }
         }
 
@@ -287,130 +177,10 @@ namespace EveCal
             writer.Close();
             fs.Close();
         }
-        string[] LoadFile(string fname)
-        {
-            string text = File.ReadAllText(fname);
-            return text.Split("\n");
-        }
 
         public void _UpadateAsset(List<Dictionary<string, string>> AllLoadedAsset)
         {
             SQLiteDB.GetInstance().UpdateAsset(AllLoadedAsset);
-        }
-        public void _UpdateAsset(Dictionary<string, Dictionary<string, int>> assets)
-        {
-            AllAsset.Clear();
-            Dictionary<string, string> LocationName = new Dictionary<string, string>();
-            foreach (string locid in assets.Keys)
-            {
-                AllAsset.Add(locid, new Dictionary<string, int>());
-                foreach(string id in assets[locid].Keys)
-                {
-                    if (!AllAsset[locid].ContainsKey(Cache.GetName(id)))
-                    {
-                        AllAsset[locid].Add(Cache.GetName(id), 0);
-                    }
-                    AllAsset[locid][Cache.GetName(id)] += assets[locid][id];
-                }
-                HttpClient client = new HttpClient();
-                var response = client.GetAsync(struct_path.Replace("{structure_id}", locid) + "?token=" + CharacterManager.GetRandomToken()).GetAwaiter().GetResult();
-                string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    Dictionary<string, object> res = JsonConvert.DeserializeObject<Dictionary<string, object>>(res_str);
-                    if(LocationName.ContainsKey(locid))
-                    {
-                        LocationName[locid] = res["name"].ToString();
-                    } else
-                    {
-                        LocationName.Add(locid, res["name"].ToString());
-                    }
-                }
-            }
-            SaveAllAsset();
-            SaveLocationName(LocationName);
-        }
-
-        public void _UpdateBPC(Dictionary<string, int> bpc)
-        {
-            BPC.Clear();
-            foreach(string bpc_id in bpc.Keys)
-            {
-                string name = Cache.GetName(bpc_id);
-                if(!BPC.ContainsKey(name))
-                {
-                    BPC.Add(name, 0);
-                }
-                BPC[name] += bpc[bpc_id];
-            }
-            SaveBPC();
-        }
-        
-        public int _GetAssetCountAt(FacilityType type, string iname)
-        {
-            string FacilityId = SQLiteDB.GetInstance().GetFacilityIdForType(type);
-            if (FacilityId == "") return 0;
-            Dictionary<string, int> map = AllAsset[FacilityId];
-            if(map.ContainsKey(iname))
-            {
-                return map[iname];
-            }
-            return 0;
-        }
-
-        public Dictionary<string, int> _GetFacilityAsset(FacilityType type)
-        {
-            string FacilityId = SQLiteDB.GetInstance().GetFacilityIdForType(type);
-            if (FacilityId != "" && AllAsset.ContainsKey(FacilityId))
-            {
-                return AllAsset[FacilityId];
-            }
-            return new Dictionary<string, int>();
-        }
-
-        public Dictionary<string, int> _GetHaulable()
-        {
-            Dictionary<string, int> map = new Dictionary<string, int>();
-            Dictionary<FacilityType, string> FacilityMatch = SQLiteDB.GetInstance().GetFacilityMatch();
-            foreach(FacilityType facility in FacilityMatch.Keys)
-            {
-                if (!AllAsset.ContainsKey(FacilityMatch[facility])) continue;
-                foreach(string mat in AllAsset[FacilityMatch[facility]].Keys)
-                {
-                    if(facility == FacilityType.SOURCE)
-                    {
-                        if (!map.ContainsKey(mat)) map.Add(mat, 0);
-                        map[mat] += AllAsset[FacilityMatch[facility]][mat];
-                        continue;
-                    }
-                    BP bp = Loader.Get(mat);
-                    if(bp != null && bp.MakeAt() == facility) 
-                    {
-                        if(!map.ContainsKey(mat))map.Add(mat, 0);
-                        map[mat] += AllAsset[FacilityMatch[facility]][mat];
-                    }
-                }
-            }
-            //Get all manufacturing
-            Dictionary<string, int> running = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Manufacturing);
-            foreach(string key in running.Keys)
-            {
-                BP bp = Loader.Get(key.Trim());
-                if (bp == null) continue;
-                if (!map.ContainsKey(key.Trim())) map.Add(key.Trim(), 0);
-                map[key.Trim()] += (bp.GetOutput() * running[key]);
-            }
-            //Get all reaction
-            running = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Reaction);
-            foreach (string key in running.Keys)
-            {
-                BP bp = Loader.Get(key.Trim());
-                if (bp == null) continue;
-                if (!map.ContainsKey(key.Trim())) map.Add(key.Trim(), 0);
-                map[key.Trim()] += (bp.GetOutput() * running[key]);
-            }
-
-            return map;
         }
 
         public void _UpdateRunningJob(List<Dictionary<string, string>> jobs)
@@ -425,15 +195,6 @@ namespace EveCal
         public Dictionary<string, int> _GetRunningJob(ActivityType type)
         {
             return SQLiteDB.GetInstance().GetRunningJobType(type);
-        }
-
-        public int _GetAvailableBPC(string name)
-        {
-            int ret = 0;
-            Dictionary<string, int> Copying = SQLiteDB.GetInstance().GetRunningJobType(ActivityType.Copying);
-            if (Copying.ContainsKey(name)) ret += Copying[name];
-            if (BPC.ContainsKey(name)) ret += BPC[name];
-            return ret;
         }
 
         public string _GetFacilityName(FacilityType type)
@@ -475,5 +236,14 @@ namespace EveCal
             return SQLiteDB.GetInstance().GetOuptutRunningJobInFacility();
         }
 
+        public Dictionary<string, int> _GetAssetAt(string facid)
+        {
+            return SQLiteDB.GetInstance().GetAssetAt(facid);
+        }
+
+        public Dictionary<FacilityType, Dictionary<string, int>> _GetAllBPC()
+        {
+            return SQLiteDB.GetInstance().GetAllBPC();
+        }
     }
 }

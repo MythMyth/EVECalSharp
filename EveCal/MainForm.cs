@@ -145,6 +145,9 @@ namespace EveCal
             ListViewGroup cgroup = new ListViewGroup("Copy");
             RunList.Groups.Add(cgroup);
 
+            Dictionary<FacilityType, Dictionary<string, int>> all_bpc = Storage.GetAllBPC();
+            Dictionary<string, int> copying = Storage.GetRunningJob(ActivityType.Copying);
+
             foreach (ItemWorkDetail work in currPlan.Item1)
             {
                 if (work.jobRun != 0)
@@ -154,10 +157,42 @@ namespace EveCal
                     int bpc_need = bp.BPCNeed(work.jobRun);
                     if (bpc_need < 0) continue;
                     string bpc_name = work.name + " Blueprint";
-                    if (bpc_need <= Storage.GetAvailableBPC(bpc_name)) continue;
+
+                    if(all_bpc[bp.MakeAt()].ContainsKey(bp.GetName()) && bpc_need < all_bpc[bp.MakeAt()][bp.GetName()])
+                    {
+                        all_bpc[bp.MakeAt()][bp.GetName()] -= bpc_need;
+                        bpc_need = 0;
+                    } else if(all_bpc[bp.MakeAt()].ContainsKey(bp.GetName()))
+                    {
+                        bpc_need -= all_bpc[bp.MakeAt()][bp.GetName()];
+                        all_bpc[bp.MakeAt()].Remove(bp.GetName());
+                    }
+
+                    if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bp.GetName()) && bpc_need < all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()])
+                    {
+                        all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()] -= bpc_need;
+                        bpc_need = 0;
+                    }
+                    else if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bp.GetName()))
+                    {
+                        bpc_need -= all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()];
+                        all_bpc[FacilityType.COPY_RESEARCH].Remove(bp.GetName());
+                    }
+
+                    if (copying.ContainsKey(bp.GetName()) && copying[bp.GetName()] > bpc_need)
+                    {
+                        copying[bp.GetName()] -= bpc_need;
+                        bpc_need = 0;
+                    } else if(copying.ContainsKey(bp.GetName()))
+                    {
+                        bpc_need -= copying[bp.GetName()];
+                        copying.Remove(bp.GetName());
+                    }
+
+                    if (bpc_need == 0) continue;
                     ListViewItem item = new ListViewItem(bpc_name);
                     item.SubItems.Add("x");
-                    item.SubItems.Add("" +  (bpc_need - Storage.GetAvailableBPC(bpc_name)));
+                    item.SubItems.Add("" +  bpc_need);
                     item.Group = cgroup;
                     RunList.Items.Add(item);
                 }

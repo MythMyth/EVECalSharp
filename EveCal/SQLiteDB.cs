@@ -292,11 +292,35 @@ namespace EveCal
             foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
             {
                 string facid = GetFacilityIdForType(facilityType);
-                assets.Add(facilityType, GetAssetAt(facid));
-                if (facid == "") continue;
+                if (facid == "") assets.Add(facilityType, new Dictionary<string, int>());
+                else assets.Add(facilityType, GetAssetAt(facid));
             }
 
             return assets;
+        }
+
+        public Dictionary<FacilityType, Dictionary<string, int>> GetAllBPC()
+        {
+            Dictionary<FacilityType, Dictionary<string, int>> bpcs = new Dictionary<FacilityType, Dictionary<string, int>>();
+
+            foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
+            {
+                bpcs.Add(facilityType, new Dictionary<string, int>());
+                string facid = GetFacilityIdForType(facilityType);
+                if (facid == "") continue;
+                SqliteCommand comm = db.CreateCommand();
+                comm.CommandText = $"SELECT Name, Quantity FROM Asset LEFT JOIN Cache ON TypeId = Cache.Id WHERE LocId = '{facid}' AND IsBPC = 'true';";
+                SqliteDataReader reader = comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.IsDBNull(0) || reader.IsDBNull(1)) continue;
+                    string name = reader.GetString(0);
+                    int quantity = reader.GetInt32(1);
+                    if (!bpcs[facilityType].ContainsKey(name)) bpcs[facilityType].Add(name, quantity);
+                    else bpcs[facilityType][name] += quantity;
+                }
+            }
+            return bpcs;
         }
     }
 }

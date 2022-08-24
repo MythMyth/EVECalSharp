@@ -116,7 +116,6 @@ namespace EveCal
         {
             List<ItemWorkDetail> plan = new List<ItemWorkDetail>();
             Dictionary<string, int> allNode = new Dictionary<string, int>();
-            Dictionary<string, int> haulable = Storage.GetHaulable();
             HaulDetail haulPlan = new HaulDetail();
             demand.Clear();
             foreach (string key in outputItems.Keys)

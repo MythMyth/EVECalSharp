@@ -95,7 +95,7 @@ namespace EveCal
             if(currBtn != null) currBtn.BackColor = Color.White;
             currBtn = (Button)sender;
             currBtn.BackColor = Color.Aqua;
-            Dictionary<string, int> map = Storage.GetFacilityAsset((FacilityType)currBtn.Tag);
+            Dictionary<string, int> map = Storage.GetAssetAt((FacilityType)currBtn.Tag);
             AssetList.Items.Clear();
             foreach (string key in map.Keys)
             {
@@ -301,8 +301,6 @@ namespace EveCal
             if(will_update_asset)
             {
                 Invoke(AppendCover, "\n Update assets");
-                Storage.UpdateAsset(assets);
-                Storage.UpdateBPC(BPC);
 
                 Storage.UpadateAsset(AllLoadedAsset);
 
