@@ -158,35 +158,35 @@ namespace EveCal
                     if (bpc_need < 0) continue;
                     string bpc_name = work.name + " Blueprint";
 
-                    if(all_bpc[bp.MakeAt()].ContainsKey(bp.GetName()) && bpc_need < all_bpc[bp.MakeAt()][bp.GetName()])
+                    if(all_bpc[bp.MakeAt()].ContainsKey(bpc_name) && bpc_need < all_bpc[bp.MakeAt()][bpc_name])
                     {
-                        all_bpc[bp.MakeAt()][bp.GetName()] -= bpc_need;
+                        all_bpc[bp.MakeAt()][bpc_name] -= bpc_need;
                         bpc_need = 0;
-                    } else if(all_bpc[bp.MakeAt()].ContainsKey(bp.GetName()))
+                    } else if(all_bpc[bp.MakeAt()].ContainsKey(bpc_name))
                     {
-                        bpc_need -= all_bpc[bp.MakeAt()][bp.GetName()];
-                        all_bpc[bp.MakeAt()].Remove(bp.GetName());
+                        bpc_need -= all_bpc[bp.MakeAt()][bpc_name];
+                        all_bpc[bp.MakeAt()].Remove(bpc_name);
                     }
 
-                    if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bp.GetName()) && bpc_need < all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()])
+                    if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bpc_name) && bpc_need < all_bpc[FacilityType.COPY_RESEARCH][bpc_name])
                     {
-                        all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()] -= bpc_need;
+                        all_bpc[FacilityType.COPY_RESEARCH][bpc_name] -= bpc_need;
                         bpc_need = 0;
                     }
-                    else if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bp.GetName()))
+                    else if (all_bpc[FacilityType.COPY_RESEARCH].ContainsKey(bpc_name))
                     {
-                        bpc_need -= all_bpc[FacilityType.COPY_RESEARCH][bp.GetName()];
-                        all_bpc[FacilityType.COPY_RESEARCH].Remove(bp.GetName());
+                        bpc_need -= all_bpc[FacilityType.COPY_RESEARCH][bpc_name];
+                        all_bpc[FacilityType.COPY_RESEARCH].Remove(bpc_name);
                     }
 
-                    if (copying.ContainsKey(bp.GetName()) && copying[bp.GetName()] > bpc_need)
+                    if (copying.ContainsKey(bpc_name) && copying[bpc_name] > bpc_need)
                     {
-                        copying[bp.GetName()] -= bpc_need;
+                        copying[bpc_name] -= bpc_need;
                         bpc_need = 0;
-                    } else if(copying.ContainsKey(bp.GetName()))
+                    } else if(copying.ContainsKey(bpc_name))
                     {
-                        bpc_need -= copying[bp.GetName()];
-                        copying.Remove(bp.GetName());
+                        bpc_need -= copying[bpc_name];
+                        copying.Remove(bpc_name);
                     }
 
                     if (bpc_need == 0) continue;

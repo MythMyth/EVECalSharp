@@ -72,9 +72,9 @@
             this.coverLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.coverLabel.Location = new System.Drawing.Point(526, 99);
+            this.coverLabel.Location = new System.Drawing.Point(12, 9);
             this.coverLabel.Name = "coverLabel";
-            this.coverLabel.Size = new System.Drawing.Size(854, 597);
+            this.coverLabel.Size = new System.Drawing.Size(1476, 759);
             this.coverLabel.TabIndex = 8;
             this.coverLabel.Text = "coverLabel";
             this.coverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -140,9 +140,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.coverLabel);
             this.Controls.Add(this.RunningBtn);
             this.Controls.Add(this.CopyBtn);
-            this.Controls.Add(this.coverLabel);
             this.Controls.Add(this.FacilityListBox);
             this.Controls.Add(this.AssetList);
             this.Controls.Add(this.FacilityList);
