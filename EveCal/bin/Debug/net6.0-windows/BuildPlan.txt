@@ -2,11 +2,13 @@ Run plan:
 
 Electrolytic Capacitor Unit          ||    8000
 Hound                                ||    20
+Muninn                               ||    3
 Sabre                                ||    10
 Crusader                             ||    10
 Malediction                          ||    10
 Bifrost                              ||    10
 Magnetometric Sensor Cluster         ||    4000
+Photon Microprocessor                ||    8000
 Crystalline Carbonide Armor Plate    ||    100000
 Arazu                                ||    5
 Curse                                ||    5
@@ -14,6 +16,7 @@ Falcon                               ||    5
 Huginn                               ||    2
 Lachesis                             ||    3
 Pilgrim                              ||    5
+Rapier                               ||    1
 Scimitar                             ||    6
 Thorax                               ||    20
 Deimos                               ||    20
@@ -29,29 +32,35 @@ JZ-UQC - EC T2 Medium Ships
 ->
 MJ-5F9 - B E A N S T A R
     Scimitar    ||    4
-    Rapier      ||    5
+    Rapier      ||    4
     Lachesis    ||    2
     Huginn      ||    3
     Basilisk    ||    10
-    Muninn      ||    10
+    Muninn      ||    7
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Scalar Capacitor Unit            ||    28
-    Photon Microprocessor            ||    22683
-    Pulse Shield Emitter             ||    3643
-    Oscillator Capacitor Unit        ||    6548
-    Nanoelectrical Microprocessor    ||    8090
+    Scalar Capacitor Unit                    ||    28
+    Photon Microprocessor                    ||    16000
+    Pulse Shield Emitter                     ||    3643
+    Oscillator Capacitor Unit                ||    6548
+    Nanoelectrical Microprocessor            ||    8090
+    Nuclear Reactor Unit                     ||    3
+    Deflection Shield Emitter                ||    9
+    Nanomechanical Microprocessor            ||    5185
+    Ladar Sensor Cluster                     ||    42
+    Fernite Carbide Composite Armor Plate    ||    4170
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Crystalline Carbonide      ||    3249418
+    Crystalline Carbonide      ||    3364536
+    Photonic Metamaterials     ||    8617
     Plasmonic Metamaterials    ||    8617
     Hypersynaptic Fibers       ||    6231
     Sylramic Fibers            ||    238778

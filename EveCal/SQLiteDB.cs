@@ -193,7 +193,7 @@ namespace EveCal
             foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
             {
                 string facid = GetFacilityIdForType(facilityType);
-                running.Add(facilityType, GetAssetAt(facid));
+                running.Add(facilityType, new Dictionary<string, int>());
                 if (facid == "") continue;
                 SqliteCommand comm = db.CreateCommand();
                 comm.CommandText = $"SELECT Name, Run FROM JobRunning LEFT JOIN Cache ON BPTypeId = Cache.Id WHERE LocId = '{facid}';";
