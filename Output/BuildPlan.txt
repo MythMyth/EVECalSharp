@@ -1,45 +1,27 @@
 Run plan:
 
-Ceramic Powder                       ||    100
-Helium Fuel Block                    ||    200
-Sylramic Fibers                      ||    100
-Carbon Polymers                      ||    100
 Electrolytic Capacitor Unit          ||    8000
 Hound                                ||    20
-Muninn                               ||    3
 Sabre                                ||    10
 Crusader                             ||    10
 Malediction                          ||    10
 Bifrost                              ||    10
-Heat Sink II                         ||    110
-Crystallite Alloy                    ||    200
-Crystalline Carbonide                ||    300
+Heat Sink II                         ||    33
 Magnetometric Sensor Cluster         ||    4000
-Photon Microprocessor                ||    8000
 Crystalline Carbonide Armor Plate    ||    100000
 Arazu                                ||    5
-Basilisk                             ||    1
 Curse                                ||    5
 Falcon                               ||    5
-Huginn                               ||    5
-Lachesis                             ||    5
+Huginn                               ||    2
+Lachesis                             ||    3
 Pilgrim                              ||    5
-Rapier                               ||    1
-Scimitar                             ||    10
+Scimitar                             ||    6
 Thorax                               ||    20
 Deimos                               ||    20
 
 
 Buy plan:
 
-Enriched Uranium	678
-Coolant	1524
-Strontium Clathrates	3386
-Oxygen	3725
-Heavy Water	28780
-Liquid Ozone	59252
-Silicates	19442
-Helium Isotopes	76181
 
 
 Haul plan:
@@ -47,33 +29,33 @@ Haul plan:
 JZ-UQC - EC T2 Medium Ships
 ->
 MJ-5F9 - B E A N S T A R
-    Rapier      ||    4
-    Basilisk    ||    9
-    Muninn      ||    7
+    Scimitar    ||    4
+    Rapier      ||    5
+    Lachesis    ||    2
+    Huginn      ||    3
+    Basilisk    ||    10
+    Muninn      ||    10
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
-    Scalar Capacitor Unit                    ||    29
-    Photon Microprocessor                    ||    16000
-    Pulse Shield Emitter                     ||    3645
-    Oscillator Capacitor Unit                ||    6550
-    Nanoelectrical Microprocessor            ||    8090
-    Nanomechanical Microprocessor            ||    5039
-    Fernite Carbide Composite Armor Plate    ||    3862
+    Scalar Capacitor Unit            ||    28
+    Photon Microprocessor            ||    22683
+    Pulse Shield Emitter             ||    3643
+    Oscillator Capacitor Unit        ||    6548
+    Nanoelectrical Microprocessor    ||    8090
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Crystalline Carbonide      ||    1000000
-    Photonic Metamaterials     ||    8617
+    Crystalline Carbonide      ||    3249418
     Plasmonic Metamaterials    ||    8617
     Hypersynaptic Fibers       ||    6231
-    Sylramic Fibers            ||    600000
+    Sylramic Fibers            ||    238778
 
 ====================
 
@@ -81,6 +63,7 @@ XU7-CH - EC Modules
 ->
 MJ-5F9 - B E A N S T A R
     Rapid Light Missile Launcher II    ||    110
+    Heat Sink II                       ||    77
     Gyrostabilizer II                  ||    110
 
 ====================
@@ -92,21 +75,6 @@ JZ-UQC - EC T2 Small Ships
     Nanoelectrical Microprocessor            ||    2160
     Nanomechanical Microprocessor            ||    9700
     Fernite Carbide Composite Armor Plate    ||    13710
-
-====================
-
-XU7-CH - EC T2 Components
-->
-XU7-CH - EC Modules
-    Nanoelectrical Microprocessor    ||    800
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-MJ-5F9 - EC Structures, Fuel, Components
-    Mechanical Parts    ||    678
-    Robotics            ||    200
 
 ====================
 

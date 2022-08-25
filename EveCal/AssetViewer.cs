@@ -13,12 +13,10 @@ namespace EveCal
 {
     public partial class AssetViewer : Form
     {
-        Dictionary<FacilityType, Button> ButtonMap = new Dictionary<FacilityType, Button>();
         Dictionary<string, string> LocationName;
         List<string> syncFacilityListId;
         Dictionary<string, CharInfo> chars;
 
-        Button currBtn;
         string indy_path = "https://esi.evetech.net/latest/characters/{character_id}/industry/jobs";
         string asset_path = "https://esi.evetech.net/latest/characters/{character_id}/assets";
         public AssetViewer()
@@ -26,55 +24,13 @@ namespace EveCal
             InitializeComponent();
             syncFacilityListId = new List<string>();
             chars = CharacterManager.GetCharList();
-            ButtonMap.Add(FacilityType.SOURCE, button1);
-            ButtonMap.Add(FacilityType.ADV_COMPONENT, button2);
-            ButtonMap.Add(FacilityType.ADV_LARGE_SHIP, button3);
-            ButtonMap.Add(FacilityType.ADV_MED_SHIP, button4);
-            ButtonMap.Add(FacilityType.ADV_SMALL_SHIP, button5);
-            ButtonMap.Add(FacilityType.FUEL_COMP, button6);
-            ButtonMap.Add(FacilityType.LARGE_SHIP, button7);
-            ButtonMap.Add(FacilityType.MEDIUM_SHIP, button8);
-            ButtonMap.Add(FacilityType.SMALL_SHIP, button9);
-            ButtonMap.Add(FacilityType.REACTION, button10);
-            ButtonMap.Add(FacilityType.MODULE, button11);
-            SetButtonTitle();
+
+            foreach (FacilityType facilityType in Enum.GetValues(typeof(FacilityType)))
+            {
+                FacilityListBox.Items.Add(facilityType.ToString());
+            }
+
             LoadFacilityList();
-        }
-
-        void SetButtonTitle()
-        {
-            ButtonMap[FacilityType.SOURCE].Tag = FacilityType.SOURCE;
-            ButtonMap[FacilityType.SOURCE].Text = "Home station";
-
-            ButtonMap[FacilityType.ADV_COMPONENT].Tag = FacilityType.ADV_COMPONENT;
-            ButtonMap[FacilityType.ADV_COMPONENT].Text = "Advance Component";
-
-            ButtonMap[FacilityType.ADV_LARGE_SHIP].Tag = FacilityType.ADV_LARGE_SHIP;
-            ButtonMap[FacilityType.ADV_LARGE_SHIP].Text = "T2 Large Ship";
-
-            ButtonMap[FacilityType.ADV_MED_SHIP].Tag = FacilityType.ADV_MED_SHIP;
-            ButtonMap[FacilityType.ADV_MED_SHIP].Text = "T2 Medium Ship";
-
-            ButtonMap[FacilityType.ADV_SMALL_SHIP].Tag = FacilityType.ADV_SMALL_SHIP;
-            ButtonMap[FacilityType.ADV_SMALL_SHIP].Text = "T2 Small Ship";
-
-            ButtonMap[FacilityType.FUEL_COMP].Tag = FacilityType.FUEL_COMP;
-            ButtonMap[FacilityType.FUEL_COMP].Text = "Fuel and Component";
-
-            ButtonMap[FacilityType.LARGE_SHIP].Tag = FacilityType.LARGE_SHIP;
-            ButtonMap[FacilityType.LARGE_SHIP].Text = "Large Ship";
-
-            ButtonMap[FacilityType.MEDIUM_SHIP].Tag = FacilityType.MEDIUM_SHIP;
-            ButtonMap[FacilityType.MEDIUM_SHIP].Text = "Medium Ship";
-
-            ButtonMap[FacilityType.SMALL_SHIP].Tag = FacilityType.SMALL_SHIP;
-            ButtonMap[FacilityType.SMALL_SHIP].Text = "Small Ship";
-
-            ButtonMap[FacilityType.REACTION].Tag = FacilityType.REACTION;
-            ButtonMap[FacilityType.REACTION].Text = "Reaction";
-
-            ButtonMap[FacilityType.MODULE].Tag = FacilityType.MODULE;
-            ButtonMap[FacilityType.MODULE].Text = "Module";
         }
 
         void LoadFacilityList()
@@ -87,72 +43,6 @@ namespace EveCal
                 syncFacilityListId.Add(id);
                 FacilityList.Items.Add(new ListViewItem(LocationName[id]));
             }
-            if (currBtn != null) currBtn.BackColor = Color.White;
-            currBtn = null;
-        }
-        private void button_Click(object sender, EventArgs e)
-        {
-            if(currBtn != null) currBtn.BackColor = Color.White;
-            currBtn = (Button)sender;
-            currBtn.BackColor = Color.Aqua;
-            Dictionary<string, int> map = Storage.GetAssetAt((FacilityType)currBtn.Tag);
-            AssetList.Items.Clear();
-            foreach (string key in map.Keys)
-            {
-                ListViewItem item = new ListViewItem(key);
-                item.SubItems.Add("" + map[key]);
-                AssetList.Items.Add(item);
-            }
-            facilityName.Text = Storage.GetFacilityName((FacilityType)currBtn.Tag);
-
-            FacilityType type = (FacilityType)currBtn.Tag;
-            string FacilityId = Storage.GetFacilityIdByType(type);
-            if(FacilityId != "")
-            {
-                int index = syncFacilityListId.IndexOf(FacilityId);
-                if(index > -1)
-                {
-                    FacilityList.Focus();
-                    FacilityList.Items[index].Selected = true;
-                }
-                else
-                {
-                    FacilityList.SelectedItems.Clear();
-                }
-            } else
-            {
-                FacilityList.SelectedItems.Clear();
-            }
-        }
-
-        private void RunningJob_Click(object sender, EventArgs e)
-        {
-            if (currBtn != null) currBtn.BackColor = Color.White;
-            currBtn = (Button)sender;
-            currBtn.BackColor = Color.Aqua;
-            AssetList.Items.Clear();
-            Dictionary<string, int> map = Storage.GetRunningJob(ActivityType.Manufacturing);
-            foreach (string key in map.Keys)
-            {
-                ListViewItem item = new ListViewItem(key);
-                item.SubItems.Add("" + map[key]);
-                AssetList.Items.Add(item);
-            }
-            map = Storage.GetRunningJob(ActivityType.Reaction);
-            foreach (string key in map.Keys)
-            {
-                ListViewItem item = new ListViewItem(key);
-                item.SubItems.Add("" + map[key]);
-                AssetList.Items.Add(item);
-            }
-            map = Storage.GetRunningJob(ActivityType.Copying);
-            foreach (string key in map.Keys)
-            {
-                ListViewItem item = new ListViewItem("Copying " + key);
-                item.SubItems.Add("" + map[key]);
-                AssetList.Items.Add(item);
-            }
-            facilityName.Text = "";
         }
 
         private void reload_Click(object sender, EventArgs e)
@@ -322,20 +212,89 @@ namespace EveCal
         {
             coverLabel.Text = coverLabel.Text.ToString() + text;
         }
-
-        void SetCover(string text)
-        {
-            coverLabel.Text = text;
-        }
         private void FacilityList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(FacilityList.SelectedItems.Count > 0 && currBtn != null && currBtn != RunningJob)
+            if(FacilityList.SelectedItems.Count > 0 && FacilityListBox.SelectedItems.Count > 0)
             {
-                FacilityType type = (FacilityType)currBtn.Tag;
+                FacilityType type = (FacilityType)FacilityListBox.Items.IndexOf(FacilityListBox.SelectedItems[0]);
                 int selectedIndex = FacilityList.Items.IndexOf(FacilityList.SelectedItems[0]);
                 string id = syncFacilityListId[selectedIndex];
                 Storage.UpdateFacilityMapping(type, id);
             }
+        }
+
+        private void FacilityListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(FacilityListBox.SelectedItems.Count > 0)
+            {
+                FacilityType facilityType = (FacilityType)FacilityListBox.Items.IndexOf(FacilityListBox.SelectedItems[0]);
+
+                Dictionary<string, int> map = Storage.GetAssetAt(facilityType);
+                AssetList.Items.Clear();
+                foreach (string key in map.Keys)
+                {
+                    ListViewItem item = new ListViewItem(key);
+                    item.SubItems.Add("" + map[key]);
+                    AssetList.Items.Add(item);
+                }
+
+                string facid = Storage.GetFacilityIdByType(facilityType);
+                if(facid != "")
+                {
+                    int index = syncFacilityListId.IndexOf(facid);
+                    if(index != -1)
+                    {
+                        FacilityList.Focus();
+                        FacilityList.Items[index].Selected = true;
+                    } else
+                    {
+                        FacilityList.SelectedItems.Clear();
+                    }
+                } else
+                {
+                    FacilityList.SelectedItems.Clear();
+                }
+            }
+        }
+
+        private void RunningBtn_Click(object sender, EventArgs e)
+        {
+            AssetList.Items.Clear();
+            FacilityList.SelectedItems.Clear();
+            FacilityListBox.SelectedItems.Clear();
+            Dictionary<string, int> Running = Storage.GetRunningJob(ActivityType.Manufacturing);
+            foreach(string key in Running.Keys)
+            {
+                ListViewItem item = new ListViewItem("Manufacturing - " + key);
+                item.SubItems.Add(Running[key].ToString());
+                AssetList.Items.Add(item);
+            }
+
+            Running = Storage.GetRunningJob(ActivityType.Reaction);
+            foreach (string key in Running.Keys)
+            {
+                ListViewItem item = new ListViewItem("Reaction - " + key);
+                item.SubItems.Add(Running[key].ToString());
+                AssetList.Items.Add(item);
+            }
+
+            Running = Storage.GetRunningJob(ActivityType.Copying);
+            foreach (string key in Running.Keys)
+            {
+                ListViewItem item = new ListViewItem("Copying - " + key);
+                item.SubItems.Add(Running[key].ToString());
+                AssetList.Items.Add(item);
+            }
+        }
+
+        private void CopyBtn_Click(object sender, EventArgs e)
+        {
+            string clip = "";
+            foreach(ListViewItem item in AssetList.SelectedItems)
+            {
+                clip += item.SubItems[0].Text + "\t" + item.SubItems[1].Text + "\n";
+            }
+            Clipboard.SetText(clip);
         }
     }
 }
