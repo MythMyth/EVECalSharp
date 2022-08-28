@@ -87,6 +87,24 @@ namespace EveCal
                             pushToPlan(haulPlan, road, item, demandInThisFacility);
                             demandInThisFacility = 0;
                         }
+                    } 
+                    else if(demandInThisFacility > 0) //Not have BPC
+                    {
+                        FacilityType makeAt = FacilityType.SOURCE;
+                        Tuple<FacilityType, FacilityType> road = new Tuple<FacilityType, FacilityType>(makeAt, facility);
+                        //Can move
+                        if (available[makeAt].ContainsKey(item) && demandInThisFacility >= available[makeAt][item])
+                        {
+                            demandInThisFacility -= available[makeAt][item];
+                            pushToPlan(haulPlan, road, item, available[makeAt][item]);
+                            available[makeAt].Remove(item);
+                        }
+                        else if (available[makeAt].ContainsKey(item))
+                        {
+                            available[makeAt][item] -= demandInThisFacility;
+                            pushToPlan(haulPlan, road, item, demandInThisFacility);
+                            demandInThisFacility = 0;
+                        }
                     }
                     //Making
                     if (demandInThisFacility > 0 && Loader.Have(item))
