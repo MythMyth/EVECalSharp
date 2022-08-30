@@ -1,50 +1,42 @@
 Run plan:
 
-Fernite Carbide                      ||    100
-Electrolytic Capacitor Unit          ||    8000
-Hound                                ||    20
-Muninn                               ||    3
-Sabre                                ||    10
-Crusader                             ||    10
-Malediction                          ||    10
-Bifrost                              ||    10
-Crystalline Carbonide Armor Plate    ||    40000
-Arazu                                ||    5
-Curse                                ||    5
-Nonlinear Metamaterials              ||    100
-Titanium Carbide                     ||    300
-Scalar Capacitor Unit                ||    4000
-Titanium Diborite Armor Plate        ||    60000
-Quantum Microprocessor               ||    16000
-Sustained Shield Emitter             ||    4000
-Falcon                               ||    5
-Huginn                               ||    2
-Lachesis                             ||    3
-Pilgrim                              ||    5
-Rapier                               ||    1
-Scimitar                             ||    6
-Vexor                                ||    10
-Ishtar                               ||    10
-Moa                                  ||    10
-Eagle                                ||    10
-Superconductor Rails                 ||    4000
-250mm Railgun I                      ||    100
-250mm Railgun II                     ||    100
-Thermonuclear Trigger Unit           ||    4000
-720mm Howitzer Artillery I           ||    200
-720mm Howitzer Artillery II          ||    110
-Ballistic Control System I           ||    200
-Ballistic Control System II          ||    110
-Drone Damage Amplifier I             ||    200
-Drone Damage Amplifier II            ||    110
-Torpedo Launcher I                   ||    60
-Torpedo Launcher II                  ||    55
-Damage Control I                     ||    200
-Damage Control II                    ||    110
-Assault Damage Control I             ||    200
-Assault Damage Control II            ||    110
-Large Shield Extender I              ||    100
-Large Shield Extender II             ||    100
+Hound                            ||    20
+Muninn                           ||    3
+Sabre                            ||    10
+Bifrost                          ||    10
+Arazu                            ||    5
+Curse                            ||    5
+Scalar Capacitor Unit            ||    4000
+Titanium Diborite Armor Plate    ||    60000
+Quantum Microprocessor           ||    16000
+Sustained Shield Emitter         ||    4000
+Falcon                           ||    5
+Huginn                           ||    2
+Pilgrim                          ||    2
+Rapier                           ||    1
+Scimitar                         ||    2
+Vexor                            ||    10
+Ishtar                           ||    10
+Moa                              ||    10
+Eagle                            ||    10
+Superconductor Rails             ||    4000
+250mm Railgun I                  ||    100
+250mm Railgun II                 ||    100
+Thermonuclear Trigger Unit       ||    4000
+720mm Howitzer Artillery I       ||    200
+720mm Howitzer Artillery II      ||    110
+Ballistic Control System I       ||    200
+Ballistic Control System II      ||    110
+Drone Damage Amplifier I         ||    200
+Drone Damage Amplifier II        ||    110
+Torpedo Launcher I               ||    60
+Torpedo Launcher II              ||    55
+Damage Control I                 ||    200
+Damage Control II                ||    110
+Assault Damage Control I         ||    200
+Assault Damage Control II        ||    110
+Large Shield Extender I          ||    100
+Large Shield Extender II         ||    100
 
 
 Buy plan:
@@ -57,67 +49,44 @@ Hydrogen Batteries	1080
 
 Haul plan:
 
-XU7-CH - EC T2 Components
-->
-XU7-CH - EC Modules
-    Plasma Pulse Generator                   ||    220
-    Sustained Shield Emitter                 ||    1080
-    Quantum Microprocessor                   ||    201
-    Photon Microprocessor                    ||    260
-    Oscillator Capacitor Unit                ||    220
-    Fernite Carbide Composite Armor Plate    ||    220
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-XU7-CH - EC Modules
-    Transmitter              ||    200
-    Miniature Electronics    ||    1000
-    Megacyte                 ||    2688
-    Zydrine                  ||    3954
-    Nocxium                  ||    5529
-    Construction Blocks      ||    600
-    Mechanical Parts         ||    1210
-    Isogen                   ||    1940
-    Mexallon                 ||    1227705
-    Tritanium                ||    3588192
-
-====================
-
-XU7-CH - EC T2 Components
-->
 JZ-UQC - EC T2 Medium Ships
-    Sustained Shield Emitter                 ||    777
-    Gravimetric Sensor Cluster               ||    1480
-    Scalar Capacitor Unit                    ||    4000
-    Photon Microprocessor                    ||    10118
-    Magnetometric Sensor Cluster             ||    3550
-    Nanoelectrical Microprocessor            ||    8090
-    Nuclear Reactor Unit                     ||    3
-    Deflection Shield Emitter                ||    9
-    Nanomechanical Microprocessor            ||    5185
-    Ladar Sensor Cluster                     ||    42
-    Fernite Carbide Composite Armor Plate    ||    4170
+->
+MJ-5F9 - B E A N S T A R
+    Scimitar    ||    4
+    Pilgrim     ||    3
+    Lachesis    ||    3
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Crystalline Carbonide      ||    1014759
-    Plasmonic Metamaterials    ||    8617
-    Sylramic Fibers            ||    269251
+    Titanium Carbide           ||    2700873
+    Nonlinear Metamaterials    ||    19240
+    Fernite Carbide            ||    85248
+
+====================
+
+XU7-CH - EC T2 Components
+->
+JZ-UQC - EC T2 Medium Ships
+    Crystalline Carbonide Armor Plate    ||    34005
+    Electrolytic Capacitor Unit          ||    3451
+
+====================
+
+JZ-UQC - EC T2 Small Ships
+->
+MJ-5F9 - B E A N S T A R
+    Malediction    ||    10
+    Crusader       ||    10
 
 ====================
 
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Small Ships
-    Tungsten Carbide Armor Plate             ||    1570
-    Nanoelectrical Microprocessor            ||    2160
-    Nanomechanical Microprocessor            ||    9700
-    Fernite Carbide Composite Armor Plate    ||    13710
+    Electrolytic Capacitor Unit    ||    3790
 
 ====================
 
