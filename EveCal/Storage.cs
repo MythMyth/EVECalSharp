@@ -158,29 +158,23 @@ namespace EveCal
             }
         }
 
-        void SaveBPC()
-        {
-            FileStream fs;
-            if (File.Exists(storagePath + "\\AllAsset\\BPC"))
-            {
-                fs = File.Open(storagePath + "\\AllAsset\\BPC", FileMode.Truncate);
-            }
-            else
-            {
-                fs = File.Open(storagePath + "\\AllAsset\\BPC", FileMode.OpenOrCreate);
-            }
-            StreamWriter writer = new StreamWriter(fs);
-            foreach(string id in BPC.Keys)
-            {
-                writer.WriteLine(id + "\t" + BPC[id]);
-            }
-            writer.Close();
-            fs.Close();
-        }
 
         public void _UpadateAsset(List<Dictionary<string, string>> AllLoadedAsset)
         {
             SQLiteDB.GetInstance().UpdateAsset(AllLoadedAsset);
+            List<string> ids = SQLiteDB.GetInstance().GetAllFacilityId();
+            SQLiteDB.GetInstance().ClearFacilityNames();
+            foreach (string locid in ids)
+            {
+                HttpClient client = new HttpClient();
+                var response = client.GetAsync(struct_path.Replace("{structure_id}", locid) + "?token=" + CharacterManager.GetRandomToken()).GetAwaiter().GetResult();
+                string res_str = response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Dictionary<string, object> res = JsonConvert.DeserializeObject<Dictionary<string, object>>(res_str);
+                    SQLiteDB.GetInstance().AddFacilityName(locid, res["name"].ToString());
+                }
+            }
         }
 
         public void _UpdateRunningJob(List<Dictionary<string, string>> jobs)

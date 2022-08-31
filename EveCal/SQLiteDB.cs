@@ -108,6 +108,16 @@ namespace EveCal
             return list;
         }
 
+        public void ClearFacilityNames()
+        {
+            Exe("DELETE FROM Facility WHERE 1 = 1;");
+        }
+
+        public void AddFacilityName(string id, string name)
+        {
+            Exe($"INSERT INTO Facility (Id, Name) VALUES('{id}', '{name}');");
+        }
+
         public string GetFacilityIdForType(FacilityType type)
         {
             SqliteCommand comm = db.CreateCommand();
@@ -254,9 +264,9 @@ namespace EveCal
             List<string> ids = new List<string>();
 
             SqliteCommand comm = db.CreateCommand();
-            comm.CommandText = $"SELECT DISTINCT LocId Asset;";
+            comm.CommandText = $"SELECT DISTINCT LocId FROM Asset;";
             SqliteDataReader reader = comm.ExecuteReader();
-            if (reader.Read())
+            while (reader.Read())
             {
                 ids.Add(reader.GetString(0));
             }
