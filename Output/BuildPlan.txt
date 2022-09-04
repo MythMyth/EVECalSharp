@@ -1,8 +1,6 @@
 Run plan:
 
-Hydrogen Fuel Block                      ||    200
-Phenolic Composites                      ||    100
-Arazu                                    ||    5
+Arazu                                    ||    3
 Curse                                    ||    5
 Scalar Capacitor Unit                    ||    4000
 Moa                                      ||    10
@@ -10,39 +8,30 @@ Titanium Diborite Armor Plate            ||    60000
 Quantum Microprocessor                   ||    16000
 Sustained Shield Emitter                 ||    4000
 Eagle                                    ||    10
-Falcon                                   ||    5
+Falcon                                   ||    3
 Bellicose                                ||    10
-Fernite Alloy                            ||    100
 Fernite Carbide                          ||    100
-Fernite Carbide Composite Armor Plate    ||    20000
+Plasma Thruster                          ||    4000
+Fernite Carbide Composite Armor Plate    ||    40000
 Ladar Sensor Cluster                     ||    4000
-Plasmonic Metamaterials                  ||    100
-Nanomechanical Microprocessor            ||    16000
-Electrolytic Capacitor Unit              ||    4000
+Plasmonic Metamaterials                  ||    200
+Nanomechanical Microprocessor            ||    24000
+Deflection Shield Emitter                ||    4000
+Electrolytic Capacitor Unit              ||    8000
 Huginn                                   ||    5
-Vexor                                    ||    10
 Ishtar                                   ||    10
-Pilgrim                                  ||    2
+Pilgrim                                  ||    1
 Rapier                                   ||    5
-Bifrost                                  ||    10
-Hound                                    ||    2
-Sabre                                    ||    10
+Bifrost                                  ||    3
 Superconductor Rails                     ||    4000
-250mm Railgun I                          ||    200
 250mm Railgun II                         ||    110
 Thermonuclear Trigger Unit               ||    4000
-720mm Howitzer Artillery I               ||    200
 720mm Howitzer Artillery II              ||    110
 Assault Damage Control I                 ||    200
 Assault Damage Control II                ||    110
 Ballistic Control System I               ||    200
 Ballistic Control System II              ||    110
-Damage Control I                         ||    200
 Damage Control II                        ||    110
-Drone Damage Amplifier I                 ||    200
-Drone Damage Amplifier II                ||    110
-Large Shield Extender I                  ||    100
-Large Shield Extender II                 ||    100
 Torpedo Launcher I                       ||    120
 Torpedo Launcher II                      ||    110
 Scythe                                   ||    10
@@ -52,10 +41,7 @@ Scimitar                                 ||    6
 Buy plan:
 
 Robotics	961
-Liquid Ozone	3111
-Morphite	1615
-Pyerite	1609075
-Megacyte	645
+Morphite	370
 
 
 Haul plan:
@@ -63,76 +49,48 @@ Haul plan:
 JZ-UQC - EC T2 Medium Ships
 ->
 MJ-5F9 - B E A N S T A R
-    Scimitar    ||    4
-    Pilgrim     ||    3
-    Lachesis    ||    2
+    Muninn     ||    3
+    Pilgrim    ||    1
+    Falcon     ||    2
+    Arazu      ||    2
 
 ====================
 
-XU7-CH - EC T2 Components
+XU7-CH - EC Modules
 ->
 XU7-CH - EC Modules
-    R.A.M.- Weapon Tech    ||    40
+    720mm Howitzer Artillery I    ||    110
 
 ====================
 
 JZ-UQC - EC T2 Small Ships
 ->
 MJ-5F9 - B E A N S T A R
-    Hound    ||    18
+    Sabre    ||    1
 
 ====================
 
-XU7-CH - EC T2 Components
+JZ-UQC - EC Medium Ships
 ->
 JZ-UQC - EC T2 Medium Ships
-    Nuclear Reactor Unit                     ||    150
-    Electrolytic Capacitor Unit              ||    759
-    Deflection Shield Emitter                ||    1210
-    Nanomechanical Microprocessor            ||    1115
-    Ladar Sensor Cluster                     ||    1248
-    Fernite Carbide Composite Armor Plate    ||    1900
-    Plasma Thruster                          ||    425
-    Crystalline Carbonide Armor Plate        ||    14005
+    Vexor    ||    10
 
 ====================
 
 XU7-CH - T2 Reactions
 ->
 XU7-CH - EC T2 Components
-    Fernite Carbide            ||    1000000
-    Titanium Carbide           ||    2700873
-    Nonlinear Metamaterials    ||    19240
+    Fernite Carbide        ||    1000000
+    Phenolic Composites    ||    121868
+    Sylramic Fibers        ||    72006
+    Ferrogel               ||    8000
 
 ====================
 
-MJ-5F9 - B E A N S T A R
+XU7-CH - T2 Reactions
 ->
-XU7-CH - EC Modules
-    Megacyte     ||    597
-    Zydrine      ||    226
-    Nocxium      ||    2201
-    Isogen       ||    189
-    Mexallon     ||    338486
-    Tritanium    ||    865844
-    Robotics     ||    279
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-JZ-UQC - EC Medium Ships
-    Isogen       ||    148129
-    Mexallon     ||    284676
-    Pyerite      ||    941871
-    Tritanium    ||    7998953
-
-====================
-
-MJ-5F9 - B E A N S T A R
-->
-MJ-5F9 - EC Structures, Fuel, Components
-    Mechanical Parts    ||    415
+XU7-CH - T2 Reactions
+    Fernite Alloy    ||    25524
 
 ====================
 

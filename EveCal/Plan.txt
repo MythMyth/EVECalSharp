@@ -4,18 +4,13 @@ Eagle	10
 Falcon	5
 Huginn	5
 Ishtar	10
-Lachesis	2
-Pilgrim	5
+Pilgrim	2
 Rapier	5
-Bifrost	10
-Hound	20
-Sabre	10
+Bifrost	3
+Sabre	1
 250mm Railgun II	110
 720mm Howitzer Artillery II	110
 Assault Damage Control II	110
 Ballistic Control System II	110
-Damage Control II	110
-Drone Damage Amplifier II	110
-Large Shield Extender II	100
 Torpedo Launcher II	110
-Scimitar	10
+Scimitar	6
