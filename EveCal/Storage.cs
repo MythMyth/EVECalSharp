@@ -121,6 +121,11 @@ namespace EveCal
         {
             return GetInstance()._GetOuptutRunningJobInFacility();
         }
+        public static Dictionary<string, int> GetNumberOfItems(List<string> items)
+        {
+            return GetInstance()._GetNumberOfItems(items);
+        }
+
 
         public Storage()
         {
@@ -238,6 +243,11 @@ namespace EveCal
         public Dictionary<FacilityType, Dictionary<string, int>> _GetAllBPC()
         {
             return SQLiteDB.GetInstance().GetAllBPC();
+        }
+
+        public Dictionary<string, int> _GetNumberOfItems(List<string> items)
+        {
+            return SQLiteDB.GetInstance().GetNumberOfItems(items);
         }
     }
 }

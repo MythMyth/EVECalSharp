@@ -332,5 +332,31 @@ namespace EveCal
             }
             return bpcs;
         }
+
+        public Dictionary<string, int> GetNumberOfItems(List<string> items)
+        {
+            string names = "";
+            foreach (string item in items)
+            {
+                names += "'" + item + "', ";
+            }
+            if (names.Length > 0) names.Substring(0, names.Length - 2);
+            Dictionary<string, int> ret = new Dictionary<string, int>();
+            if (names.Length == 0) return ret;
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT Name, Quantity FROM Asset LEFT JOIN Cache ON TypeId = Cache.Id WHERE Name in ({names});";
+            SqliteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.IsDBNull(0) || reader.IsDBNull(1)) continue;
+                string name = reader.GetString(0);
+                int quantity = reader.GetInt32(1);
+
+                if (!ret.ContainsKey(name)) ret.Add(name, 0);
+                ret[name] += quantity;
+
+            }
+            return ret;
+        }
     }
 }

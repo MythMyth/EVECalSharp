@@ -52,6 +52,7 @@
             this.allBPList = new System.Windows.Forms.ListView();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.login_btn = new System.Windows.Forms.Button();
+            this.inventCheckBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AssetButton
@@ -270,7 +271,7 @@
             // 
             // login_btn
             // 
-            this.login_btn.Location = new System.Drawing.Point(303, 12);
+            this.login_btn.Location = new System.Drawing.Point(270, 12);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(75, 23);
             this.login_btn.TabIndex = 13;
@@ -278,11 +279,21 @@
             this.login_btn.UseVisualStyleBackColor = true;
             this.login_btn.Click += new System.EventHandler(this.login_btn_Click);
             // 
+            // inventCheckBtn
+            // 
+            this.inventCheckBtn.Location = new System.Drawing.Point(531, 12);
+            this.inventCheckBtn.Name = "inventCheckBtn";
+            this.inventCheckBtn.Size = new System.Drawing.Size(178, 23);
+            this.inventCheckBtn.TabIndex = 14;
+            this.inventCheckBtn.Text = "Invent Material Check";
+            this.inventCheckBtn.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1809, 760);
+            this.Controls.Add(this.inventCheckBtn);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(this.allBPList);
             this.Controls.Add(this.OutputText);
@@ -331,5 +342,6 @@
         private ListView allBPList;
         private ColumnHeader columnHeader9;
         private Button login_btn;
+        private Button inventCheckBtn;
     }
 }
