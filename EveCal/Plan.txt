@@ -1,16 +1,14 @@
-Arazu	5
-Curse	5
-Eagle	10
+Curse	2
+Eagle	8
 Falcon	5
 Huginn	5
 Ishtar	10
-Pilgrim	2
 Rapier	5
 Bifrost	3
-Sabre	1
-250mm Railgun II	110
-720mm Howitzer Artillery II	110
-Assault Damage Control II	110
-Ballistic Control System II	110
-Torpedo Launcher II	110
+Sabre	10
 Scimitar	6
+Cerberus	10
+Multispectrum Shield Hardener II	110
+Magnetic Field Stabilizer II	110
+Heat Sink II	110
+Gyrostabilizer II	110
