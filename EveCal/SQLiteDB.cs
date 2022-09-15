@@ -340,7 +340,7 @@ namespace EveCal
             {
                 names += "'" + item + "', ";
             }
-            if (names.Length > 0) names.Substring(0, names.Length - 2);
+            if (names.Length > 0) names = names.Substring(0, names.Length - 2);
             Dictionary<string, int> ret = new Dictionary<string, int>();
             if (names.Length == 0) return ret;
             SqliteCommand comm = db.CreateCommand();

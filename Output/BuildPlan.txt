@@ -1,18 +1,16 @@
 Run plan:
 
 Curse                                    ||    2
-Eagle                                    ||    3
+Eagle                                    ||    2
 Falcon                                   ||    5
 Fernite Carbide                          ||    100
 Fernite Carbide Composite Armor Plate    ||    20000
-Nanomechanical Microprocessor            ||    16000
-Electrolytic Capacitor Unit              ||    4000
-Ishtar                                   ||    10
+Ishtar                                   ||    5
 Rapier                                   ||    3
 Bifrost                                  ||    3
 Sabre                                    ||    10
 Scimitar                                 ||    6
-Cerberus                                 ||    5
+Cerberus                                 ||    4
 Multispectrum Shield Hardener I          ||    200
 Multispectrum Shield Hardener II         ||    110
 Magnetic Field Stabilizer I              ||    200
@@ -25,10 +23,6 @@ Gyrostabilizer II                        ||    110
 
 Buy plan:
 
-Morphite	3315
-Tritanium	2796170
-Pyerite	1616860
-Zydrine	1255
 
 
 Haul plan:
@@ -38,20 +32,24 @@ MJ-5F9 - B E A N S T A R
 XU7-CH - EC Modules
     Miniature Electronics    ||    900
     Superconductors          ||    1475
-    Zydrine                  ||    92
+    Zydrine                  ||    1347
     Isogen                   ||    1092
     Mexallon                 ||    39479
+    Pyerite                  ||    1616860
+    Tritanium                ||    2796170
     Mechanical Parts         ||    2400
+    Morphite                 ||    3188
 
 ====================
 
 JZ-UQC - EC T2 Medium Ships
 ->
 MJ-5F9 - B E A N S T A R
-    Cerberus    ||    5
+    Cerberus    ||    6
     Rapier      ||    2
+    Ishtar      ||    5
     Huginn      ||    5
-    Eagle       ||    5
+    Eagle       ||    6
 
 ====================
 
@@ -67,6 +65,7 @@ XU7-CH - EC T2 Components
 XU7-CH - EC Modules
     Pulse Shield Emitter             ||    792
     Deflection Shield Emitter        ||    792
+    Nanomechanical Microprocessor    ||    800
     Sustained Shield Emitter         ||    792
     Quantum Microprocessor           ||    800
     Linear Shield Emitter            ||    792
@@ -78,7 +77,9 @@ XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Small Ships
     Nuclear Reactor Unit                     ||    126
+    Electrolytic Capacitor Unit              ||    1200
     Deflection Shield Emitter                ||    306
+    Nanomechanical Microprocessor            ||    2889
     Ladar Sensor Cluster                     ||    597
     Fernite Carbide Composite Armor Plate    ||    10416
     Plasma Thruster                          ||    487
@@ -88,21 +89,14 @@ JZ-UQC - EC T2 Small Ships
 XU7-CH - EC T2 Components
 ->
 JZ-UQC - EC T2 Medium Ships
+    Electrolytic Capacitor Unit              ||    267
     Deflection Shield Emitter                ||    218
+    Nanomechanical Microprocessor            ||    8570
     Fernite Carbide Composite Armor Plate    ||    9584
     Plasma Thruster                          ||    141
-    Sustained Shield Emitter                 ||    2993
-    Quantum Microprocessor                   ||    12201
-    Titanium Diborite Armor Plate            ||    34579
-
-====================
-
-XU7-CH - T2 Reactions
-->
-XU7-CH - EC T2 Components
-    Plasmonic Metamaterials    ||    32778
-    Fernite Carbide            ||    1000000
-    Sylramic Fibers            ||    91011
+    Sustained Shield Emitter                 ||    2991
+    Quantum Microprocessor                   ||    12199
+    Titanium Diborite Armor Plate            ||    34575
 
 ====================
 
@@ -110,6 +104,14 @@ MJ-5F9 - B E A N S T A R
 ->
 JZ-UQC - EC T2 Small Ships
     Construction Blocks    ||    189
+    Morphite               ||    127
+
+====================
+
+XU7-CH - T2 Reactions
+->
+XU7-CH - EC T2 Components
+    Sylramic Fibers    ||    91011
 
 ====================
 

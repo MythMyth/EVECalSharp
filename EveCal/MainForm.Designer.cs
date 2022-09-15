@@ -287,6 +287,7 @@
             this.inventCheckBtn.TabIndex = 14;
             this.inventCheckBtn.Text = "Invent Material Check";
             this.inventCheckBtn.UseVisualStyleBackColor = true;
+            this.inventCheckBtn.Click += new System.EventHandler(this.inventCheckBtn_Click);
             // 
             // MainForm
             // 

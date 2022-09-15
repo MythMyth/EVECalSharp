@@ -333,5 +333,10 @@ namespace EveCal
                 Clipboard.SetText(name.Trim());
             }
         }
+
+        private void inventCheckBtn_Click(object sender, EventArgs e)
+        {
+            (new InventionCheck()).Show();
+        }
     }
 }
