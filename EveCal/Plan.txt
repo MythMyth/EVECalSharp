@@ -1,13 +1,12 @@
 Curse	2
-Eagle	8
+Eagle	2
 Falcon	5
-Huginn	5
-Ishtar	10
-Rapier	5
+Ishtar	5
+Rapier	3
 Bifrost	3
 Sabre	10
 Scimitar	6
-Cerberus	10
+Cerberus	4
 Multispectrum Shield Hardener II	110
 Magnetic Field Stabilizer II	110
 Heat Sink II	110

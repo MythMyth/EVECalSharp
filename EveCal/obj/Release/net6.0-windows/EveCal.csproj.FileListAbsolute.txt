@@ -87,3 +87,4 @@ C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Release\net6.0-windows\runtime
 C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Release\net6.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Myth\source\repos\EVECalSharp\EveCal\bin\Release\net6.0-windows\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\ADMIN\source\repos\EveCal\EveCal\obj\Release\net6.0-windows\EveCal.InventionCheck.resources
+C:\Users\Myth\source\repos\EVECalSharp\EveCal\obj\Release\net6.0-windows\EveCal.InventionCheck.resources
