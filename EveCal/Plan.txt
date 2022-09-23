@@ -1,13 +1,18 @@
 Curse	2
-Eagle	2
-Falcon	5
-Ishtar	5
-Rapier	3
+Rapier	6
 Bifrost	3
 Sabre	10
-Scimitar	6
-Cerberus	4
-Multispectrum Shield Hardener II	110
+Scimitar	3
+Multispectrum Shield Hardener II	100
 Magnetic Field Stabilizer II	110
 Heat Sink II	110
 Gyrostabilizer II	110
+Huginn	5
+Ballistic Control System II	110
+Damage Control II	110
+Large Shield Extender II	110
+Claw	10
+Eris	10
+Purifier	10
+Retribution	10
+Stiletto	10
