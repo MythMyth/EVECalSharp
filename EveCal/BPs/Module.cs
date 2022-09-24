@@ -8,6 +8,7 @@ namespace EveCal.BPs
 {
     internal class Module :BP
     {
+        bool isAdv;
         public Module(string fname)
         {
             string text = System.IO.File.ReadAllText(fname);
@@ -17,6 +18,9 @@ namespace EveCal.BPs
             if (lines[1].Split('\t').Length > 1)
             {
                 int len = lines.Length;
+                ME = 10;
+                TE = 20;
+                isAdv = false;
                 for (int i = 1; i < len; i++)
                 {
                     string[] part = lines[i].Split("\t");
@@ -24,6 +28,7 @@ namespace EveCal.BPs
                 }
             } else
             {
+                isAdv = true;
                 ME = int.Parse(lines[1].Trim());
                 TE = int.Parse(lines[2].Trim());
                 int len = lines.Length;
@@ -43,5 +48,7 @@ namespace EveCal.BPs
         {
             return run / maxRun;
         }
+
+        public bool IsAdvModule() { return isAdv; }
     }
 }
