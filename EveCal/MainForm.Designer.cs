@@ -53,6 +53,7 @@
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.login_btn = new System.Windows.Forms.Button();
             this.inventCheckBtn = new System.Windows.Forms.Button();
+            this.btnBPTypeManagement = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AssetButton
@@ -281,19 +282,30 @@
             // 
             // inventCheckBtn
             // 
-            this.inventCheckBtn.Location = new System.Drawing.Point(531, 12);
+            this.inventCheckBtn.Location = new System.Drawing.Point(545, 12);
             this.inventCheckBtn.Name = "inventCheckBtn";
-            this.inventCheckBtn.Size = new System.Drawing.Size(178, 23);
+            this.inventCheckBtn.Size = new System.Drawing.Size(164, 23);
             this.inventCheckBtn.TabIndex = 14;
             this.inventCheckBtn.Text = "Invent Material Check";
             this.inventCheckBtn.UseVisualStyleBackColor = true;
             this.inventCheckBtn.Click += new System.EventHandler(this.inventCheckBtn_Click);
+            // 
+            // btnBPTypeManagement
+            // 
+            this.btnBPTypeManagement.Location = new System.Drawing.Point(351, 12);
+            this.btnBPTypeManagement.Name = "btnBPTypeManagement";
+            this.btnBPTypeManagement.Size = new System.Drawing.Size(174, 23);
+            this.btnBPTypeManagement.TabIndex = 15;
+            this.btnBPTypeManagement.Text = "BPC Variant Management";
+            this.btnBPTypeManagement.UseVisualStyleBackColor = true;
+            this.btnBPTypeManagement.Click += new System.EventHandler(this.btnBPTypeManagement_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1809, 760);
+            this.Controls.Add(this.btnBPTypeManagement);
             this.Controls.Add(this.inventCheckBtn);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(this.allBPList);
@@ -344,5 +356,6 @@
         private ColumnHeader columnHeader9;
         private Button login_btn;
         private Button inventCheckBtn;
+        private Button btnBPTypeManagement;
     }
 }

@@ -4,6 +4,9 @@
     <Compile Update="AssetViewer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BPCVariant.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="InventionCheck.cs">
       <SubType>Form</SubType>
     </Compile>

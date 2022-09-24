@@ -7,10 +7,35 @@ using System.Threading.Tasks;
 
 namespace EveCal
 {
+
+    class Descriptor
+    {
+        public int ME, TE;
+        public int output;
+        public int prob;
+        public Descriptor(int mE, int tE, int output, int prob)
+        {
+            ME = mE;
+            TE = tE;
+            this.output = output;
+            this.prob = prob;
+        }
+    }
     internal class Cache
     {
         static Cache instance;
         static Mutex mutex = new Mutex();
+        public static Dictionary<string, Descriptor> DescriptorList = new Dictionary<string, Descriptor>()
+        {
+            {"Accelerant Decryptor", new Descriptor(2, 10, 1, 20) },
+            {"Attainment Decryptor", new Descriptor(-1, 4, 4, 80) },
+            {"Augmentation Decryptor",new Descriptor(-2, 2, 9, -40) },
+            {"Optimized Attainment Decryptor", new Descriptor(1, -2, 2, 90) },
+            {"Optimized Augmentation Decryptor", new Descriptor(2, 0, 7, -10) },
+            {"Parity Decryptor", new Descriptor(1, -2, 3, 50) },
+            {"Process Decryptor", new Descriptor(3, 6, 0, 10) },
+            {"Symmetry Decryptor", new Descriptor(1, 8, 2 ,0) }
+        };
 
         public static Cache GetInstance()
         {

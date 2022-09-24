@@ -338,5 +338,10 @@ namespace EveCal
         {
             (new InventionCheck()).Show();
         }
+
+        private void btnBPTypeManagement_Click(object sender, EventArgs e)
+        {
+            (new BPCVariant()).Show();
+        }
     }
 }

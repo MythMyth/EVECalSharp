@@ -16,3 +16,5 @@ Eris	10
 Purifier	10
 Retribution	10
 Stiletto	10
+Falcon	5
+Basilisk	5

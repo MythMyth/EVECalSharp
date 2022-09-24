@@ -126,6 +126,16 @@ namespace EveCal
             return GetInstance()._GetNumberOfItems(items);
         }
 
+        public static void SetDecryptor(string name, string decr)
+        {
+            GetInstance()._SetDecryptor(name, decr);
+        }
+
+        public static string GetDecryptor(string name)
+        {
+            return GetInstance()._GetDecryptor(name);
+        }
+
 
         public Storage()
         {
@@ -248,6 +258,16 @@ namespace EveCal
         public Dictionary<string, int> _GetNumberOfItems(List<string> items)
         {
             return SQLiteDB.GetInstance().GetNumberOfItems(items);
+        }
+
+        public void _SetDecryptor(string name, string decr)
+        {
+            SQLiteDB.GetInstance().SetDefaultDescriptor(name, decr);
+        }
+
+        public string _GetDecryptor(string name)
+        {
+            return SQLiteDB.GetInstance().GetDefaultDescriptor(name);
         }
     }
 }

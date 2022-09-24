@@ -35,6 +35,7 @@ namespace EveCal
             string createJobRunningTable = @"CREATE TABLE IF NOT EXISTS JobRunning (Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityType INTEGER, BPTypeId TEXT, Run INTEGER, LocId TEXT);";
             string createCacheTable = @"CREATE TABLE IF NOT EXISTS Cache (Id INTEGER PRIMARY KEY, Name TEXT);";
             string createAssetTable = @"CREATE TABLE IF NOT EXISTS Asset (Id INTEGER PRIMARY KEY AUTOINCREMENT, TypeId TEXT, LocId TEXT, Quantity INTEGER, IsBPC INTEGER);";
+            string createDefaultDescriptorTable = @"CREATE TABLE IF NOT EXISTS DefaultDescriptor (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Desc TEXT);";
             try
             {
                 db.Open();
@@ -50,6 +51,8 @@ namespace EveCal
                 comm.CommandText = createCacheTable;
                 comm.ExecuteNonQuery();
                 comm.CommandText = createAssetTable;
+                comm.ExecuteNonQuery();
+                comm.CommandText = createDefaultDescriptorTable;
                 comm.ExecuteNonQuery();
             } 
             catch(Exception e)
@@ -357,6 +360,33 @@ namespace EveCal
 
             }
             return ret;
+        }
+
+        public void SetDefaultDescriptor(string name, string desc)
+        {
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT * FROM DefaultDescriptor WHERE Name = '{name}';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            if(reader.Read())
+            {
+                comm.CommandText = $"UPDATE DefaultDescriptor SET Desc='{desc}' WHERE Name='{name}';";
+            } else
+            {
+                comm.CommandText = $"INSERT INTO DefaultDescriptor (Name, Desc) VALUES ('{name}', '{desc}');";
+            }
+            comm.ExecuteNonQuery();
+        }
+
+        public string GetDefaultDescriptor(string name)
+        {
+            SqliteCommand comm = db.CreateCommand();
+            comm.CommandText = $"SELECT * FROM DefaultDescriptor WHERE Name = '{name}';";
+            SqliteDataReader reader = comm.ExecuteReader();
+            if (reader.Read())
+            {
+                return reader.GetString(2);
+            }
+            return "";
         }
     }
 }
